@@ -22,9 +22,11 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public void registUser(UserVO user) throws Exception {
+    public int registUser(UserVO user) throws Exception {
     	
-    	dao.registUser(user);
+    	int result = dao.registUser(user);
+    	
+    	return result;
     }
  
 }

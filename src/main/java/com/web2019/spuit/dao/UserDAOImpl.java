@@ -24,9 +24,17 @@ public class UserDAOImpl implements UserDAO {
     }
     
     @Override
-    public void registUser(UserVO user) throws Exception {
+    public int registUser(UserVO user) {
     	
-    	sqlSession.insert(Namespace+".registUser", user);
+    	try {
+    		
+    		sqlSession.insert(Namespace+".registUser", user);
+    		return 1;
+    	}
+    	catch(Exception e) {
+    		
+    		return 0;
+    	}
     }
  
 }

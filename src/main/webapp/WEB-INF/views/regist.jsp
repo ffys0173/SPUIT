@@ -17,14 +17,14 @@
 
 <button onclick=insert_action()>submit</button>
 
-
 </body>
+
 <script src="//code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
   function insert_action(){
-	var mForm = document.insert; // form의 값을 가져오기 위함
-   var obj = new Object(); // JSON형식으로 변환 할 오브젝트
-   obj.id = mForm.id.value; // form의 값을 오브젝트에 저장
+	var mForm = document.insert;
+   var obj = new Object();
+   obj.id = mForm.id.value;
    obj.pw = mForm.pw.value;
    obj.name = mForm.name.value;
    obj.email = mForm.email.value;
@@ -32,14 +32,21 @@
    var json_data = JSON.stringify(obj);
     
    var request = $.ajax({
-    url:"/user/regist",
+    url:"/api/regist",
     type:"POST",
     data:json_data,
     contentType:"application/json",
     success: function(data) {
-        alert("성공");
+
+    	if(data == "0"){
+    		alert("실패");
+    	}
+    	else if(data == "1"){
+    		alert("성공")
+    	}
     }
-   });
+  })
+  
   }
    
 </script>

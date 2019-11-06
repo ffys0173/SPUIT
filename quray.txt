@@ -1,0 +1,12 @@
+create database spuit;
+
+create table user (
+idno int unsigned not null auto_increment,
+id varchar(20) not null,
+pw varchar(64) not null,
+name varchar(20) not null,
+email varchar(50) not null,
+reg_date datetime not null default now(),
+primary key(idno),
+unique key(id, email)
+)DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;

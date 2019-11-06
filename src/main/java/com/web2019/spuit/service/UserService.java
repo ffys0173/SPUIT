@@ -7,5 +7,5 @@ import com.web2019.spuit.dto.UserVO;
 public interface UserService {
 
 	public List<UserVO> selectUser() throws Exception;
-	public void registUser(UserVO user) throws Exception;
+	public int registUser(UserVO user) throws Exception;
 }
