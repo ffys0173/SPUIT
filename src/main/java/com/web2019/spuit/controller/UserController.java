@@ -42,8 +42,7 @@ import com.web2019.spuit.service.UserService;
   
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String regist_get() throws Exception {
-  
-		service.selectUser();
+		
 		return "regist";
 	}
 
