@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.web2019.spuit.dto.UserFavorite;
 import com.web2019.spuit.dto.UserVO;
+import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
 
 @RestController
@@ -18,8 +18,6 @@ public class AjaxController {
 	
 	@Inject
 	private UserService service;
-
-	private UserFavorite userfavorite = new UserFavorite("1");
 
 	@PostMapping("/regist")
 	public int regist(@RequestBody UserVO user) throws Exception {
@@ -32,6 +30,30 @@ public class AjaxController {
 	@PostMapping("/login")
 	public int login(@RequestBody UserVO user) {
   
+		return 0;
+	}
+	
+	@PostMapping("/secession")//È¸¿øÅ»Åð
+	public int secession() {
+		
+		return 0;
+	}
+	
+	@PostMapping("/usermodify")//È¸¿øÁ¤º¸¼öÁ¤
+	public int usermodify() {
+		
+		return 0;
+	}
+	
+	@GetMapping("/threadsearch")
+	public int threadsearch() {
+		
+		return 0;
+	}
+	
+	@GetMapping("/thread")
+	public int thread() {
+		
 		return 0;
 	}
 }

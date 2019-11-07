@@ -1,4 +1,4 @@
-package com.web2019.spuit.dto;
+package com.web2019.spuit.otherClasses;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
