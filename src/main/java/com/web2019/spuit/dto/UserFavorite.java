@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class UserFavorite {
 	
 	private String idno;
+	private String prefix;
 	private HashMap<String, Integer> favoriteMap;
 	
 	public UserFavorite(String idno) {
@@ -29,7 +30,7 @@ public class UserFavorite {
 
 	public void WriteFile() throws IOException {
 		
-		FileOutputStream fileStream = new FileOutputStream(idno+".txt");
+		FileOutputStream fileStream = new FileOutputStream(prefix + idno + ".txt");
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileStream);
 		
 		objectOutputStream.writeObject(favoriteMap);
@@ -39,7 +40,7 @@ public class UserFavorite {
 	
 	public void ReadFile() throws Exception {
 		
-		FileInputStream fileStream = new FileInputStream(idno+".txt");
+		FileInputStream fileStream = new FileInputStream(prefix + idno+".txt");
 		ObjectInputStream objectInputStream = new ObjectInputStream(fileStream);
 		
 		Object object = objectInputStream.readObject();  
