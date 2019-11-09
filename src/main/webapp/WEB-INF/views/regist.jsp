@@ -44,9 +44,7 @@
     	else if(data == "1"){
     		alert("성공")
     	}
-    }
-  })
-  
+    })
   }
    
 </script>

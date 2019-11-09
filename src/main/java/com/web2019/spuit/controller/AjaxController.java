@@ -1,7 +1,11 @@
 package com.web2019.spuit.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +22,8 @@ public class AjaxController {
 	
 	@Inject
 	private UserService service;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
 	@PostMapping("/regist")
 	public int regist(@RequestBody UserVO user) throws Exception {
@@ -28,9 +34,34 @@ public class AjaxController {
 	}
 	
 	@PostMapping("/login")
-	public int login(@RequestBody UserVO user) {
-  
-		return 0;
+	public int login(@RequestBody UserVO user, HttpServletRequest request) {
+		
+        HttpSession httpSession = request.getSession(true);
+        
+        try {
+        	
+        	int userNumber = service.loginCheck(user);
+        	
+        	httpSession.setAttribute("login", "true");
+        	httpSession.setAttribute("userNumber", 7777);//넘버가 아니라 아예 객체로 받을 것
+        	
+        	logger.info("{}", httpSession.getAttribute("login"));
+        	
+        	return 1;
+        }
+        catch (Exception e) {
+        	
+        	return 0;
+        }
+	}
+	
+	@GetMapping("/logout")
+	public int logout(HttpServletRequest request) {
+		
+		HttpSession httpSession = request.getSession(true);
+		httpSession.invalidate();
+		
+		return 1;
 	}
 	
 	@PostMapping("/secession")//회원탈퇴
@@ -49,6 +80,12 @@ public class AjaxController {
 	public int threadsearch() {
 		
 		return 0;
+	}
+	
+	@GetMapping("/loadNew")
+	public String loadNew() {
+		
+		return "불러오기 성공!";
 	}
 	
 	@GetMapping("/thread")

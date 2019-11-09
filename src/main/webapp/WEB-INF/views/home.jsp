@@ -1,4 +1,4 @@
-<%@ page session="false" pageEncoding = "utf-8"%>
+<%@ page pageEncoding = "utf-8"%>
 <html>
 <head>
 	<title>Home</title>
@@ -25,6 +25,7 @@
 			<div id="contents">
 			<h1>Hello world!</h1>
 			<P>  The time on the server is ${serverTime}. </P>
+			<p> userInfo : ${userInfo} </p>
 			</div>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
@@ -46,10 +47,9 @@
 	</v-app>
 </div>
 
-
-
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  
   <script>
     new Vue({
       el: '#app',

@@ -28,5 +28,12 @@ public class UserServiceImpl implements UserService {
     	
     	return result;
     }
+    
+    @Override
+    public int loginCheck(UserVO user) throws Exception {
+    	
+    	return 0;
+    	
+    }
  
 }
