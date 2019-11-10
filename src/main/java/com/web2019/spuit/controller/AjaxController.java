@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
 import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
@@ -40,12 +41,12 @@ public class AjaxController {
         
         try {
         	
-        	int userNumber = service.loginCheck(user);
+        	SessionVO sessionInfo = service.loginCheck(user);
         	
         	httpSession.setAttribute("login", "true");
-        	httpSession.setAttribute("userNumber", 7777);//넘버가 아니라 아예 객체로 받을 것
+        	httpSession.setAttribute("sessionInfo", sessionInfo);
         	
-        	logger.info("{}", httpSession.getAttribute("login"));
+        	logger.info("logined - {}", sessionInfo.getIdno());
         	
         	return 1;
         }

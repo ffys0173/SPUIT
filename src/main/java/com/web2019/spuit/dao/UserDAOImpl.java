@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
  
 @Repository
@@ -21,6 +22,12 @@ public class UserDAOImpl implements UserDAO {
     public List<UserVO> selectUser() throws Exception {
  
         return sqlSession.selectList(Namespace+".selectUser");
+    }
+    
+    @Override
+    public SessionVO loginCheck(UserVO user) throws Exception {
+    	
+    	return sqlSession.selectOne(Namespace + ".loginCheck", user);
     }
     
     @Override

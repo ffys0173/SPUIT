@@ -9,6 +9,10 @@
 		SELECT ID, PW ,NAME FROM USER
 	</select>
 	
+	<select id="loginCheck" parameterType="UserVO" resultType="SessionVO">
+		SELECT * FROM USER WHERE ID = #{id} and PW = #{pw}
+	</select>
+	
 	<insert id="registUser" parameterType="UserVO">
 		INSERT INTO USER(ID, PW, NAME, EMAIL) VALUES(#{id}, #{pw}, #{name}, #{email})
 	</insert>

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
  
 import com.web2019.spuit.dao.UserDAO;
+import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
  
 @Service
@@ -30,10 +31,9 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public int loginCheck(UserVO user) throws Exception {
+    public SessionVO loginCheck(UserVO user) throws Exception {
     	
-    	return 0;
-    	
+    	return dao.loginCheck(user);
     }
  
 }
