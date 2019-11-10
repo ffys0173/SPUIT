@@ -3,7 +3,8 @@ package com.web2019.spuit.service;
 import java.util.List;
 
 import javax.inject.Inject;
- 
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
  
 import com.web2019.spuit.dao.UserDAO;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Inject
     private UserDAO dao;
     
+    @Inject
+    private BCryptPasswordEncoder passwordEncoder;
+    
     @Override
     public List<UserVO> selectUser() throws Exception {
  
@@ -25,6 +29,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public int registUser(UserVO user) throws Exception {
     	
+    	String encrypted = passwordEncoder.encode(user.getPw());
+    	user.setPw(encrypted);
+    	
     	int result = dao.registUser(user);
     	
     	return result;
@@ -33,7 +40,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public SessionVO loginCheck(UserVO user) throws Exception {
     	
-    	return dao.loginCheck(user);
+    	if(passwordEncoder.matches(user.getPw(), dao.loginCheck(user))) {
+    		
+    		return dao.getSessionInfo(user);
+    	}
+    	else {
+    		
+    		return null;
+    	}
     }
  
 }

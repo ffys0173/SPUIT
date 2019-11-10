@@ -25,9 +25,15 @@ public class UserDAOImpl implements UserDAO {
     }
     
     @Override
-    public SessionVO loginCheck(UserVO user) throws Exception {
+    public String loginCheck(UserVO user) throws Exception {
     	
     	return sqlSession.selectOne(Namespace + ".loginCheck", user);
+    }
+    
+    @Override
+    public SessionVO getSessionInfo(UserVO user) throws Exception {
+    	
+    	return sqlSession.selectOne(Namespace + ".getSessionInfo", user);
     }
     
     @Override

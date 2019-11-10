@@ -9,8 +9,12 @@
 		SELECT ID, PW ,NAME FROM USER
 	</select>
 	
-	<select id="loginCheck" parameterType="UserVO" resultType="SessionVO">
-		SELECT * FROM USER WHERE ID = #{id} and PW = #{pw}
+	<select id="loginCheck" parameterType="UserVO" resultType="String">
+		SELECT PW FROM USER WHERE ID = #{id}
+	</select>
+	
+	<select id="getSessionInfo" parameterType="UserVO" resultType="SessionVO">
+		SELECT * FROM USER WHERE ID = #{id}
 	</select>
 	
 	<insert id="registUser" parameterType="UserVO">

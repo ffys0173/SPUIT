@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
-import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
 
 @RestController
@@ -43,10 +42,10 @@ public class AjaxController {
         	
         	SessionVO sessionInfo = service.loginCheck(user);
         	
+        	logger.info("logined - {}", sessionInfo.getIdno());
+
         	httpSession.setAttribute("login", "true");
         	httpSession.setAttribute("sessionInfo", sessionInfo);
-        	
-        	logger.info("logined - {}", sessionInfo.getIdno());
         	
         	return 1;
         }
