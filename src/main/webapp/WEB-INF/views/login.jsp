@@ -41,7 +41,7 @@
 					<v-text-field v-model="pw" label="password" required :type="'Password'"
 								  hint="At least 8 characters" ></v-text-field>
 
-					<v-btn type="submit">Done</v-btn>
+					<v-btn v-on:click="requestLogin">Done</v-btn>
 				</v-form>
 			</v-card>
 			
@@ -64,8 +64,10 @@
 		</v-app>
 	</div>
 	
+<script src="//code.jquery.com/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 	new Vue({
 	    el: '#app',
@@ -74,7 +76,18 @@
 			id: '',
 			pw: '',
 	    },
-	    method: {
+	    methods: {
+	    	requestLogin : function() {
+	    		axios.post('/api/login', {id:'test0173', pw:'1234'})
+	    		.then((res => {
+	    			if(res.data === 1){
+	    				alert('성공')
+	    			}
+	    			else{
+	    				alert('실패')	    				
+	    			}
+	    		}))
+	    	}
 	    
 	    },
 	    computed: {

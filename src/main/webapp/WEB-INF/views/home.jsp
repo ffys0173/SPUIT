@@ -25,7 +25,7 @@
 			<div id="contents">
 			<h1>Hello world!</h1>
 			<P>  The time on the server is ${serverTime}. </P>
-			<p> userInfo : ${userInfo} </p>
+			<p> userInfo : ${sessionInfo.id} </p>
 			</div>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">

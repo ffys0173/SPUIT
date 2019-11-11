@@ -31,7 +31,7 @@
     
    var json_data = JSON.stringify(obj);
     
-   var request = $.ajax({
+   $.ajax({
     url:"/api/regist",
     type:"POST",
     data:json_data,
@@ -44,7 +44,8 @@
     	else if(data == "1"){
     		alert("성공")
     	}
-    })
+    }
+  	})
   }
    
 </script>
