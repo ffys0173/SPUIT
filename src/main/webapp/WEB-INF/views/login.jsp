@@ -77,7 +77,7 @@
 	    },
 	    methods: {
 	    	requestLogin : function() {
-	    		axios.post('/api/login', {id:'test0173', pw:'1234'})
+	    		axios.post('/api/login', {id: this.id, pw: this.pw})
 	    		.then(((res) => {
 	    			if(res.data === 1){
 	    				alert('성공')
