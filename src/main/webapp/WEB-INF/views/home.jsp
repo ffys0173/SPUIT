@@ -13,7 +13,7 @@
 		<div>
 			<v-toolbar dense :dark="true">
 				 <v-app-bar-nav-icon></v-app-bar-nav-icon>
-	       		 <v-toolbar-title>Spuit</v-toolbar-title>
+	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Spuit</a></v-toolbar-title>
 	       		 <v-spacer></v-spacer>
 			        <v-btn icon>
 			          <v-icon>mdi-magnify</v-icon>

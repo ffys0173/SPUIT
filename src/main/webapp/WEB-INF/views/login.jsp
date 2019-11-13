@@ -16,7 +16,7 @@
 			<div>
 			<v-toolbar dense :dark="true">
 				 <v-app-bar-nav-icon></v-app-bar-nav-icon>
-	       		 <v-toolbar-title>Spuit</v-toolbar-title>
+	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Spuit</a></v-toolbar-title>
 	       		 <v-spacer></v-spacer>
 			        <v-btn icon>
 			          <v-icon>mdi-magnify</v-icon>
@@ -35,7 +35,7 @@
 					<input type="submit"/>
 				</form-->
 				<v-card-title>Sign in</v-card-title>
-				<v-card-subtitle>welcome to SPUIT</v-card-subtitle>
+				<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 				
 				<v-form method="POST" action="/user/login">
 					<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
@@ -80,7 +80,7 @@
 	    },
 	    methods: {
 	    	requestLogin : function() {
-	    		axios.post('/api/login', {id:'test0173', pw:'1234'})
+	    		axios.post('/api/login', {id: this.id, pw: this.pw})
 	    		.then(((res) => {
 	    			if(res.data === 1){
 	    				alert('성공')
