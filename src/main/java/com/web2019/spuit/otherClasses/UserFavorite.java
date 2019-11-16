@@ -18,6 +18,10 @@ public class UserFavorite {
 		this.favoriteMap = new HashMap<String, Integer>();
 	}
 	
+	public void setFavoriteMap(HashMap<String, Integer> favoriteMap) {
+		this.favoriteMap = favoriteMap;
+	}
+
 	public HashMap<String, Integer> getFavoriteMap(){
 		
 		return this.favoriteMap;

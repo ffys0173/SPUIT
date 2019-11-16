@@ -26,8 +26,6 @@
 			</v-toolbar>
 			</div>
 			
-			<button onclick="test()"/>
-			
 			<v-card width="500" height="400">
 				<!-- form action="/user/login" method="POST">
 					<input name="id" type="text"/><br>
@@ -66,36 +64,10 @@
 		</v-app>
 	</div>
 
-<script src="/resources/scripts/test.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-	new Vue({
-	    el: '#app',
-	    vuetify: new Vuetify(),
-	    data: {
-			id: '',
-			pw: '',
-	    },
-	    methods: {
-	    	requestLogin : function() {
-	    		axios.post('/api/login', {id: this.id, pw: this.pw})
-	    		.then(((res) => {
-	    			if(res.data === 1){
-	    				alert('성공')
-	    			}
-	    			else{
-	    				alert('실패')	    				
-	    			}
-	    		}))
-	    	}
-	    },
-	    computed: {
-	  	  
-	    },
-	  })
-</script>
+<script src="/resources/scripts/login.js"></script>
 </body>
 
 
