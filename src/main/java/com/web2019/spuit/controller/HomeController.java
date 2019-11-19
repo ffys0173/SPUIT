@@ -43,7 +43,7 @@ public class HomeController {
 		}
 		else {
 			
-			model.addAttribute("userInfo", "not");
+			httpSession.setAttribute("login", false);
 		}
 		
 		String formattedDate = dateFormat.format(date);

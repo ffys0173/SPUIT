@@ -10,7 +10,6 @@
 <body>
 <div id="app">
 	<v-app>
-	${login }
 		<div>
 			<v-toolbar dense :dark="true">
 				 <v-app-bar-nav-icon></v-app-bar-nav-icon>
@@ -19,8 +18,15 @@
 			        <v-btn icon>
 			          <v-icon>mdi-magnify</v-icon>
 			        </v-btn>
-			        <v-btn class="ma-2" outlined color="white" href="/user/login">Sign-in</v-btn> 
-					<v-btn class="ma-2" outlined color="white" href="/user/regist">Sign-up</v-btn>
+			        <template v-if="login">
+			        	<v-btn class="ma-2" outlined color="white" href="/user/mypage">My Page</v-btn>
+						<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
+			        </template>
+			        <template v-else>
+						<v-btn class="ma-2" outlined color="white" href="/user/login">Log-in</v-btn>
+				        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
+					</template>
+				
 			</v-toolbar>
 		</div>
 			<div id="contents">
@@ -45,24 +51,35 @@
 		        <v-icon>mdi-settings</v-icon>
 		      </v-btn>
 		    </v-bottom-navigation>
+		<%= session.getAttribute("login") %>
+		<% int a = 10;
+		out.println(a); %>
 	</v-app>
 </div>
 
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-  
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
       data: {
-    	  
+    	  login: ${login}
       },
-      method: {
-    	  
+      methods: {
+    	  requestLogout : function() {
+	    		axios.get('/api/logout')
+	    		.then(((res) => {
+	    			if(res.data === 1){
+	    				window.location.href = '/'
+	    			}
+	    		}))
+	    	}
       },
       computed: {
-    	  
+
       },
     })
   </script>
