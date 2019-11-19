@@ -30,9 +30,9 @@
 			</v-toolbar>
 		</div>
 			<div id="contents">
-			<h1>Hello world!</h1>
-			<P>  The time on the server is ${serverTime}. </P>
-			<p> userInfo : ${sessionInfo.id} </p>
+				<h1>Hello world!</h1>
+				<P>  The time on the server is ${serverTime}. </P>
+				<p> userInfo : ${sessionInfo.id} </p>
 			</div>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
@@ -51,9 +51,9 @@
 		        <v-icon>mdi-settings</v-icon>
 		      </v-btn>
 		    </v-bottom-navigation>
-		<%= session.getAttribute("login") %>
-		<% int a = 10;
-		out.println(a); %>
+		<%--= session.getAttribute("login") --%>
+		<%-- int a = 10;
+		out.println(a); --%>
 	</v-app>
 </div>
 

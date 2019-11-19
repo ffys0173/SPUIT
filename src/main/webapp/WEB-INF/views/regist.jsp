@@ -27,7 +27,7 @@
 			</div>
 			
 			<!--입력 폼-->
-			<v-card width="500" height="410">
+			<v-card width="500" height="410" style="margin-bottom: 40px;">
 				<!-- form action="/user/login" method="POST">
 					<input name="id" type="text"/><br>
 					<input name="pw" type="password"/><br>
@@ -48,8 +48,37 @@
 					<v-text-field v-model="email" label="E-mail" required :type="'email'"
 								  hint="input your email" ></v-text-field>
 
-					<v-btn v-on:click="requestRegist">Done</v-btn>
-				</v-form>
+					<v-btn  outlined color="primary" v-on:click="requestRegist">Done</v-btn>
+				</v-form>	
+			</v-card>
+			
+			<v-card width="600">
+				<v-card-title>Select Favorite</v-card-title>
+				<v-card-subtitle>관십사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
+					<v-combobox
+				      v-model="chips"
+				      chips
+				      clearable
+				      label="Your favorite hobbies"
+				      multiple
+				      solo
+				    >
+				    <template v-slot:selection="{ attrs, item, select, selected }">
+				        <v-chip
+				          v-bind="attrs"
+				          :input-value="selected"
+				          close
+				          @click="select"
+				          @click:close="remove(item)"
+				        >
+				       <strong>{{ item }}</strong>&nbsp;
+				       </v-chip>
+				    </template>
+				   </v-combobox>
+				   <!-- v-card-context> 설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-context -->
+				   <v-card-action>
+				   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
+				   </v-card-action>
 			</v-card>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
@@ -94,7 +123,8 @@ new Vue({
   	  id: "",
   	  pw: "",
   	  name: "",
-  	  email: ""
+  	  email: "",
+  	  chips: []
     },
     methods: {
   	  requestRegist: function() {
@@ -102,15 +132,28 @@ new Vue({
   		  .then (((res) => {
   			  if(res.data === 1) alert("성공")
   			  else alert("실패")
-  		  }))
-  	  }
+  		}))
+  	  },
+  	  
+  	  requestFavorite: function() {
+  		axios.post('/api/setFavorite', {favorite: this.chips})
+  		.then (((res) => {
+  			 if(res.data === 1) alert("관심사 설정 성공")
+  			 else alert("관심사 설정 실패")
+  		}))
+  	  },
+  	  
+  	  remove (item) {
+  	      this.chips.splice(this.chips.indexOf(item), 1)
+  	      this.chips = [...this.chips]
+  	  },
     },
     computed: {
   	  
     },
   }) 
 
-  function insert_action(){
+  /*function insert_action(){
 	var mForm = document.insert;
    var obj = new Object();
    obj.id = mForm.id.value;
@@ -135,7 +178,7 @@ new Vue({
     	}
     }
   	})
-  }
+  }*/
   
   
 </script>
