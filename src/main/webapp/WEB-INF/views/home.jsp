@@ -10,6 +10,7 @@
 <body>
 <div id="app">
 	<v-app>
+	${login }
 		<div>
 			<v-toolbar dense :dark="true">
 				 <v-app-bar-nav-icon></v-app-bar-nav-icon>

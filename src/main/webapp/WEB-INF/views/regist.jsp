@@ -95,7 +95,7 @@ new Vue({
   	  name: "",
   	  email: ""
     },
-    method: {
+    methods: {
   	  requestRegist: function() {
   		  axios.post('/api/regist', {id: this.id, pw: this.pw, name: this.name, email: this.email})
   		  .then (((res) => {
