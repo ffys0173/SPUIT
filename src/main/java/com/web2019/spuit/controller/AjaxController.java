@@ -1,6 +1,8 @@
 package com.web2019.spuit.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -30,25 +32,36 @@ public class AjaxController {
 	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
 	@PostMapping("/regist")
-	public int regist(@RequestBody UserVO user) throws Exception {
+	public int regist(@RequestBody UserVO user, HttpServletRequest request) throws Exception {
 		
+		UserVO forLogin = new UserVO();
+		forLogin.setId(user.getId());
+		forLogin.setPw(user.getPw());
 		int result = service.registUser(user);
 		
+		int test = login(forLogin, request);
+		logger.info("{}", test);
 		return result;
 	}
 	
-	@PostMapping("/setFavorites")
-	public int setFavorites(@RequestBody HashMap<String, Integer> favorites, HttpServletRequest request) throws Exception {
+	@PostMapping("/setFavorites")//HashMap<String, Integer>
+	public int setFavorites(@RequestBody  ArrayList<String> favorites, HttpServletRequest request) {
 		
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("SessionInfo");
 		
-		UserFavorite userFavorite = new UserFavorite(sessionInfo.getIdno());
-		userFavorite.setFavoriteMap(favorites);
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		for(String favorite : favorites) {
+			System.out.println(favorite);
+			hashmap.put(favorite, 0);
+		}
 		
-		userFavorite.WriteFile();
+		UserFavorite userFavorite = new UserFavorite("1");//sessionInfo.getIdno()
+		userFavorite.setFavoriteMap(hashmap);
 		
-		return 0;
+		//userFavorite.WriteFile();
+		
+		return 1;
 	}
 	
 	@PostMapping("/login")
