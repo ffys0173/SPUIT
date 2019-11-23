@@ -23,7 +23,14 @@ public class EchoHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		SessionVO sessionInfo = (SessionVO)session.getAttributes().get("sessionInfo");
 		for(WebSocketSession sess: sessionList) {
-			sess.sendMessage(new TextMessage(sessionInfo.getId() + " : "+message.getPayload()));
+			if(sessionInfo != null) {
+				sess.sendMessage(new TextMessage("<strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+			}
+			else {
+				
+				sess.sendMessage(new TextMessage(session.getId() + " : "+message.getPayload()));
+			}
+				
 		}
 	}
 	

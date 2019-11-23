@@ -9,7 +9,7 @@
 </head>
 <body>
 	<form id="chatForm">
-		<input type="text" id="message"/>
+		<input type="text" id="message" autocomplete="off"/>
 		<button>send</button>
 	</form>
 	<div id="chat"></div>

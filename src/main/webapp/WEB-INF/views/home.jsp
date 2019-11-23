@@ -33,6 +33,11 @@
 				<h1>Hello world!</h1>
 				<P>  The time on the server is ${serverTime}. </P>
 				<p> userInfo : ${sessionInfo.id} </p>
+				
+				로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
+				비밀번호 : 1111<br>
+				
+				<a href="/chat">채팅하러가기</a>
 			</div>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
