@@ -37,9 +37,9 @@ public class HomeController {
 		HttpSession httpSession = request.getSession(true);
 		
 		logger.info("{}",httpSession.getAttribute("login"));
+		
 		if(httpSession.getAttribute("login") != null) {
 			
-			model.addAttribute("userInfo", httpSession.getAttribute("userNumber"));
 		}
 		else {
 			
@@ -48,12 +48,25 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
+		
 		return "home";
+	}
+	
+	@GetMapping("/favicon.ico")
+	public String favicon() {
+		
+		return "redirect:resources/img/favicon.ico";
 	}
 	
 	@GetMapping("/favorites")
 	public String favorites() {
 		
 		return "favorites";
+	}
+	
+	@GetMapping("/chat")
+	public String chat() {
+		
+		return "chat";
 	}
 }
