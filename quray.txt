@@ -1,6 +1,6 @@
 create database spuit;
 
-create table user (
+create table USER (
 idno int unsigned not null auto_increment,
 id varchar(20) not null,
 pw varchar(64) not null,

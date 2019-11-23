@@ -16,13 +16,9 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 	<!-- MySQL dataSource -->
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <property name="url"
-            value="jdbc:log4jdbc:mysql://127.0.0.1:3306/spuit?useSSL=false&amp;serverTimezone=UTC"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="1111"></property>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">       
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property><!-- net.sf.log4jdbc.sql.jdbcapi.DriverSpy -->
+        <property name="url" value="jdbc:log4jdbc:mysql://google/spuit?cloudSqlInstance=commanding-hawk-259614:asia-northeast1:web2019&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;useSSL=false&amp;user=root&amp;password=1q2w3e4r&amp;serverTimezone=UTC"></property>
     </bean>
  
     <!-- mybatis SqlSessionFactoryBean -->
