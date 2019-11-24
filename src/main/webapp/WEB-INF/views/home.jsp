@@ -26,9 +26,9 @@
 						<v-btn class="ma-2" outlined color="white" href="/user/login">Log-in</v-btn>
 				        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
 					</template>
-				
 			</v-toolbar>
 		</div>
+		
 			<div id="contents">
 				<h1>Hello world!</h1>
 				<P>  The time on the server is ${serverTime}. </P>
@@ -54,6 +54,10 @@
 		      <v-btn value="nearby">
 		        <span>Settings</span>
 		        <v-icon>mdi-settings</v-icon>
+		      </v-btn>
+		      <v-btn value="Chatting" href="/chat">
+		      <span>Chatting</span>
+		      <v-icon>mdi-comment-text-outline</v-icon>
 		      </v-btn>
 		    </v-bottom-navigation>
 		<%--= session.getAttribute("login") --%>
