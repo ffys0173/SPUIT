@@ -42,7 +42,6 @@
 		
 			<button @click="test()">ddddddddddd</button>
 			<div id="chatBox" ref="chatBox"></div>
-			<v-sheet color="orange lighten-2" v-for="msg in messages")>{{msg}}</v-sheet>
 			<form>
 				<!-- input type="text" id="message" autocomplete="off"/>
 				<button @click.prevent="ChatProp">send</button-->
