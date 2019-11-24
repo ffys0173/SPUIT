@@ -82,7 +82,7 @@ new Vue({
 	vuetify: new Vuetify(),
 	data: {
 		login: ${login},
-		messages: null, //[]로 바꾸고 ChatProp에서 this.messages.push(this.text) 는 정상작동
+		messages: null, //[]로 바꾸고 ChatProp에서 this.messages.push(this.text) 는 정상작동 test
 		text: "",
 		sock: null
 	},
@@ -91,7 +91,7 @@ new Vue({
 		this.messages = new Array();
 		sock.onmessage = function(e){
 			$("#chatBox").append(e.data + "<br/>");
-			this.messages.push(e.data)
+			this.messages.push()
 			//console.log(e.data)
 		}
 		sock.onclose = function(){
