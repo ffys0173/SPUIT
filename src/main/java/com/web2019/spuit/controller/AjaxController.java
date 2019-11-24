@@ -95,10 +95,20 @@ public class AjaxController {
 		return 1;
 	}
 	
-	@PostMapping("/secession")//È¸¿øÅ»Åð
-	public int secession() {
+	@PostMapping("/leave")//È¸¿øÅ»Åð
+	public int leave(@RequestBody UserVO user, HttpServletRequest request) {
 		
-		return 0;
+		try {
+			service.loginCheck(user);
+			service.userLeave(user);
+			logout(request);
+			
+			return 1;
+		}
+		catch (Exception e) {
+		
+			return 0;
+		}
 	}
 	
 	@PostMapping("/usermodify")//È¸¿øÁ¤º¸¼öÁ¤

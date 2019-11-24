@@ -49,5 +49,11 @@ public class UserServiceImpl implements UserService {
     		return null;
     	}
     }
+    
+    @Override
+    public int userLeave(UserVO user) {
+    	
+    	return 1;
+    }
  
 }

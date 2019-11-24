@@ -21,5 +21,9 @@
 		INSERT INTO USER(ID, PW, NAME, EMAIL) VALUES(#{id}, #{pw}, #{name}, #{email})
 	</insert>
 	
+	<delete id="userLeave" parameterType="UserVO">
+		DELETE FROM USER WHERE ID = #{id}
+	</delete>
+	
 </mapper>
 
