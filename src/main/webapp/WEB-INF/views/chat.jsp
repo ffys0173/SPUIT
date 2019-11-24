@@ -28,7 +28,7 @@
 		</div>
 		<div id="inputBox">
 			<form>
-				<input type="text" id="message" autocomplete="off"/>
+				<input type="text" ref="message" id="message" autocomplete="off"/>
 				<button @click.prevent="ChatProp">send</button>		
 			</form>
 		</div>
@@ -62,8 +62,8 @@
 			ChatProp() {
 				//sock.send($("#message").val())
 				//$("#message").val('').focus()
-				sock.send(this.text)
-				this.text = ""
+				sock.send(this.$refs.message.value)
+				this.$refs.message.value = ""
 			}
 		}
 	})

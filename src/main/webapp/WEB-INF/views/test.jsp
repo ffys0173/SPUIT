@@ -46,7 +46,7 @@
 			<form>
 				<!-- input type="text" id="message" autocomplete="off"/>
 				<button @click.prevent="ChatProp">send</button-->
-				<v-text-field v-model="text" label="Send Message"></v-text-field>
+				<v-text-field v-model="text" ref="message" label="Send Message"></v-text-field>
 				<v-btn @click.prevent="ChatProp" outlined color="pink">Send</v-btn>		
 			</form>
 
@@ -87,12 +87,12 @@ new Vue({
 		sock: null
 	},
 	mounted: function() {
-		sock = new SockJS("/echo");
-		this.messages = new Array();
+		sock = new SockJS("/echo")
+		messages = new Array()
 		sock.onmessage = function(e){
-			$("#chatBox").append(e.data + "<br/>");
-			this.messages.push(e.data)
-			//console.log(e.data)
+			$("#chatBox").append(e.data + "<br/>")
+			messages.push(e.data)
+			console.log(messages)
 		}
 		sock.onclose = function(){
 			$("#chatBox").append("연결 종료");
@@ -102,8 +102,8 @@ new Vue({
 		ChatProp() {
 			//sock.send($("#message").val())
 			//$("#message").val('').focus()
-			sock.send(this.text)
-			this.text = "";
+			sock.send(this.$refs.message.value)
+			this.$refs.message.value = ""
 		}
 	}
 })
