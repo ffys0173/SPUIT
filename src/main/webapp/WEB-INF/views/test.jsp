@@ -40,9 +40,9 @@
 			</v-toolbar>
 		</div>
 		
-
+			<button @click="test()">ddddddddddd</button>
 			<div id="chatBox" ref="chatBox"></div>
-			<v-sheet color="orange lighten-2">{{msg}}</v-sheet>
+			<v-sheet color="orange lighten-2" v-for="msg in messages")>{{msg}}</v-sheet>
 			<form>
 				<!-- input type="text" id="message" autocomplete="off"/>
 				<button @click.prevent="ChatProp">send</button-->
@@ -83,22 +83,9 @@ new Vue({
 	data: {
 		login: ${login},
 		messages: null, //[]로 바꾸고 ChatProp에서 this.messages.push(this.text) 는 정상작동 test
-		msg: '',
 		text: "",
-		sock: null
-	},
-	mounted: function() {
-		sock = new SockJS("/echo")
-		messages = new Array()
-		sock.onmessage = function(e){
-			$("#chatBox").append(e.data + "<br/>")
-			messages.push(e.data)
-			console.log(messages)
-		}
-		testar.push(test)
-		sock.onclose = function(){
-			$("#chatBox").append("연결 종료");
-		}
+		sock: null,
+		Wrapper: null
 	},
 	methods: {
 		ChatProp() {
@@ -106,7 +93,34 @@ new Vue({
 			//$("#message").val('').focus()
 			sock.send(this.$refs.message.value)
 			this.$refs.message.value = ""
+		},
+		init() {
+			sock = new SockJS("/echo")
+			messages = new Array()
+			Wrapper = function(tmp) {
+				messages = tmp
+			}
+			sock.onmessage = function(e){
+				$("#chatBox").append(e.data + "<br/>")
+				messages.push(e.data)
+				console.log(messages)
+				Wrapper(messages)
+			}
+			//testar.push(test)
+			sock.onclose = function(){
+				$("#chatBox").append("연결 종료");
+			}
+		},
+		test() {
+			messages.push("hhhhhhhhhh")
+			console.log(messages)
 		}
+	},
+	beforeMount() {
+		this.init()
+	},
+	mounted: function() {
+		
 	}
 })
 
