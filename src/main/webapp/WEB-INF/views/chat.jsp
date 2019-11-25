@@ -27,7 +27,7 @@
 			var tempId = ''
 			sock.onmessage = function(e){
 
-				$("#chatBox").append('<p class="other">'+e.data+"</p>")
+				$("#chatBox").append('<p>'+e.data+"</p>")
 				messages.push(e.data)
 				$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 			}

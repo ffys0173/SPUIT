@@ -28,7 +28,7 @@ public class EchoHandler extends TextWebSocketHandler {
 					sess.sendMessage(new TextMessage("<span style='color:orange;'><strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload() + "</span>"));
 				}
 				else {					
-					sess.sendMessage(new TextMessage("<strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+					sess.sendMessage(new TextMessage("<span style='color:white;'><strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload() + "</span>"));
 				}
 			}
 			else {
@@ -36,10 +36,9 @@ public class EchoHandler extends TextWebSocketHandler {
 					sess.sendMessage(new TextMessage("<span style='color:orange;'>" + session.getId() + " : "+message.getPayload() + "</span>"));
 				}
 				else {					
-					sess.sendMessage(new TextMessage(session.getId() + " : "+message.getPayload()));
+					sess.sendMessage(new TextMessage("<span style='color:white;'>" + session.getId() + " : "+message.getPayload() + "</span>"));
 				}
 			}
-				
 		}
 	}
 	
