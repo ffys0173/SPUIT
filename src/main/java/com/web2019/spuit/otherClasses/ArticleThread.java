@@ -5,7 +5,23 @@ public class ArticleThread {
 	private String ArticleTitle;
 	private String ArticleContent;
 	private String ArticleSource;
+	private String ArticleUrl;
+	
+	public String getArticleUrl() {
+		return ArticleUrl;
+	}
+	public void setArticleUrl(String articleUrl) {
+		ArticleUrl = articleUrl;
+	}
 	private String ArticleRegisted;
+	
+	public String getArticleThumbnail() {
+		return ArticleThumbnail;
+	}
+	public void setArticleThumbnail(String articleThumbnail) {
+		ArticleThumbnail = articleThumbnail;
+	}
+	private String ArticleThumbnail;
 	
 	public String getArticleTitle() {
 		return ArticleTitle;

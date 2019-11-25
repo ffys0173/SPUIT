@@ -8,7 +8,7 @@
   	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  	
+	
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -33,21 +33,39 @@
 					</template>
 			</v-toolbar>
 		</div>
-			<div id="contents">
-				<%-- <P>  The time on the server is ${serverTime}. </P>
-				<p> userInfo : ${sessionInfo.id} </p> --%>
-				
-				<!-- 로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
-				비밀번호 : 1111<br> -->
-				<div class="article" v-for="thread in ListofThread">
-					{{thread.articleTitle}}<br>
-					{{thread.articleContent}}<br>
-				</div>
-			</div>
-			<div>
-				<iframe src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
-				<%-- <%@ include file="chat.jsp" %> --%>
-			</div>
+		<v-container id="contents" class="mt-6">
+			<v-row no-gutters>
+				<v-col cols="5">
+					<v-card class="article" flat>
+						<v-card-title class="headline font-weight-bold py-0">Recent</v-card-title>
+						<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofThread">
+							<v-list-item three-line>
+							<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
+							<v-list-item-content>
+								<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
+								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+							</v-list-item-content>
+						</v-card>
+					</v-card>
+				</v-col>
+				<v-col cols="5">
+					<v-card class="article" flat>
+						<v-card-title class="headline font-weight-bold py-0">Recommend for you</v-card-title>
+						<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofThread">
+							<v-list-item three-line>
+							<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
+							<v-list-item-content>
+								<v-list-item-title class="title mb-1">{{thread.articleTitle}}</v-list-item-title>
+								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+							</v-list-item-content>
+						</v-card>
+					</v-card>
+				</v-col>	
+				<v-col cols="1">
+					<iframe src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
+				</v-col>
+			</v-row>
+		</v-container>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
 		      <v-btn value="recent">
@@ -69,13 +87,9 @@
 		      <v-icon>mdi-comment-text-outline</v-icon>
 		      </v-btn>
 		    </v-bottom-navigation>
-		<%--= session.getAttribute("login") --%>
-		<%-- int a = 10;
-		out.println(a); --%>
 	</v-app>
 </div>
 </body>
-
 <script>
 new Vue({
 	el: '#app',
@@ -105,14 +119,4 @@ new Vue({
 	}
 })
 </script>
-<style>
-#app{
-/*display: inline-block;*/
-}
-#content{
-height: 100%;
-}
-#chat{
-}
-</style>
 </html>

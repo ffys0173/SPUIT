@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int userLeave(UserVO user) {
     	
-    	return 1;
+    	return dao.userLeave(user);
     }
  
 }

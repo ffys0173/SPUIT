@@ -11,4 +11,5 @@ public interface UserDAO {
     public String loginCheck(UserVO user) throws Exception;
     public int registUser(UserVO user) throws Exception;
 	SessionVO getSessionInfo(UserVO user) throws Exception;
+	public int userLeave(UserVO user);
 }

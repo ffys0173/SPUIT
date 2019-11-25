@@ -49,5 +49,13 @@ public class UserDAOImpl implements UserDAO {
     		return 0;
     	}
     }
+
+	@Override
+	public int userLeave(UserVO user) {
+		
+		sqlSession.delete(Namespace+".leaveUser", user);
+		
+		return 1;
+	}
  
 }

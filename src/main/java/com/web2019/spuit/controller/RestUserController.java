@@ -2,7 +2,6 @@ package com.web2019.spuit.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
@@ -103,7 +101,7 @@ public class RestUserController {
 		try {
 			if(service.loginCheck(user) != null) {
 				service.userLeave(user);
-				logout(request);				
+				logout(request);		
 			}
 			
 			return 1;
@@ -112,35 +110,5 @@ public class RestUserController {
 		
 			return 0;
 		}
-	}
-	
-	@PostMapping("/usermodify")//회원정보수정
-	public int usermodify() {
-		
-		return 0;
-	}
-	
-	@GetMapping("/threadsearch")
-	public int threadsearch() {
-		
-		return 0;
-	}
-	
-	@GetMapping("/loadNew")
-	public String loadNew() {
-		
-		return "불러오기 성공!";
-	}
-	
-	@GetMapping("/thread")
-	public ArticleThread thread() {
-		
-		//favorites = getFavorites()
-		//getListofArticle(favorites)
-		ArticleCrawler ac = new ArticleCrawler();
-		
-		ArticleThread at = ac.getArticle(" ");
-		
-		return at;
 	}
 }

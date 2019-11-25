@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+#chat { background: gray; width: 315px; height: 500px; margin: 0;}
+#chatBox {padding-left: 5px; width: 315x; height: 500px; margin: 0; overflow-y: auto;}
+#send {
+background-color: #81BEF7; /* Green */
+border: none;
+color: white;
+padding: 10px 25px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
+}
+#send:hover {
+background-color: #0953E6;
+
+animation-duration: 0.5s;
+animation-name: send_ani;
+}
+@keyframes send_ani{
+from {
+background-color: #81BEF7;
+}
+
+to{
+background-color: #0953E6;
+}
+}
+#message {width: 220px; height: 35px;}
+.other {color: white}
