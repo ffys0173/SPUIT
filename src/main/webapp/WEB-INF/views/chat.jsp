@@ -45,9 +45,8 @@
 			sock.onmessage = function(e){
 
 				$("#chatBox").append('<p class="other">'+e.data+"</p>")
-				//나하고 상대방 구분법
 				messages.push(e.data)
-				console.log(messages)
+				$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 			}
 			sock.onclose = function(){
 				$("#chatBox").append("Disconnected")

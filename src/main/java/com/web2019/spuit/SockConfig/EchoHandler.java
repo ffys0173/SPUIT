@@ -24,11 +24,20 @@ public class EchoHandler extends TextWebSocketHandler {
 		SessionVO sessionInfo = (SessionVO)session.getAttributes().get("sessionInfo");
 		for(WebSocketSession sess: sessionList) {
 			if(sessionInfo != null) {
-				sess.sendMessage(new TextMessage("<strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+				if(sess.getId() == session.getId()) {
+					sess.sendMessage(new TextMessage("<strong style='color:orange;'>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+				}
+				else {					
+					sess.sendMessage(new TextMessage("<strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+				}
 			}
 			else {
-				
-				sess.sendMessage(new TextMessage(session.getId() + " : "+message.getPayload()));
+				if(sess.getId() == session.getId()) {
+					sess.sendMessage(new TextMessage("<span style='color:orange;'>" + session.getId() + "</span>" + " : "+message.getPayload()));
+				}
+				else {					
+					sess.sendMessage(new TextMessage(session.getId() + " : "+message.getPayload()));
+				}
 			}
 				
 		}
