@@ -14,6 +14,7 @@ import javax.net.ssl.X509TrustManager;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class Crawling {   
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
@@ -47,7 +48,7 @@ public class Crawling {
     public static void main(String[] args) {
         try {
             // URL def
-            String connUrl = "http://imnews.imbc.com/index_pc.html";
+            String connUrl = "http://imnews.imbc.com/replay/2019/nwtoday/article/5617981_24616.html?menuid=culture";
             // SSL chk
             try {
                 if(connUrl.indexOf("https://") >= 0){
@@ -67,6 +68,10 @@ public class Crawling {
 
             Document doc = conn.get();
 
+            // Select
+            Elements element = doc.select("section.class-cont");
+            
+            System.out.println(element.select("h1.class-title")+"\n"+element.select("div.class-body"));
             // HTML Document Look
             System.out.println(doc.toString());
 
