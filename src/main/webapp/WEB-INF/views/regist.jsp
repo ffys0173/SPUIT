@@ -128,7 +128,7 @@ new Vue({
     },
     methods: {
   	  requestRegist: function() {
-  		  axios.post('/api/regist', {id: this.id, pw: this.pw, name: this.name, email: this.email})
+  		  axios.post('/api/user/regist', {id: this.id, pw: this.pw, name: this.name, email: this.email})
   		  .then (((res) => {
   			  if(res.data === 1){
   				alert("성공")
@@ -140,7 +140,7 @@ new Vue({
   	  
   	  requestFavorite: function() {
   		  
-  		axios.post('/api/setFavorites', this.chips)
+  		axios.post('/api/user/setFavorites', this.chips)
   		.then (((res) => {
   			 if(res.data === "1") alert("관심사 설정 성공")
   			 else alert("관심사 설정 실패")

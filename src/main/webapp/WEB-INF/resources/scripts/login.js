@@ -7,7 +7,7 @@ new Vue({
 	    },
 	    methods: {
 	    	requestLogin : function() {
-	    		axios.post('/api/login', {id: this.id, pw: this.pw})
+	    		axios.post('/api/user/login', {id: this.id, pw: this.pw})
 	    		.then(((res) => {
 	    			if(res.data === 1){
 	    				window.location.href = '/'

@@ -23,6 +23,7 @@
 			          <v-icon>mdi-magnify</v-icon>
 			        </v-btn>
 			        <template v-if="login">
+			        ${sessionInfo.name}님 반갑습니다.
 			        	<v-btn class="ma-2" outlined color="white" href="/user/mypage">My Page</v-btn>
 						<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
 			        </template>
@@ -85,7 +86,7 @@ new Vue({
 	},
 	methods: {
 		requestLogout : function() {
-			axios.get('/api/logout')
+			axios.get('/api/user/logout')
 	    	.then(((res) => {
 	    		if(res.data === 1){
 	    			window.location.href = '/'
@@ -94,7 +95,7 @@ new Vue({
 	    }
 	},
 	mounted() {
-    	axios.get('/api/thread')
+    	axios.get('/api/thread/get')
     	.then((res) => {
     		this.thread = res.data
     		console.log(this.thread.articleTitle)

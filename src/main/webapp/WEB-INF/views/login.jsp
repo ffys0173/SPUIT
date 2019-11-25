@@ -35,7 +35,7 @@
 				<v-card-title>Sign in</v-card-title>
 				<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 				
-				<v-form method="POST" action="/user/login">
+				<v-form>
 					<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
 					
 					<v-text-field v-model="pw" label="password" required :type="'Password'"

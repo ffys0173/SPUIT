@@ -25,13 +25,13 @@ import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
 
 @RestController
-@RequestMapping("/api")
-public class AjaxController {
+@RequestMapping("/api/user")
+public class RestUserController {
 	
 	@Inject
 	private UserService service;
 	
-	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
 
 	@PostMapping("/regist")
 	public int regist(@RequestBody UserVO user, HttpServletRequest request) throws Exception {
@@ -101,9 +101,10 @@ public class AjaxController {
 	public int leave(@RequestBody UserVO user, HttpServletRequest request) {
 		
 		try {
-			service.loginCheck(user);
-			service.userLeave(user);
-			logout(request);
+			if(service.loginCheck(user) != null) {
+				service.userLeave(user);
+				logout(request);				
+			}
 			
 			return 1;
 		}
