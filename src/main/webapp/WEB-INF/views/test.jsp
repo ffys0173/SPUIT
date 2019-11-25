@@ -39,6 +39,8 @@
 					</template>
 			</v-toolbar>
 		</div>
+		
+			<button @click="test()">ddddddddddd</button>
 			<div id="chatBox" ref="chatBox"></div>
 			<!-- <v-sheet color="orange lighten-2" v-for="msg in messages" v-bind:key=msg.data>{{msg.data}}</v-sheet> -->
 			<v-form>
