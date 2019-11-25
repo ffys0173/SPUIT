@@ -1,22 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
-<head>
-	<title>chatting</title>
-	<meta charset="UTF-8"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
-	
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	
-	
-  	<!-- meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"-->
-
-</head>
-<body>
-	<div id="app">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<div id="chat">
 		<div id="chatBox" ref="chatBox">
 		
 		</div>
@@ -26,13 +11,11 @@
 				<button id="send" @click.prevent="ChatProp">send</button>
 			</form>
 		</div>
-	</div>	
-</body>
-
+	</div>
 <script>
+
 	new Vue({
-		el: '#app',
-		vuetify: new Vuetify(),
+		el: '#chat',
 		data: {
 			messages: null,
 			text: "",
@@ -63,8 +46,8 @@
 </script>
 
 <style>
- #app { background: gray; width: 315px; height: 500px;}
- #chatBox {padding-left: 5px; width: 315x; height: 500px; overflow-y: auto;}
+ #chat { background: gray; width: 315px; height: 500px; margin: 0;}
+ #chatBox {padding-left: 5px; width: 315x; height: 500px; margin: 0; overflow-y: auto;}
  #send {
  background-color: #81BEF7; /* Green */
   border: none;
@@ -81,4 +64,3 @@
  
  .other {color: white}
 </style>
-</html>

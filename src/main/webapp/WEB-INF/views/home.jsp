@@ -5,6 +5,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
  	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  	
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -30,14 +34,16 @@
 		</div>
 		
 			<div id="contents">
-				<h1>Hello world!</h1>
-				<P>  The time on the server is ${serverTime}. </P>
-				<p> userInfo : ${sessionInfo.id} </p>
+				<%-- <P>  The time on the server is ${serverTime}. </P>
+				<p> userInfo : ${sessionInfo.id} </p> --%>
 				
-				로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
-				비밀번호 : 1111<br>
+				<!-- 로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
+				비밀번호 : 1111<br> -->
 				
-				<a href="/chat">채팅하러가기</a>
+			</div>
+			<div>
+				<iframe src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
+				<%-- <%@ include file="chat.jsp" %> --%>
 			</div>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
@@ -65,12 +71,9 @@
 		out.println(a); --%>
 	</v-app>
 </div>
+</body>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script>
+<script>
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
@@ -91,6 +94,15 @@
 
       },
     })
-  </script>
-</body>
+</script>
+<style>
+#app{
+/*display: inline-block;*/
+}
+#content{
+height: 100%;
+}
+#chat{
+}
+</style>
 </html>
