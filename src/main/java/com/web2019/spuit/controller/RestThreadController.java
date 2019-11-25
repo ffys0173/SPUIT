@@ -46,14 +46,14 @@ public class RestThreadController {
 	}
 	
 	@GetMapping("/get")
-	public ArticleThread get() {
+	public ArrayList<ArticleThread> get() {
 		
 		//favorites = getFavorites()
 		//getListofArticle(favorites)
 		ArticleCrawler ac = new ArticleCrawler();
 		
-		ArticleThread at = ac.getArticle(" ");
+		ArrayList<ArticleThread> loat = ac.getListofArticle(null);
 		
-		return at;
+		return loat;
 	}
 }

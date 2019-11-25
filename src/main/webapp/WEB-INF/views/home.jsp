@@ -33,16 +33,16 @@
 					</template>
 			</v-toolbar>
 		</div>
-		
 			<div id="contents">
 				<%-- <P>  The time on the server is ${serverTime}. </P>
 				<p> userInfo : ${sessionInfo.id} </p> --%>
 				
 				<!-- 로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
 				비밀번호 : 1111<br> -->
-				{{thread.articleTitle}}<br>
-				{{thread.articleContent}}<br>
-				
+				<div class="article" v-for="thread in ListofThread">
+					{{thread.articleTitle}}<br>
+					{{thread.articleContent}}<br>
+				</div>
 			</div>
 			<div>
 				<iframe src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
@@ -82,7 +82,7 @@ new Vue({
 	vuetify: new Vuetify(),
 	data: {
 		login: ${login},
-		thread: null
+		ListofThread: null
 	},
 	methods: {
 		requestLogout : function() {
@@ -97,8 +97,7 @@ new Vue({
 	mounted() {
     	axios.get('/api/thread/get')
     	.then((res) => {
-    		this.thread = res.data
-    		console.log(this.thread.articleTitle)
+    		this.ListofThread = res.data
     	})
 	},
 	computed: {

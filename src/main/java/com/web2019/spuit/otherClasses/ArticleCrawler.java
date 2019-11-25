@@ -51,8 +51,11 @@ public class ArticleCrawler {
     
     public ArrayList<ArticleThread> getListofArticle(String uid_no){
     	
+    	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
     	
-    	return null;
+    	loat.add(getArticle(" "));
+    	
+    	return loat;
     }
 
     public ArticleThread getArticle(String url) {
