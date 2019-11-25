@@ -25,7 +25,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(WebSocketSession sess: sessionList) {
 			if(sessionInfo != null) {
 				if(sess.getId() == session.getId()) {
-					sess.sendMessage(new TextMessage("<strong style='color:orange;'>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
+					sess.sendMessage(new TextMessage("<span style='color:orange;'><strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload() + "</span>"));
 				}
 				else {					
 					sess.sendMessage(new TextMessage("<strong>" + sessionInfo.getId() + "</strong>" + " : "+message.getPayload()));
@@ -33,7 +33,7 @@ public class EchoHandler extends TextWebSocketHandler {
 			}
 			else {
 				if(sess.getId() == session.getId()) {
-					sess.sendMessage(new TextMessage("<span style='color:orange;'>" + session.getId() + "</span>" + " : "+message.getPayload()));
+					sess.sendMessage(new TextMessage("<span style='color:orange;'>" + session.getId() + " : "+message.getPayload() + "</span>"));
 				}
 				else {					
 					sess.sendMessage(new TextMessage(session.getId() + " : "+message.getPayload()));

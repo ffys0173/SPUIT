@@ -39,6 +39,8 @@
 				
 				<!-- 로그인 아이디 : ffys0173 save0173 test0173 중 하나<br>
 				비밀번호 : 1111<br> -->
+				{{thread.articleTitle}}<br>
+				{{thread.articleContent}}<br>
 				
 			</div>
 			<div>
@@ -74,26 +76,34 @@
 </body>
 
 <script>
-    new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-      data: {
-    	  login: ${login}
-      },
-      methods: {
-    	  requestLogout : function() {
-	    		axios.get('/api/logout')
-	    		.then(((res) => {
-	    			if(res.data === 1){
-	    				window.location.href = '/'
-	    			}
-	    		}))
-	    	}
-      },
-      computed: {
+new Vue({
+	el: '#app',
+	vuetify: new Vuetify(),
+	data: {
+		login: ${login},
+		thread: null
+	},
+	methods: {
+		requestLogout : function() {
+			axios.get('/api/logout')
+	    	.then(((res) => {
+	    		if(res.data === 1){
+	    			window.location.href = '/'
+	    		}
+	    	}))
+	    }
+	},
+	mounted() {
+    	axios.get('/api/thread')
+    	.then((res) => {
+    		this.thread = res.data
+    		console.log(this.thread.articleTitle)
+    	})
+	},
+	computed: {
 
-      },
-    })
+	}
+})
 </script>
 <style>
 #app{

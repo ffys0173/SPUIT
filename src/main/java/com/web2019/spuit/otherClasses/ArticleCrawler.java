@@ -5,6 +5,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -16,7 +18,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class Crawling {   
+public class ArticleCrawler {
+	
+	private ArrayList<ArticleThread> articleThread;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
 
     // SSL
@@ -44,15 +48,21 @@ public class Crawling {
         );
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
     }
+    
+    public ArrayList<ArticleThread> getListofArticle(String uid_no){
+    	
+    	
+    	return null;
+    }
 
-    public static void main(String[] args) {
+    public ArticleThread getArticle(String url) {
         try {
             // URL def
             String connUrl = "http://imnews.imbc.com/replay/2019/nwtoday/article/5617981_24616.html?menuid=culture";
             // SSL chk
             try {
                 if(connUrl.indexOf("https://") >= 0){
-                    Crawling.setSSL();
+                    ArticleCrawler.setSSL();
                 }
             } catch (Exception e) {
                
@@ -66,18 +76,21 @@ public class Crawling {
                     .method(Connection.Method.GET)
                     .ignoreContentType(true);
 
+            //select
             Document doc = conn.get();
-
-            // Select
-            Elements element = doc.select("section.class-cont");
+            Elements element = doc.select("section.cont");
             
-            System.out.println(element.select("h1.class-title")+"\n"+element.select("div.class-body"));
-            // HTML Document Look
-            System.out.println(doc.toString());
+            ArticleThread article = new ArticleThread();
+            article.setArticleTitle(element.select("h1.title").text());
+            article.setArticleContent(element.select("section.txt").text());
+            
+            return article;
 
         } catch (IOException e) {
             // Exp : Connection Fail
             e.printStackTrace();
+            
+            return null;
         }
     }
 }

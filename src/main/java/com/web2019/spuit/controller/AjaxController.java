@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
+import com.web2019.spuit.otherClasses.ArticleCrawler;
+import com.web2019.spuit.otherClasses.ArticleThread;
 import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
 
@@ -130,8 +132,14 @@ public class AjaxController {
 	}
 	
 	@GetMapping("/thread")
-	public int thread() {
+	public ArticleThread thread() {
 		
-		return 0;
+		//favorites = getFavorites()
+		//getListofArticle(favorites)
+		ArticleCrawler ac = new ArticleCrawler();
+		
+		ArticleThread at = ac.getArticle(" ");
+		
+		return at;
 	}
 }
