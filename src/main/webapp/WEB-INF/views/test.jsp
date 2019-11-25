@@ -39,16 +39,14 @@
 					</template>
 			</v-toolbar>
 		</div>
-		
-			<button @click="test()">ddddddddddd</button>
 			<div id="chatBox" ref="chatBox"></div>
-			<v-sheet color="orange lighten-2" v-for="msg in messages")>{{msg}}</v-sheet>
-			<form>
+			<!-- <v-sheet color="orange lighten-2" v-for="msg in messages" v-bind:key=msg.data>{{msg.data}}</v-sheet> -->
+			<v-form>
 				<!-- input type="text" id="message" autocomplete="off"/>
 				<button @click.prevent="ChatProp">send</button-->
-				<v-text-field v-model="text" ref="message" label="Send Message"></v-text-field>
-				<v-btn @click.prevent="ChatProp" outlined color="pink">Send</v-btn>		
-			</form>
+				<v-text-field id="message" label="Send Message"></v-text-field>
+				<v-btn @click="ChatProp" @submit.prevent="ChatProp" outlined color="pink">Send</v-btn>		
+			</v-form>
 
 		
 		<v-bottom-navigation absolute="true" :dark="true" fixed="true">
@@ -74,7 +72,6 @@
  		</v-app>
  	</div>
 </body>
-
 <script>
 
 new Vue({
@@ -82,45 +79,34 @@ new Vue({
 	vuetify: new Vuetify(),
 	data: {
 		login: ${login},
-		messages: null, //[]로 바꾸고 ChatProp에서 this.messages.push(this.text) 는 정상작동 test
+		messages: [], //[]로 바꾸고 ChatProp에서 this.messages.push(this.text) 는 정상작동 test
 		text: "",
-		sock: null,
-		Wrapper: null
+		sock: null
 	},
 	methods: {
 		ChatProp() {
-			//sock.send($("#message").val())
-			//$("#message").val('').focus()
-			sock.send(this.$refs.message.value)
-			this.$refs.message.value = ""
+			sock.send($("#message").val())
+			console.log($("#message"))
+			console.log($("#message").removeData())
+			$("#message").focus()
+			/* sock.send(this.message)
+			this.message = "" */
 		},
 		init() {
 			sock = new SockJS("/echo")
-			messages = new Array()
-			Wrapper = function(tmp) {
-				messages = tmp
-			}
 			sock.onmessage = function(e){
 				$("#chatBox").append(e.data + "<br/>")
-				messages.push(e.data)
-				console.log(messages)
-				Wrapper(messages)
+				
 			}
-			//testar.push(test)
 			sock.onclose = function(){
 				$("#chatBox").append("연결 종료");
 			}
 		},
-		test() {
-			messages.push("hhhhhhhhhh")
-			console.log(messages)
-		}
 	},
 	beforeMount() {
 		this.init()
 	},
 	mounted: function() {
-		
 	}
 })
 
