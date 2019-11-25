@@ -12,7 +12,7 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-<div id="app">
+<div id="app" ref="window">
 	<v-app>
 		<div>
 			<v-toolbar dense :dark="true">
@@ -62,7 +62,7 @@
 					</v-card>
 				</v-col>	
 				<v-col cols="1">
-					<iframe src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
+					<iframe id="chatBox" src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -106,6 +106,14 @@ new Vue({
 	    			window.location.href = '/'
 	    		}
 	    	}))
+	    },
+	    fixChatBox(){
+	    	if(window.scrollY >= 47){
+		    	document.getElementById("chatBox").setAttribute("style", "position: fixed; top:30px")    		
+	    	}
+	    	else{
+	    		document.getElementById("chatBox").setAttribute("style", "position: relative;")
+	    	}
 	    }
 	},
 	mounted() {
@@ -114,8 +122,11 @@ new Vue({
     		this.ListofThread = res.data
     	})
 	},
-	computed: {
-
+	created: function() {
+		window.addEventListener('scroll', this.fixChatBox)
+	},
+	destroyed: function() {
+		window.removeEventListener('scroll', this.fixChatBox)
 	}
 })
 </script>
