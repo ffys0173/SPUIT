@@ -15,10 +15,9 @@
 		<v-app>
 			<div>
 			<v-toolbar dense :dark="true">
-				 <v-app-bar-nav-icon></v-app-bar-nav-icon>
-	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Spuit</a></v-toolbar-title>
+	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Project SPUIT</a></v-toolbar-title>
 	       		 <v-spacer></v-spacer>
-			        <v-btn icon>
+			        <v-btn icon @click.stop="dialog = true">
 			          <v-icon>mdi-magnify</v-icon>
 			        </v-btn>
 			        <v-btn class="ma-2" outlined color="white" href="/user/login">Sign-in</v-btn> 
@@ -26,8 +25,11 @@
 			</v-toolbar>
 			</div>
 			
-			<!--입력 폼-->
-			<v-card width="500" height="410" style="margin-bottom: 40px;">
+			<!--입력 폼--> 
+			<v-container bg fill-height grid-list-md text-xs-center>
+			<v-layout col wrap align-center>
+			<v-col>
+			<v-card width="500" height="420" style="margin-bottom: 40px; padding: 10px">
 				<!-- form action="/user/login" method="POST">
 					<input name="id" type="text"/><br>
 					<input name="pw" type="password"/><br>
@@ -48,11 +50,11 @@
 					<v-text-field v-model="email" label="E-mail" required :type="'email'"
 								  hint="input your email" ></v-text-field>
 
-					<v-btn  outlined color="primary" v-on:click="requestRegist">Done</v-btn>
+					<v-btn  outlined color="primary" v-on:click="requestRegist">Confirm</v-btn>
 				</v-form>	
 			</v-card>
 			
-			<v-card width="600">
+			<v-card width="600" style="padding: 10px">
 				<v-card-title>Select Favorite</v-card-title>
 				<v-card-subtitle>관십사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
 					<v-combobox
@@ -77,9 +79,20 @@
 				   </v-combobox>
 				   <!-- v-card-context> 설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-context -->
 				   <v-card-action>
-				   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
+				   	<v-btn @click="requestFavorite" color="primary" outlined>Save</v-btn>
 				   </v-card-action>
 			</v-card>
+			</v-col>
+			</v-layout>
+			</v-container>
+			
+			<v-dialog v-model="dialog" max-width="400px">
+			<v-card style="padding: 20px;">
+				<v-card-title>Enter Search Keyword : </v-card-title>
+				<v-text-field label="Search word">...Keyword</v-text-field>
+				<v-btn color="primary" @click="dialog = true">Search</v-btn>
+			</v-card>
+			</v-dialog>
 			
 			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
 		      <v-btn value="news">
@@ -124,7 +137,8 @@ new Vue({
   	  pw: "",
   	  name: "",
   	  email: "",
-  	  chips: []
+  	  chips: [],
+  	  dialog: false,
     },
     methods: {
   	  requestRegist: function() {
