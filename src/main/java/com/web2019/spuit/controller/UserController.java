@@ -24,6 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 		return "regist";
 	}
 	
+	@GetMapping("/auth/myPage")
+	public String myPage_get() throws Exception {
+		
+		return "myPage";
+	}
+	
 	@GetMapping("/auth/setFavorites")
 	public String setFavorites_get() throws Exception {
 		

@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -50,13 +51,26 @@ public class ArticleCrawler {
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
     }
     
-    public ArrayList<ArticleThread> getListofArticle(String uid_no){
+    public ArrayList<ArticleThread> getListofArticle(String uid_no) throws Exception{
     	
+    	String key="검색";
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
+    	
+    	if(uid_no != null) {
+    		
+    		UserFavorite uf = new UserFavorite(uid_no);
+    		uf.ReadFile();
+    		Map<String, Integer> ufmap = uf.getFavoriteMap();
+    		
+    		for(Map.Entry<String, Integer> entry : ufmap.entrySet()) {
+    			key = entry.getKey();
+    			System.out.println(key);
+    		}
+    	}
     	
     	try {
             // URL def
-            String connUrl = "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=검색";
+            String connUrl = "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=" + key;
             // SSL chk
             try {
                 if(connUrl.indexOf("https://") >= 0){
@@ -92,18 +106,7 @@ public class ArticleCrawler {
     	catch (IOException e) {
     		
     	}
-    	
-    	
-		/*
-		 * loat.add(getArticle(
-		 * "http://imnews.imbc.com/replay/2019/nwtoday/article/5617981_24616.html?menuid=culture"
-		 * )); loat.add(getArticle(
-		 * "http://imnews.imbc.com/replay/2019/nw1400/article/5619983_24623.html?menuid=society"
-		 * )); loat.add(getArticle(
-		 * "http://imnews.imbc.com/news/2019/society/article/5620133_24698.html?menuid=society"
-		 * ));
-		 */
-    	
+
     	return loat;
     }
 

@@ -76,7 +76,7 @@ public class RestUserController {
 		return 1;
 	}
 	
-	@PostMapping("/auth/setFavorites")//HashMap<String, Integer>
+	@PostMapping("/auth/setFavorites")
 	public int setFavorites(@RequestBody  ArrayList<String> favorites, HttpServletRequest request) {
 		
 		HttpSession httpSession = request.getSession(true);
@@ -98,6 +98,13 @@ public class RestUserController {
 		catch(Exception e) {
 			return 0;			
 		}
+	}
+	
+	@PostMapping("/auth/getFavorites")
+	public HashMap<String, Integer> getFavorites(HttpServletRequest request) {
+		
+		
+		return null;
 	}
 	
 	@PostMapping("/auth/leave")//È¸¿øÅ»Åð

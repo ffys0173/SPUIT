@@ -38,7 +38,7 @@
 						<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
 						
 						<v-text-field v-model="pw" label="password" required :type="'Password'"
-									  hint="At least 8 characters" ></v-text-field>
+									  hint="At least 8 characters" v-on:keyup.enter="requestLogin"></v-text-field>
 	
 						<v-btn v-on:click="requestLogin">Done</v-btn>
 					</v-form>
