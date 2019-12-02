@@ -29,7 +29,7 @@
     </beans:bean>
     <interceptors>
         <interceptor>
-            <mapping path="/**"/>
+            <mapping path="/**/auth/**"/>
             <beans:ref bean="authenticationInterceptor"/>
         </interceptor>
     </interceptors>

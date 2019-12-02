@@ -23,5 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 		
 		return "regist";
 	}
+	
+	@GetMapping("/auth/setFavorites")
+	public String setFavorites_get() throws Exception {
+		
+		return "setFavorites";
+	}
 }
  

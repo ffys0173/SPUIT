@@ -14,6 +14,7 @@ public class UserFavorite {
 	private HashMap<String, Integer> favoriteMap;
 	
 	public UserFavorite(String idno) {
+		this.prefix = "";
 		this.idno = idno;
 		this.favoriteMap = new HashMap<String, Integer>();
 	}

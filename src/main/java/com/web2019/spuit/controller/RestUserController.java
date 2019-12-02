@@ -1,5 +1,6 @@
 package com.web2019.spuit.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,39 +32,6 @@ public class RestUserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
 
-	@PostMapping("/regist")
-	public int regist(@RequestBody UserVO user, HttpServletRequest request) throws Exception {
-		
-		UserVO forLogin = new UserVO();
-		forLogin.setId(user.getId());
-		forLogin.setPw(user.getPw());
-		int result = service.registUser(user);
-		
-		int test = login(forLogin, request);
-		logger.info("{}", test);
-		return result;
-	}
-	
-	@PostMapping("/setFavorites")//HashMap<String, Integer>
-	public int setFavorites(@RequestBody  ArrayList<String> favorites, HttpServletRequest request) {
-		
-		HttpSession httpSession = request.getSession(true);
-		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("SessionInfo");
-		
-		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
-		for(String favorite : favorites) {
-			System.out.println(favorite);
-			hashmap.put(favorite, 0);
-		}
-		
-		UserFavorite userFavorite = new UserFavorite("1");//sessionInfo.getIdno()
-		userFavorite.setFavoriteMap(hashmap);
-		
-		//userFavorite.WriteFile();
-		
-		return 1;
-	}
-	
 	@PostMapping("/login")
 	public int login(@RequestBody UserVO user, HttpServletRequest request) {
 		
@@ -86,6 +54,19 @@ public class RestUserController {
         }
 	}
 	
+	@PostMapping("/regist")
+	public int regist(@RequestBody UserVO user, HttpServletRequest request) throws Exception {
+		
+		UserVO forLogin = new UserVO();
+		forLogin.setId(user.getId());
+		forLogin.setPw(user.getPw());
+		int result = service.registUser(user);
+		
+		int test = login(forLogin, request);
+		logger.info("{}", test);
+		return result;
+	}
+	
 	@GetMapping("/logout")
 	public int logout(HttpServletRequest request) {
 		
@@ -95,7 +76,31 @@ public class RestUserController {
 		return 1;
 	}
 	
-	@PostMapping("/leave")//È¸¿øÅ»Åð
+	@PostMapping("/auth/setFavorites")//HashMap<String, Integer>
+	public int setFavorites(@RequestBody  ArrayList<String> favorites, HttpServletRequest request) {
+		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		for(String favorite : favorites) {
+			System.out.println(favorite);
+			hashmap.put(favorite, 100);
+		}
+		System.out.println(sessionInfo.getIdno());
+		UserFavorite userFavorite = new UserFavorite(sessionInfo.getIdno());
+		userFavorite.setFavoriteMap(hashmap);
+		
+		try {
+			userFavorite.WriteFile();
+			return 1;
+		}
+		catch(Exception e) {
+			return 0;			
+		}
+	}
+	
+	@PostMapping("/auth/leave")//È¸¿øÅ»Åð
 	public int leave(@RequestBody UserVO user, HttpServletRequest request) {
 		
 		try {

@@ -9,11 +9,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer{
+	
 	@Autowired
 	private EchoHandler echoHandler;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(echoHandler, "/echo");
+		registry.addHandler(echoHandler, "/echo/**");
 	}	
 }

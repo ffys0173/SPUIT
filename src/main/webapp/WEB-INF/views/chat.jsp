@@ -14,6 +14,16 @@
 			<button id="send" @click.prevent="ChatProp">send</button>
 		</form>
 	</div>
+	
+	<div id="chatBox2" ref="chatBox2">
+	
+	</div>
+	<!-- <div id="inputBox2">
+		<form id=inputs2>
+			<input type="text" ref="message2" id="message2" autocomplete="off"/>
+			<button id="send2" @click.prevent="ChatProp2">send</button>
+		</form>
+	</div> -->
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
