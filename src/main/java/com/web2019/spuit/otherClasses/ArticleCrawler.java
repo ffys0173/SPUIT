@@ -22,7 +22,6 @@ import org.jsoup.select.Elements;
 
 public class ArticleCrawler {
 	
-	private ArrayList<ArticleThread> articleThread;
     private final static String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
 
     // SSL
@@ -53,7 +52,6 @@ public class ArticleCrawler {
     
     public ArrayList<ArticleThread> getListofArticle(String uid_no) throws Exception{
     	
-    	String key="°Ë»ö";
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
     	
     	if(uid_no != null) {
@@ -63,11 +61,17 @@ public class ArticleCrawler {
     		Map<String, Integer> ufmap = uf.getFavoriteMap();
     		
     		for(Map.Entry<String, Integer> entry : ufmap.entrySet()) {
-    			key = entry.getKey();
-    			System.out.println(key);
+    			loat.addAll(getByKey(entry.getKey()));
     		}
     	}
     	
+    	return loat;
+    }
+
+    public ArrayList<ArticleThread> getByKey(String key) {
+    	
+    	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
+        
     	try {
             // URL def
             String connUrl = "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=" + key;
@@ -108,45 +112,5 @@ public class ArticleCrawler {
     	}
 
     	return loat;
-    }
-
-    public ArticleThread getArticle(String url) {
-        try {
-            // URL def
-            String connUrl = url;
-            // SSL chk
-            try {
-                if(connUrl.indexOf("https://") >= 0){
-                    ArticleCrawler.setSSL();
-                }
-            } catch (Exception e) {
-               
-            }
-
-            // HTML get
-            Connection conn = Jsoup
-                    .connect(connUrl)
-                    .header("Content-Type", "application/json;charset=UTF-8")
-                    .userAgent(USER_AGENT)
-                    .method(Connection.Method.GET)
-                    .ignoreContentType(true);
-
-            //select
-            Document doc = conn.get();
-            Elements element = doc.select("section.cont");
-            
-            ArticleThread article = new ArticleThread();
-            article.setArticleTitle(element.select("h1.title").text());
-            article.setArticleContent(element.select("section.txt").text());
-            article.setArticleThumbnail(element.select("img").get(0).attr("src"));
-            
-            return article;
-
-        } catch (IOException e) {
-            // Exp : Connection Fail
-            e.printStackTrace();
-            
-            return null;
-        }
     }
 }

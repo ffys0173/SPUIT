@@ -1,6 +1,5 @@
 package com.web2019.spuit.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
-import com.web2019.spuit.otherClasses.ArticleCrawler;
-import com.web2019.spuit.otherClasses.ArticleThread;
 import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.UserService;
 
