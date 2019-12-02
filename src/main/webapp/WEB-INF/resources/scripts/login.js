@@ -4,6 +4,7 @@ new Vue({
     data: {
 		id: '',
 		pw: '',
+		dialog: false,
     },
     methods: {
     	requestLogin : function() {
