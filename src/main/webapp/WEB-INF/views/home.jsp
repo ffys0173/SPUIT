@@ -27,12 +27,11 @@
 						<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
 			        </template>
 			        <template v-else>
-						<v-btn class="ma-2" outlined color="white" href="/user/login">Log-in</v-btn>
+						<v-btn class="ma-2" outlined color="white" href="/user/login">sign-in</v-btn>
 				        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
 					</template>
 			</v-toolbar>
 		</div>
-		
 		<v-container id="contents" class="mt-6">
 			<v-row no-gutters>
 				<v-col cols="5">
@@ -66,35 +65,13 @@
 				</v-col>
 			</v-row>
 		</v-container>
-			
-		<v-bottom-navigation absolute="true" :dark="true" fixed="true">
-		      <v-btn value="recent">
-		        <span>Load new</span>
-		        <v-icon>mdi-clock-fast</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="favorites">
-		        <span>Favorites</span>
-		        <v-icon>mdi-heart</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="nearby">
-		        <span>Settings</span>
-		        <v-icon>mdi-settings</v-icon>
-		      </v-btn>
-		      <v-btn value="Chatting" href="/chat">
-		      <span>Chatting</span>
-		      <v-icon>mdi-comment-text-outline</v-icon>
-		      </v-btn>
-		    </v-bottom-navigation>
-	
-		<!-- 키워드 검색창   -->
+		
 		<v-dialog v-model="dialog" max-width="400px">
-			<v-card style="padding: 20px;">
-				<v-card-title>Enter Search Keyword : </v-card-title>
-				<v-text-field label="Search word">...Keyword</v-text-field>
-				<v-btn color="primary" @click="dialog = true">Search</v-btn>
-			</v-card>
+				<v-card style="padding: 20px;">
+					<v-card-title>Enter Search Keyword : </v-card-title>
+					<v-text-field label="Search word">...Keyword</v-text-field>
+					<v-btn color="primary" @click="dialog = true">Search</v-btn>
+				</v-card>
 		</v-dialog>
 	</v-app>
 </div>
@@ -141,3 +118,22 @@ new Vue({
 })
 </script>
 </html>
+
+		<!-- div>
+			<v-toolbar dense :dark="true">
+	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Project SPUIT</a></v-toolbar-title>
+	       		 <v-spacer></v-spacer>
+			        <v-btn icon @click.stop="dialog = true">
+			          <v-icon>mdi-magnify</v-icon>
+			        </v-btn>
+			        <template v-if="login">
+			        ${sessionInfo.name}님 반갑습니다.
+			        	<v-btn class="ma-2" outlined color="white" href="/user/mypage">My Page</v-btn>
+						<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
+			        </template>
+			        <template v-else>
+						<v-btn class="ma-2" outlined color="white" href="/user/login">Log-in</v-btn>
+				        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
+					</template>
+			</v-toolbar>
+		</div-->

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#chat { background: gray; width: 315px; height: 500px; margin: 0;}
+#chat { background: gray; width: 315px; height: 500px; margin: 0; margin: 20px;} /*margin-left 추가할 것 */
 #chatBox {padding-left: 5px; width: 315x; height: 500px; margin: 0; overflow-y: auto;}
 #send {
 background-color: #81BEF7; /* Green */
