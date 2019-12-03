@@ -26,14 +26,14 @@
 			</div>
 			
 			<v-container class="d-flex justify-center">
-				<v-card width="500" height="410" style="margin-bottom: 40px;">
+				<v-card width="500" height="440" style="margin-bottom: 40px; padding: 20px">
 					<!-- form action="/user/login" method="POST">
 						<input name="id" type="text"/><br>
 						<input name="pw" type="password"/><br>
 						<input type="submit"/>
 					</form-->
 					<v-card-title>Sign Up</v-card-title>
-					<v-card-subtitle>welcome to SPUIT</v-card-subtitle>
+					<v-card-subtitle>Welcome to SPUIT</v-card-subtitle>
 					
 					<v-form method="POST" action="/user/regist">
 						<v-text-field v-model="id" label="id" :type="text" required></v-text-field>

@@ -25,14 +25,10 @@
 			</v-toolbar>
 			</div>
 			<v-container class="d-flex justify-center align-center">
-				<v-card width="500" height="400">
-					<!-- form action="/user/login" method="POST">
-						<input name="id" type="text"/><br>
-						<input name="pw" type="password"/><br>
-						<input type="submit"/>
-					</form-->
-					<v-card-title>Sign in</v-card-title>
-					<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
+				<v-card width="500" height="400" style="padding: 20px">
+
+					<v-card-title>Sign In</v-card-title>
+					<v-card-subtitle>Welcome back to SPUIT</v-card-subtitle>
 					
 					<v-form>
 						<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
@@ -40,27 +36,10 @@
 						<v-text-field v-model="pw" label="password" required :type="'Password'"
 									  hint="At least 8 characters" v-on:keyup.enter="requestLogin"></v-text-field>
 	
-						<v-btn v-on:click="requestLogin">Done</v-btn>
+						<v-btn v-on:click="requestLogin" outlined color="primary">Done</v-btn>
 					</v-form>
 				</v-card>
 			</v-container>
-			
-			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
-		      <v-btn value="news">
-		        <span>Load new</span>
-		        <v-icon>mdi-clock-fast</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="favorites">
-		        <span>Favorites</span>
-		        <v-icon>mdi-heart</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="settings">
-		        <span>Settings</span>
-		        <v-icon>mdi-settings</v-icon>
-		      </v-btn>
-		    </v-bottom-navigation>
 		</v-app>
 	</div>
 
@@ -72,3 +51,9 @@
 
 
 </html>
+
+					<!-- form action="/user/login" method="POST">
+						<input name="id" type="text"/><br>
+						<input name="pw" type="password"/><br>
+						<input type="submit"/>
+					</form-->
