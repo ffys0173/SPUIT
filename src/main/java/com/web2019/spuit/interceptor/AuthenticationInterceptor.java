@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.web2019.spuit.dto.SessionVO;
 
@@ -19,11 +20,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		
 		if(sessionInfo == null) {
-			
-			return false;
+			ModelAndView modelAndView = new ModelAndView("forward:/accessDenied");
+			throw new ModelAndViewDefiningException(modelAndView);
 		}
 		else {
-			return true;			
+			return true;
 		}
 	}
 

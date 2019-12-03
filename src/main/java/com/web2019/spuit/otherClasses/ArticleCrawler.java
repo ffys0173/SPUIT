@@ -50,7 +50,13 @@ public class ArticleCrawler {
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
     }
     
-    public ArrayList<ArticleThread> getListofArticle(String uid_no) throws Exception{
+    public ArrayList<ArticleThread> getRecent() {
+    	
+    	return null;
+    }
+    
+    
+    public ArrayList<ArticleThread> getRecommend(String uid_no) throws Exception{
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
     	
@@ -72,6 +78,7 @@ public class ArticleCrawler {
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
         
+    	//imbc
     	try {
             // URL def
             String connUrl = "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=" + key;
@@ -99,6 +106,7 @@ public class ArticleCrawler {
             for(Element e : list) {
             	ArticleThread at = new ArticleThread();
             	
+            	//언론사마다 다름...
             	at.setArticleTitle(e.select("span.title").text());
             	at.setArticleContent(e.select("span.description").text());
             	at.setArticleThumbnail(e.select("img.thum_img").attr("src"));

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class RestThreadController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
 
-	@GetMapping("/threadsearch")
+	@GetMapping("/search")
 	public int threadsearch() {
 		
 		return 0;
@@ -33,8 +34,14 @@ public class RestThreadController {
 		return "불러오기 성공!";
 	}
 	
-	@GetMapping("/get")
-	public ArrayList<ArticleThread> get(HttpServletRequest request) throws Exception {
+	@PostMapping("/getRecent")
+	public ArrayList<ArticleThread> getRecent(HttpServletRequest request) throws Exception {
+		
+		return null;
+	}
+	
+	@PostMapping("/getRecommend")
+	public ArrayList<ArticleThread> getRecommend(HttpServletRequest request) throws Exception {
 		
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
@@ -45,7 +52,7 @@ public class RestThreadController {
 		}
 		
 		ArticleCrawler ac = new ArticleCrawler();
-		ArrayList<ArticleThread> loat = ac.getListofArticle(id_no);
+		ArrayList<ArticleThread> loat = ac.getRecommend(id_no);
 		
 		return loat;
 	}

@@ -8,6 +8,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="/resources/scripts/login.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -24,7 +29,7 @@
 					<v-btn class="ma-2" outlined color="white" href="/user/regist">Sign-up</v-btn>
 			</v-toolbar>
 			</div>
-			<v-container class="d-flex justify-center align-center">
+			<v-container class="d-flex justify-center mt-6">
 				<v-card width="500" height="400">
 					<!-- form action="/user/login" method="POST">
 						<input name="id" type="text"/><br>
@@ -64,10 +69,6 @@
 		</v-app>
 	</div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/resources/scripts/login.js"></script>
 </body>
 
 

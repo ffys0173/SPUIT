@@ -127,7 +127,7 @@ new Vue({
 	    }
 	},
 	mounted() {
-    	axios.get('/api/thread/get')
+    	axios.post('/api/thread/getRecommend')
     	.then((res) => {
     		this.ListofThread = res.data
     	})
