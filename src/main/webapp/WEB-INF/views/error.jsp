@@ -13,7 +13,7 @@
 <title>Error 500</title>
 </head>
 <body>
-	<div id="app">
+	<div id="error">
 		<v-app>
 			<v-container class="d-flex justify-center align-center">
 			<v-card style="padding: 20px">
@@ -27,7 +27,7 @@
 </body>
 <script>
 	new Vue({
-		el: '#app',
+		el: '#error',
 		vuetify: new Vuetify(),
 		data: {
 			

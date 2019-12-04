@@ -1,5 +1,5 @@
 new Vue({
-    el: '#app',
+    el: '#login',
     vuetify: new Vuetify(),
     data: {
 		id: '',

@@ -29,6 +29,20 @@ public class RestUserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
 
+	@GetMapping("/isLogin")
+	public boolean isLogin(HttpServletRequest request) {
+		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		
+		if(sessionInfo != null) {
+			return true;			
+		}
+		else {
+			return false;
+		}
+	}
+	
 	@PostMapping("/login")
 	public int login(@RequestBody UserVO user, HttpServletRequest request) {
 		

@@ -10,7 +10,12 @@ import com.web2019.spuit.otherClasses.ArticleThread;
 @Service
 public class ThreadServiceImpl implements ThreadService {
 
-	public ArticleCrawler ac;
+	private ArticleCrawler ac;
+	
+	public ThreadServiceImpl() {
+		
+		ac = new ArticleCrawler();
+	}
 	
 	@Override
 	public ArrayList<ArticleThread> getSearchResult(String keyword) {
