@@ -2,7 +2,8 @@ new Vue({
 	el: '#app',
 	vuetify: new Vuetify(),
 	data: {
-		ListofArticle: null
+		ListofRecent: null,
+		ListofRecommend: null
 	},
 	methods: {
 		requestLogout : function() {
@@ -23,9 +24,13 @@ new Vue({
 	    }
 	},
 	mounted() {
-    	axios.post('/api/thread/getRecommend')
+		axios.post('/api/thread/getRecent')
     	.then((res) => {
-    		this.ListofArticle = res.data
+    		this.ListofRecent = res.data
+    	})
+		axios.post('/api/thread/getRecommend')
+    	.then((res) => {
+    		this.ListofRecommend = res.data
     	})
 	},
 	created: function() {

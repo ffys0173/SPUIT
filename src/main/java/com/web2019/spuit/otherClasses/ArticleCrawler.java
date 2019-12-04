@@ -52,9 +52,52 @@ public class ArticleCrawler {
     
     public ArrayList<ArticleThread> getRecent() {
     	
-    	return null;
+    	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
+        
+    	//한겨례
+    	try {
+            // URL def
+            String connUrl = "http://www.hani.co.kr/arti/list.html";
+            // SSL chk
+            try {
+                if(connUrl.indexOf("https://") >= 0){
+                    ArticleCrawler.setSSL();
+                }
+            } catch (Exception e) {
+               
+            }
+
+            // HTML get
+            Connection conn = Jsoup
+                    .connect(connUrl)
+                    .header("Content-Type", "application/json;charset=UTF-8")
+                    .userAgent(USER_AGENT)
+                    .method(Connection.Method.GET)
+                    .ignoreContentType(true);
+
+            //select
+            Document doc = conn.get();
+            Elements list = doc.select("div.article-area");
+            
+            for(Element e : list) {
+            	ArticleThread at = new ArticleThread();
+            	
+            	at.setArticleCategory(e.select("strong.category").text()); 
+            	at.setArticleTitle(e.select("h4.article-title").text());
+            	at.setArticleContent(e.select("p.article-prologue").text());
+            	at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
+            	at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
+            	at.setArticleRegisted(e.select("span.date").text());
+            	
+            	loat.add(at);
+            }
+    	}
+    	catch (IOException e) {
+    		
+    	}
+
+    	return loat;
     }
-    
     
     public ArrayList<ArticleThread> getRecommend(String uid_no) throws Exception{
     	
@@ -78,10 +121,10 @@ public class ArticleCrawler {
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
         
-    	//imbc
+    	//imbc  "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=" + key;
     	try {
             // URL def
-            String connUrl = "http://search.imnews.imbc.com:8180/news/search.jsp?kwd=" + key;
+            String connUrl = "http://search.hani.co.kr/Search";
             // SSL chk
             try {
                 if(connUrl.indexOf("https://") >= 0){
@@ -96,21 +139,32 @@ public class ArticleCrawler {
                     .connect(connUrl)
                     .header("Content-Type", "application/json;charset=UTF-8")
                     .userAgent(USER_AGENT)
-                    .method(Connection.Method.GET)
-                    .ignoreContentType(true);
+                    .method(Connection.Method.POST)
+                    .ignoreContentType(true)
+                    .data("commend", "query")
+                    .data("media", "news")
+                    .data("keyword", key);
 
             //select
             Document doc = conn.get();
-            Elements list = doc.select("ul.searchresult_list").select("li");
+            Elements list = doc.select("ul.search-result-list").select("li");
             
             for(Element e : list) {
             	ArticleThread at = new ArticleThread();
             	
+            	at.setArticleTitle(e.select("dt").text());
+            	at.setArticleContent(e.select("dd.detail").text());
+            	at.setArticleThumbnail(e.select("dd.photo").select("img").attr("src"));
+            	at.setArticleUrl(e.select("dd.photo").select("a").attr("href"));
+            	at.setArticleRegisted(e.select("dd.date").text());
+            	
             	//언론사마다 다름...
-            	at.setArticleTitle(e.select("span.title").text());
-            	at.setArticleContent(e.select("span.description").text());
-            	at.setArticleThumbnail(e.select("img.thum_img").attr("src"));
-            	at.setArticleUrl(e.select("a").attr("href"));
+				/*
+				 * at.setArticleTitle(e.select("span.title").text());
+				 * at.setArticleContent(e.select("span.description").text());
+				 * at.setArticleThumbnail(e.select("img.thum_img").attr("src"));
+				 * at.setArticleUrl(e.select("a").attr("href"));
+				 */
             	
             	loat.add(at);
             }

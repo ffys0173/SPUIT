@@ -6,7 +6,14 @@ public class ArticleThread {
 	private String ArticleContent;
 	private String ArticleSource;
 	private String ArticleUrl;
+	private String ArticleCategory;
 	
+	public String getArticleCategory() {
+		return ArticleCategory;
+	}
+	public void setArticleCategory(String articleCategory) {
+		ArticleCategory = articleCategory;
+	}
 	public String getArticleUrl() {
 		return ArticleUrl;
 	}

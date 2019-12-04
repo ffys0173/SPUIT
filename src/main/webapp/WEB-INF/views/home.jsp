@@ -22,9 +22,9 @@
 					<v-col cols="5">
 						<v-card class="article" flat>
 							<v-card-title class="headline font-weight-bold py-0">Recent</v-card-title>
-							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofArticle">
+							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecent">
 								<v-list-item three-line>
-								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
+								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="180" max-height="180"></v-img>
 								<v-list-item-content>
 									<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
 									<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
@@ -35,9 +35,9 @@
 					<v-col cols="5">
 						<v-card class="article" flat>
 							<v-card-title class="headline font-weight-bold py-0">Recommend for you</v-card-title>
-							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofArticle">
+							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecommend">
 								<v-list-item three-line>
-								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
+								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="180" max-height="180"></v-img>
 								<v-list-item-content>
 									<v-list-item-title class="title mb-1">{{thread.articleTitle}}</v-list-item-title>
 									<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>

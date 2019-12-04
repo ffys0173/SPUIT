@@ -47,7 +47,7 @@ public class RestThreadController {
 	@PostMapping("/getRecent")
 	public ArrayList<ArticleThread> getRecent(HttpServletRequest request) throws Exception {
 		
-		return null;
+		return threadService.getRecent();
 	}
 	
 	@PostMapping("/getRecommend")
@@ -61,9 +61,6 @@ public class RestThreadController {
 			id_no = sessionInfo.getIdno();
 		}
 		
-		ArticleCrawler ac = new ArticleCrawler();
-		ArrayList<ArticleThread> loat = ac.getRecommend(id_no);
-		
-		return loat;
+		return threadService.getRecommend(id_no);
 	}
 }
