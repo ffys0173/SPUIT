@@ -16,7 +16,7 @@
 	<div id="app">
 		<v-app>
 			<v-container class="d-flex justify-center mt-6">
-				<v-card width="500" height="410" style="margin-bottom: 40px;">
+				<v-card width="500" height="425" style="margin-bottom: 40px; padding: 15px" dark>
 					<!-- form action="/user/login" method="POST">
 						<input name="id" type="text"/><br>
 						<input name="pw" type="password"/><br>
@@ -26,7 +26,7 @@
 					<v-card-subtitle>welcome to SPUIT</v-card-subtitle>
 					
 					<v-form method="POST" action="/user/regist">
-						<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
+						<v-text-field v-model="id" label="id" :type="text" required autocomplete="off"></v-text-field>
 						
 						<v-text-field v-model="pw" label="password" required :type="'Password'"
 									  hint="At least 8 characters" ></v-text-field>
@@ -67,7 +67,9 @@
 <script type="text/javascript">
 new Vue({
     el: '#app',
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+    	theme: { dark: true }
+    }),
     data: {
   	  id: "",
   	  pw: "",
