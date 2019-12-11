@@ -12,7 +12,6 @@ new Vue({
 		}
 	},
 	mounted: function() {
-		sock = new SockJS("/echo")
 
 		axios.post('/api/user/getName')
 		.then((res) => {
