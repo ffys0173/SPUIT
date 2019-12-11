@@ -1,9 +1,13 @@
 new Vue({
 	el: '#app',
-	vuetify: new Vuetify(),
+	vuetify: new Vuetify({
+		theme: { dark: true }
+	}),
 	data: {
 		ListofRecent: null,
-		ListofRecommend: null
+		ListofRecommend: null,
+		timeRecent: new Date(),
+		timeRecommend: ''
 	},
 	methods: {
 		requestLogout : function() {
@@ -31,6 +35,7 @@ new Vue({
 		axios.post('/api/thread/getRecommend')
     	.then((res) => {
     		this.ListofRecommend = res.data
+    		this.timeRecommend = new Date()
     	})
 	},
 	created: function() {

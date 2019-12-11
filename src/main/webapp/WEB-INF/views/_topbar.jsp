@@ -29,7 +29,7 @@
 	
 	<!-- 키워드 검색창   -->
 	<v-dialog v-model="dialog" max-width="400px">
-		<v-card style="padding: 20px;">
+		<v-card style="padding: 20px;" dark>
 			<v-card-title>Enter Search Keyword : </v-card-title>
 			<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
 			<v-btn color="primary" @click="requestSearch">Search</v-btn>
@@ -37,7 +37,7 @@
 	</v-dialog>
 	
 	<v-dialog v-model="loginDialog" max-width="500">
-		<v-card width="500" height="300" style="padding: 15px">
+		<v-card width="500" height="300" style="padding: 15px" dark>
 			<v-card-title>Sign in</v-card-title>
 			<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 			<v-form>
