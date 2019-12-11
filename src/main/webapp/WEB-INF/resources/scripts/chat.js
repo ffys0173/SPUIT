@@ -12,7 +12,8 @@ new Vue({
 		}
 	},
 	mounted: function() {
-		
+		sock = new SockJS("/echo")
+
 		axios.post('/api/user/getName')
 		.then((res) => {
 			member = res.data.name
@@ -27,10 +28,11 @@ new Vue({
 	},
 	methods: {
 		ChatProp() {
-
 			if($("#message").val() != ''){
 				stompClient.send('/publish/chat/message', {}, JSON.stringify({session: mysession, chatRoomId: roomId, message: $("#message").val(), writer: member}))
 				$("#message").val('').focus()	
+				sock.send($("#message").val())
+				$("#message").val('').focus()					
 			}
 			else {
 				alert("메시지를 입력해주세요.")

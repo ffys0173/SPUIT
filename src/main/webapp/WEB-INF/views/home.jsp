@@ -61,11 +61,6 @@
 <script src="/resources/scripts/home.js"></script>
 <script src="/resources/scripts/topbar.js"></script>
 
-<style>
-. black {
-color: black
-}
-</style>
 </html>
 
 
