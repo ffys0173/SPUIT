@@ -1,6 +1,8 @@
 new Vue ({
 	el: '#search',
-	vuetify: new Vuetify(),
+	vuetify: new Vuetify({
+		theme: { dark: true }
+	}),
 	data: {
 		ListofArticle: null
 	},

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<!-- »ó´Ü¹Ù -->
-	<div id="app">
+	<div id="app" dark>
 		<v-app>
 		<v-container class="d-flex justify-center align-center">
 			<v-sheet>
@@ -50,7 +50,9 @@
 <script type="text/javascript">
 	new Vue({
 		el: '#app',
-		vuetify: new Vuetify(),
+		vuetify: new Vuetify({
+			theme: { dark: true }
+		}),
 		data: {
 			newName: '',
 			newEmail: '',

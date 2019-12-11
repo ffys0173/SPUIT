@@ -12,22 +12,9 @@
 </head>
 <body>
 	<div id="app">
-		<v-app>
-			<div>
-			<v-toolbar dense :dark="true">
-				 <v-app-bar-nav-icon></v-app-bar-nav-icon>
-	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Spuit</a></v-toolbar-title>
-	       		 <v-spacer></v-spacer>
-			        <v-btn icon>
-			          <v-icon>mdi-magnify</v-icon>
-			        </v-btn>
-			        <v-btn class="ma-2" outlined color="white" href="/user/login">Sign-in</v-btn> 
-					<v-btn class="ma-2" outlined color="white" href="/user/regist">Sign-up</v-btn>
-			</v-toolbar>
-			</div>
-			
+		<v-app>			
 			<v-container class="d-flex justify-center">
-				<v-card width="600">
+				<v-card width="600" dark>
 					<v-card-title>Select Favorite</v-card-title>
 					<v-card-subtitle>관십사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
 						<v-combobox
@@ -56,23 +43,6 @@
 					   </v-card-action>
 				</v-card>
 			</v-container>
-			
-			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
-		      <v-btn value="news">
-		        <span>Load new</span>
-		        <v-icon>mdi-clock-fast</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="favorites">
-		        <span>Favorites</span>
-		        <v-icon>mdi-heart</v-icon>
-		      </v-btn>
-		  
-		      <v-btn value="settings">
-		        <span>Settings</span>
-		        <v-icon>mdi-settings</v-icon>
-		      </v-btn>
-		    </v-bottom-navigation>
 		</v-app>
 	</div>
 </body>
@@ -85,7 +55,9 @@
 
 new Vue({
     el: '#app',
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+    	theme: { dark: true }
+    }),
     data: {
   	  id: "",
   	  pw: "",
