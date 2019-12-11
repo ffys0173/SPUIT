@@ -18,7 +18,7 @@
 		<v-app>
 			<v-container id="contents" class="mt-6">
 				<v-row no-gutters>
-					<v-col cols="5">
+					<v-col class="mx-2" cols="5">
 						<v-card class="article" dark>
 							<v-card-title class="headline font-weight-bold">Recent News</v-card-title>
 							<v-card-subtitle>동기화 시간 : {{timeRecent}}</v-card-subtitle>
@@ -33,8 +33,8 @@
 							</v-card>
 						</v-card>
 					</v-col>
-					<div style="width: 15px"></div>
-					<v-col cols="5">
+					
+					<v-col class="mx-2" cols="5">
 						<v-card class="article" style="background-color: #FFFFFF; color: black">
 							<v-card-title class="headline font-weight-bold">Recommend for you</v-card-title>
 							<v-card-subtitle style="color: black">동기화 시간 : {{timeRecommend}}</v-card-subtitle>
@@ -48,9 +48,10 @@
 								</v-list-item-content>
 							</v-card>
 						</v-card>
-					</v-col>	
-					<v-col cols="1">
-						<iframe id="chatBox" src="/chat" frameborder="0" width="330" height="600" marginwidth="0" marginheight="0"></iframe>
+					</v-col>
+
+					<v-col class="mx-2" cols="1">
+						<iframe id="chatBox" src="/chat" frameborder="0" width="315" height="500" marginwidth="0" marginheight="0"></iframe>
 					</v-col>
 				</v-row>
 			</v-container>		

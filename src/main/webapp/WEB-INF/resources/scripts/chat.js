@@ -1,5 +1,6 @@
 new Vue({
 	el: '#chat',
+	vuetify: new Vuetify(),
 	data: function() {
 		return {
 			sock: null,
@@ -8,7 +9,11 @@ new Vue({
 			message: null,
 			member: null,
 			sub: null,
-			mysession: null
+			mysession: null,
+			dropdown_servers: [
+				{text: '메인서버'},
+				{text: '서버 1'}
+			]
 		}
 	},
 	mounted: function() {
@@ -27,11 +32,10 @@ new Vue({
 	},
 	methods: {
 		ChatProp() {
-			if($("#message").val() != ''){
-				stompClient.send('/publish/chat/message', {}, JSON.stringify({session: mysession, chatRoomId: roomId, message: $("#message").val(), writer: member}))
-				$("#message").val('').focus()	
-				sock.send($("#message").val())
-				$("#message").val('').focus()					
+			if(this.message != ''){
+				stompClient.send('/publish/chat/message', {}, JSON.stringify({session: mysession, chatRoomId: this.roomId, message: this.message, writer: member}))
+				this.message = ''
+				//$("#message").val('').focus()					
 			}
 			else {
 				alert("메시지를 입력해주세요.")
@@ -40,7 +44,7 @@ new Vue({
 		
 		subscribe() {
 			
-			sub = stompClient.subscribe('/subscribe/chat/room/' + roomId, function(data) {
+			sub = stompClient.subscribe('/subscribe/chat/room/' + this.roomId, function(data) {
 				
 				var content = JSON.parse(data.body)
 				if (content.writer === member) {
@@ -61,10 +65,11 @@ new Vue({
 		
 		ChangeChannel() {
 			sub.unsubscribe()
-			roomId = $("#select").val()
+			//roomId = $("#select").val()
 			this.subscribe()
+			console.log(this.roomId)
 			$("#chatBox").empty()
-			$("#chatBox").append('<p style="color:white;">' + roomId + '에 입장하셨습니다.</p>')
+			$("#chatBox").append('<p style="color:white;">' + this.roomId + '에 입장하셨습니다.</p>')
 		}
 	}
 })
