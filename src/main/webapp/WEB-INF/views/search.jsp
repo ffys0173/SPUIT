@@ -12,8 +12,11 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
+
+<%@include file="_topbar.jsp" %>
+
 <div id="search">
-	<v-app>	
+	<v-app dark>	
 		<v-container id="contents" class="mt-6">
 			<v-card class="article" dark>
 				<v-card-title class="headline font-weight-bold py-0">검색결과</v-card-title>
@@ -33,4 +36,5 @@
 </body>
 
 <script src="/resources/scripts/search.js"></script>
+<script src="/resources/scripts/topbar.js"></script>
 </html>

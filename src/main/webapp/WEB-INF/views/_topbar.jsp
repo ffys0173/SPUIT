@@ -18,11 +18,14 @@
 	        </v-btn>
 	        <template v-if="login">
 	        ${sessionInfo.name}님 반갑습니다.
+	        <div style="width: 10px"></div>
 	        	<v-btn class="ma-2" outlined color="white" href="/user/auth/myPage">My Page</v-btn>
+	        	<div style="width: 10px"></div>
 				<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
 	        </template>
 	        <template v-else>
 				<v-btn class="ma-2" outlined color="white" @click="loginDialogOn">Log-in</v-btn>
+				<div style="width: 10px"></div>
 		        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
 			</template>
 	</v-toolbar>

@@ -20,6 +20,7 @@
 				<v-card-title class="display-3 font-weight-light">어디로 가야하죠 아저씨...?</v-card-title>
 				<v-divider></v-divider>
 				<v-card-subtitle class="display-1 font-weight-light">Error Code - 404 : URL등 을 확인하세요.</v-card-subtitle>
+				<a href="/">..메인 페이지로</a>
 				</v-card>
 			</v-container>
 		</v-app>	
@@ -28,7 +29,9 @@
 <script>
 	new Vue({
 		el: '#error',
-		vuetify: new Vuetify(),
+		vuetify: new Vuetify({
+			theme: { dark: true }
+		}),
 		data: {
 			
 		}

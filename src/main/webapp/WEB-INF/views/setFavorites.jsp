@@ -11,17 +11,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-	<div id="app">
+
+<%@include file="_topbar.jsp" %>
+
+	<div id="app" dark>
 		<v-app>			
 			<v-container class="d-flex justify-center">
-				<v-card width="600" dark>
+				<v-card width="600" dark style="padding: 15px">
 					<v-card-title>Select Favorite</v-card-title>
-					<v-card-subtitle>관십사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
+					<v-card-subtitle>관심사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
 						<v-combobox
 					      v-model="chips"
 					      chips
 					      clearable
-					      label="Your favorite hobbies"
+					      label="Your Favorites and Interests"
 					      multiple
 					      solo
 					    >
@@ -37,10 +40,10 @@
 					       </v-chip>
 					    </template>
 					   </v-combobox>
-					   <v-card-context>설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-context>
-					   <v-card-action>
-					   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
-					   </v-card-action>
+					   <v-card-text>설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-text>
+
+					   	<v-btn @click="requestSetFavorite" color="primary" outlined>Confirm</v-btn>
+
 				</v-card>
 			</v-container>
 		</v-app>
@@ -51,6 +54,9 @@
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="//code.jquery.com/jquery.js"></script>
+
+<script src="/resources/scripts/topbar.js"></script>
+
 <script type="text/javascript">
 
 new Vue({
@@ -66,7 +72,7 @@ new Vue({
   	  chips: []
     },
     methods: {
-  	  requestFavorite: function() {
+  	  requestSetFavorite: function() {
   		  
   		axios.post('/api/user/auth/setFavorites', this.chips)
   		.then (((res) => {
@@ -80,8 +86,12 @@ new Vue({
   	      this.chips = [...this.chips]
   	  },
     },
-    computed: {
-  	  
+    //========== Get Favorites List ===============
+    mounted() {
+    	axios.post('/api/user/auth/getFavorites') // 수정부탁
+    	.then ((res) => {
+    		this.chips = res.data
+    	})
     }
   }) 
   
