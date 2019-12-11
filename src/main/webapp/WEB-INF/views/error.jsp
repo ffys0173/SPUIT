@@ -10,7 +10,7 @@
   	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-<title>Error 500</title>
+<title>SPUIT - 당신이 찾던 모든 것</title>
 </head>
 <body>
 	<div id="error">

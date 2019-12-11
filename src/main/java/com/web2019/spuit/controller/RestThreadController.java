@@ -1,8 +1,6 @@
 package com.web2019.spuit.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,7 @@ public class RestThreadController {
 	@PostMapping("/search")
 	public ArrayList<ArticleThread> threadsearch(@RequestBody String param) {
 		
-		String query = param.split("\"")[3];
+		String query = param.split("\"")[3];//{"query":"key"}와 같은 형식으로 전달되므로...
 		
 		return threadService.getSearchResult(query);
 	}
@@ -57,7 +55,7 @@ public class RestThreadController {
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		String id_no = null;
 		
-		if(sessionInfo != null) {			
+		if(sessionInfo != null) {
 			id_no = sessionInfo.getIdno();
 		}
 		

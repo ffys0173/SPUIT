@@ -8,23 +8,27 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="//code.jquery.com/jquery.js"></script>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-
-<%@include file="_topbar.jsp" %>
-
-	<div id="app" dark>
-		<v-app>			
+	<%@include file="_topbar.jsp" %>
+	<div id="app">
+		<v-app>
+			
 			<v-container class="d-flex justify-center">
-				<v-card width="600" dark style="padding: 15px">
+				<v-card width="600">
 					<v-card-title>Select Favorite</v-card-title>
-					<v-card-subtitle>관심사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
+					<v-card-subtitle>관십사 입력 후 엔터키 입력, 여러 개 설정 가능</v-card-subtitle>
 						<v-combobox
 					      v-model="chips"
 					      chips
 					      clearable
-					      label="Your Favorites and Interests"
+					      label="Your favorite hobbies"
 					      multiple
 					      solo
 					    >
@@ -40,30 +44,40 @@
 					       </v-chip>
 					    </template>
 					   </v-combobox>
-					   <v-card-text>설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-text>
-
-					   	<v-btn @click="requestSetFavorite" color="primary" outlined>Confirm</v-btn>
-
+					   <v-card-context>설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-context>
+					   <v-card-action>
+					   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
+					   </v-card-action>
 				</v-card>
 			</v-container>
+			
+			<v-bottom-navigation absolute="true" :dark="true" fixed="true">
+		      <v-btn value="news">
+		        <span>Load new</span>
+		        <v-icon>mdi-clock-fast</v-icon>
+		      </v-btn>
+		  
+		      <v-btn value="favorites">
+		        <span>Favorites</span>
+		        <v-icon>mdi-heart</v-icon>
+		      </v-btn>
+		  
+		      <v-btn value="settings">
+		        <span>Settings</span>
+		        <v-icon>mdi-settings</v-icon>
+		      </v-btn>
+		    </v-bottom-navigation>
 		</v-app>
 	</div>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="//code.jquery.com/jquery.js"></script>
-
 <script src="/resources/scripts/topbar.js"></script>
-
 <script type="text/javascript">
+
 
 new Vue({
     el: '#app',
-    vuetify: new Vuetify({
-    	theme: { dark: true }
-    }),
+    vuetify: new Vuetify(),
     data: {
   	  id: "",
   	  pw: "",
@@ -72,7 +86,7 @@ new Vue({
   	  chips: []
     },
     methods: {
-  	  requestSetFavorite: function() {
+  	  requestFavorite: function() {
   		  
   		axios.post('/api/user/auth/setFavorites', this.chips)
   		.then (((res) => {
@@ -86,12 +100,8 @@ new Vue({
   	      this.chips = [...this.chips]
   	  },
     },
-    //========== Get Favorites List ===============
-    mounted() {
-    	axios.post('/api/user/auth/getFavorites') // 수정부탁
-    	.then ((res) => {
-    		this.chips = res.data
-    	})
+    computed: {
+  	  
     }
   }) 
   

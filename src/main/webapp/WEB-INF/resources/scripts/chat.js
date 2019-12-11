@@ -1,6 +1,5 @@
 new Vue({
-	el: '#app',
-	vuetify: new Vuetify(),
+	el: '#chat',
 	data: {
 		messages: null,
 		sock: null,
