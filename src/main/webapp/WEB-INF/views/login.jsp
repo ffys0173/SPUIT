@@ -7,6 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
  	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+ 	
   	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -22,16 +23,14 @@
 			</div>
 			<v-container class="d-flex justify-center mt-6">
 				<v-card width="500" height="400">
-					</form-->
 					<v-card-title>Sign in</v-card-title>
 					<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 					
 					<v-form>
 						<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
-						
 						<v-text-field v-model="pw" label="password" required :type="'Password'"
 									  hint="At least 8 characters" v-on:keyup.enter="requestLogin"></v-text-field>
-	
+						<v-spacer></v-spacer>
 						<v-btn v-on:click="requestLogin">Done</v-btn>
 					</v-form>
 				</v-card>

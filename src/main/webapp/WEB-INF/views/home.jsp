@@ -19,8 +19,10 @@
 			<v-container id="contents" class="mt-6">
 				<v-row no-gutters>
 					<v-col cols="5">
-						<v-card class="article" flat>
-							<v-card-title class="headline font-weight-bold py-0">Recent</v-card-title>
+						<v-card class="article" dark>
+							<v-card-title class="headline font-weight-bold">Recent News</v-card-title>
+							<v-card-subtitle>동기화 시간 : {{timeRecent}}</v-card-subtitle>
+							<v-divider></v-divider>
 							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecent">
 								<v-list-item three-line>
 								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="180" max-height="180"></v-img>
@@ -31,9 +33,12 @@
 							</v-card>
 						</v-card>
 					</v-col>
+					<div style="width: 15px"></div>
 					<v-col cols="5">
-						<v-card class="article" flat>
-							<v-card-title class="headline font-weight-bold py-0">Recommend for you</v-card-title>
+						<v-card class="article" style="background-color: #FFFFFF; color: black">
+							<v-card-title class="headline font-weight-bold">Recommend for you</v-card-title>
+							<v-card-subtitle style="color: black">동기화 시간 : {{timeRecommend}}</v-card-subtitle>
+							<v-divider></v-divider>
 							<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecommend">
 								<v-list-item three-line>
 								<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="180" max-height="180"></v-img>
@@ -56,5 +61,12 @@
 <script src="/resources/scripts/home.js"></script>
 <script src="/resources/scripts/topbar.js"></script>
 
+<style>
+. black {
+color: black
+}
+</style>
 </html>
+
+
 

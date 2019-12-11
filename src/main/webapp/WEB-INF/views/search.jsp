@@ -1,6 +1,4 @@
 <%@ page pageEncoding = "utf-8"%>
-
-<!DOCTYPE html>
 <html>
 <head>
 	<title>SPUIT - 당신이 찾던 모든 것</title>
