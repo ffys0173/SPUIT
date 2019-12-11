@@ -2,12 +2,19 @@ package com.web2019.spuit.dto;
 
 public class SessionVO {
 
+	private boolean session;
 	private String id;
 	private String idno;
 	private String name;
 	private String email;
 	private String reg_date;
-	
+
+	public boolean isSession() {
+		return session;
+	}
+	public void setSession(boolean session) {
+		this.session = session;
+	}
 	public String getId() {
 		return id;
 	}

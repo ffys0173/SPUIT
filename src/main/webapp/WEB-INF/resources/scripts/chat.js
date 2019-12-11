@@ -7,14 +7,16 @@ new Vue({
 			roomId: null,
 			message: null,
 			member: null,
-			sub: null
+			sub: null,
+			mysession: null
 		}
 	},
 	mounted: function() {
 		
 		axios.post('/api/user/getName')
 		.then((res) => {
-			member = res.data
+			member = res.data.name
+			mysession = res.data.session
 			
 			roomId = "메인"
 			
@@ -27,7 +29,7 @@ new Vue({
 		ChatProp() {
 
 			if($("#message").val() != ''){
-				stompClient.send('/publish/chat/message', {}, JSON.stringify({chatRoomId: roomId, message: $("#message").val(), writer: member}))
+				stompClient.send('/publish/chat/message', {}, JSON.stringify({session: mysession, chatRoomId: roomId, message: $("#message").val(), writer: member}))
 				$("#message").val('').focus()	
 			}
 			else {
@@ -40,11 +42,17 @@ new Vue({
 			sub = stompClient.subscribe('/subscribe/chat/room/' + roomId, function(data) {
 				
 				var content = JSON.parse(data.body)
-				if (content.writer === member) {						
-					$("#chatBox").append('<p style="color:white;"><strong>' + content.writer + " : " + content.message + "</strong></p>")
+				if (content.writer === member) {
+					if(content.session == true)
+						$("#chatBox").append('<p style="color:orange;"><strong>' + content.writer + " : " + content.message + "</strong></p>")
+					else
+						$("#chatBox").append('<p style="color:orange;">' + content.writer + " : " + content.message + "</p>")
 				}
 				else {
-					$("#chatBox").append('<p>' + content.writer + " : " + content.message + "</p>")
+					if(content.session == true)
+						$("#chatBox").append('<p style="color:white;"><strong>' + content.writer + " : " + content.message + "</strong></p>")
+					else
+						$("#chatBox").append('<p style="color:white;">' + content.writer + " : " + content.message + "</p>")
 				}
 				$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight)
 			})
@@ -52,9 +60,10 @@ new Vue({
 		
 		ChangeChannel() {
 			sub.unsubscribe()
-
 			roomId = $("#select").val()
 			this.subscribe()
+			$("#chatBox").empty()
+			$("#chatBox").append('<p style="color:white;">' + roomId + '에 입장하셨습니다.</p>')
 		}
 	}
 })

@@ -79,17 +79,26 @@ public class ArticleCrawler {
             Document doc = conn.get();
             Elements list = doc.select("div.article-area");
             
+            int i = 0;
+            
             for(Element e : list) {
-            	ArticleThread at = new ArticleThread();
-            	
-            	at.setArticleCategory(e.select("strong.category").text()); 
-            	at.setArticleTitle(e.select("h4.article-title").text());
-            	at.setArticleContent(e.select("p.article-prologue").text());
-            	at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
-            	at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
-            	at.setArticleRegisted(e.select("span.date").text());
-            	
-            	loat.add(at);
+
+            	if(i < 10) {            		
+            		ArticleThread at = new ArticleThread();
+            		
+            		at.setArticleCategory(e.select("strong.category").text()); 
+            		at.setArticleTitle(e.select("h4.article-title").text());
+            		at.setArticleContent(e.select("p.article-prologue").text());
+            		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
+            		at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
+            		at.setArticleRegisted(e.select("span.date").text());
+            		
+            		loat.add(at);
+            	}
+            	else {
+            		break;
+            	}
+            	i++;
             }
     	}
     	catch (IOException e) {
@@ -131,7 +140,7 @@ public class ArticleCrawler {
                     ArticleCrawler.setSSL();
                 }
             } catch (Exception e) {
-               
+
             }
 
             // HTML get

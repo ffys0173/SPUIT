@@ -18,9 +18,9 @@ public class ChatMessageController {
         this.template = template;
     }
 
+    //안쓰는 경로
     @MessageMapping("/chat/join")
     public void join(ChatMessage message) {
-        message.setMessage(message.getWriter() + "님이 입장하셨습니다.");
         template.convertAndSend("/subscribe/chat/room/" + message.getChatRoomId(), message);
     }
 
@@ -31,11 +31,18 @@ public class ChatMessageController {
 }
 
 class ChatMessage {
+	private boolean session;
 	private String chatRoomId;
-    private String writer;
-    private String message;
-    private MessageType type;
-    
+	private String writer;
+	private String message;
+	private MessageType type;
+
+	public boolean isSession() {
+		return session;
+	}
+	public void setSession(boolean session) {
+		this.session = session;
+	}
 	public String getChatRoomId() {
 		return chatRoomId;
 	}

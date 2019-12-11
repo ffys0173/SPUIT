@@ -44,18 +44,24 @@ public class RestUserController {
 	}
 	
 	@PostMapping("/getName")
-	public String getSession(HttpServletRequest request) {
+	public SessionVO getSession(HttpServletRequest request) {
 		
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		
 		if(sessionInfo != null) {
-			return sessionInfo.getName();
+			sessionInfo.setEmail("");
+			sessionInfo.setId("");
+			sessionInfo.setIdno("");
+			sessionInfo.setReg_date("");
+			sessionInfo.setSession(true);
 		}
 		else {
-			
-			return httpSession.getId().substring(0, 7);
+			sessionInfo = new SessionVO();
+			sessionInfo.setName(httpSession.getId().substring(0, 7));
+			sessionInfo.setSession(false);
 		}
+		return sessionInfo;
 	}
 	
 	@PostMapping("/login")
