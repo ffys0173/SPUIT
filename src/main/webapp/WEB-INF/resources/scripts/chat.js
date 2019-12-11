@@ -1,33 +1,60 @@
 new Vue({
 	el: '#chat',
-	data: {
-		messages: null,
-		sock: null,
-		text: ""
+	data: function() {
+		return {
+			sock: null,
+			stompClient: null,
+			roomId: null,
+			message: null,
+			member: null,
+			sub: null
+		}
 	},
 	mounted: function() {
-		sock = new SockJS("/echo")
-		messages = new Array()
 		
-		sock.onmessage = function(e){
-
-			$("#chatBox").append('<p>'+e.data+"</p>")
-			messages.push(e.data)
-			$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
-		}
-		sock.onclose = function(){
-			$("#chatBox").append("Disconnected")
-		}
+		axios.post('/api/user/getName')
+		.then((res) => {
+			member = res.data
+			
+			roomId = "메인"
+			
+			sock = new SockJS('/stomp-chat')
+			stompClient = Stomp.over(sock)
+			stompClient.connect({}, this.subscribe)
+		})
 	},
 	methods: {
 		ChatProp() {
+
 			if($("#message").val() != ''){
-				sock.send($("#message").val())
-				$("#message").val('').focus()					
+				stompClient.send('/publish/chat/message', {}, JSON.stringify({chatRoomId: roomId, message: $("#message").val(), writer: member}))
+				$("#message").val('').focus()	
 			}
 			else {
 				alert("메시지를 입력해주세요.")
 			}
+		},
+		
+		subscribe() {
+			
+			sub = stompClient.subscribe('/subscribe/chat/room/' + roomId, function(data) {
+				
+				var content = JSON.parse(data.body)
+				if (content.writer === member) {						
+					$("#chatBox").append('<p style="color:white;"><strong>' + content.writer + " : " + content.message + "</strong></p>")
+				}
+				else {
+					$("#chatBox").append('<p>' + content.writer + " : " + content.message + "</p>")
+				}
+				$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight)
+			})
+		},
+		
+		ChangeChannel() {
+			sub.unsubscribe()
+
+			roomId = $("#select").val()
+			this.subscribe()
 		}
 	}
 })

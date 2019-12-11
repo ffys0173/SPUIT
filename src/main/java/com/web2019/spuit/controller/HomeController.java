@@ -30,9 +30,6 @@ public class HomeController {
 	public String main(Locale locale, Model model, HttpServletRequest request) {
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
 		HttpSession httpSession = request.getSession(true);
 		
@@ -45,9 +42,6 @@ public class HomeController {
 			
 			httpSession.setAttribute("login", false);
 		}
-		
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
 	}

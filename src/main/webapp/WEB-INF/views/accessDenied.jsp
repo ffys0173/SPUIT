@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>accessDenied</title>
+<title>SPUIT - 당신이 찾던 모든 것</title>
 </head>
 <body>
 

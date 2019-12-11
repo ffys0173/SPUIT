@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Insert title here</title>
+	<title>SPUIT - 당신이 찾던 모든 것</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
  	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -13,11 +13,12 @@
 </head>
 <body>
 <div id="search">
-	<v-app>	
+	<%@include file="_topbar.jsp" %>
+	<v-app>
 		<v-container id="contents" class="mt-6">
 
 			<v-card class="article" flat>
-				<v-card-title class="headline font-weight-bold py-0">검색결과</v-card-title>
+				<v-card-title class="headline font-weight-bold py-0">"{{query}}" 검색결과</v-card-title>
 				<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofArticle">
 					<v-list-item three-line>
 					<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
@@ -27,11 +28,11 @@
 					</v-list-item-content>
 				</v-card>
 			</v-card>
-		
 		</v-container>		
 	</v-app>
 </div>
 </body>
 
+<script src="/resources/scripts/topbar.js"></script>
 <script src="/resources/scripts/search.js"></script>
 </html>

@@ -36,10 +36,25 @@ public class RestUserController {
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		
 		if(sessionInfo != null) {
-			return true;			
+			return true;
 		}
 		else {
 			return false;
+		}
+	}
+	
+	@PostMapping("/getName")
+	public String getSession(HttpServletRequest request) {
+		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		
+		if(sessionInfo != null) {
+			return sessionInfo.getName();
+		}
+		else {
+			
+			return httpSession.getId().substring(0, 7);
 		}
 	}
 	

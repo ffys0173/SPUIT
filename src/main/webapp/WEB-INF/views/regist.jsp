@@ -4,30 +4,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>registration</title>
+	<title>SPUIT - 당신이 찾던 모든 것</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-
 	<%@include file="_topbar.jsp" %>
 	
 	<div id="app">
 		<v-app>
-			<div>
-			<v-toolbar dense :dark="true">
-	       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Project SPUIT</a></v-toolbar-title>
-	       		 <v-spacer></v-spacer>
-			        <v-btn icon>
-			          <v-icon>mdi-magnify</v-icon>
-			        </v-btn>
-			        <v-btn class="ma-2" outlined color="white" href="/user/login">Sign-in</v-btn> 
-					<v-btn class="ma-2" outlined color="white" href="/user/regist">Sign-up</v-btn>
-			</v-toolbar>
-			</div>
-			
 			<v-container class="d-flex justify-center mt-6">
 				<v-card width="500" height="410" style="margin-bottom: 40px;">
 					<!-- form action="/user/login" method="POST">
@@ -76,9 +63,8 @@
 
 </body>
 
-
+<script src="/resources/scripts/topbar.js"></script>
 <script type="text/javascript">
-
 new Vue({
     el: '#app',
     vuetify: new Vuetify(),
@@ -104,10 +90,7 @@ new Vue({
     computed: {
   	  
     }
-  }) 
-
-  
-  
+  })
 </script>
 
 </html>

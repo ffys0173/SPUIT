@@ -158,14 +158,6 @@ public class ArticleCrawler {
             	at.setArticleUrl(e.select("dd.photo").select("a").attr("href"));
             	at.setArticleRegisted(e.select("dd.date").text());
             	
-            	//언론사마다 다름...
-				/*
-				 * at.setArticleTitle(e.select("span.title").text());
-				 * at.setArticleContent(e.select("span.description").text());
-				 * at.setArticleThumbnail(e.select("img.thum_img").attr("src"));
-				 * at.setArticleUrl(e.select("a").attr("href"));
-				 */
-            	
             	loat.add(at);
             }
     	}
