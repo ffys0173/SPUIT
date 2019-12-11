@@ -43,7 +43,7 @@ public class HomeController {
 			httpSession.setAttribute("login", false);
 		}
 		
-		return "home";
+		return "main";
 	}
 	
 	@GetMapping("/favicon.ico")
