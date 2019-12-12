@@ -36,29 +36,30 @@ public class RestThreadController {
 		return threadService.getSearchResult(query);
 	}
 	
-	@GetMapping("/loadNew")
-	public String loadNew() {
-		
-		return "불러오기 성공!";
-	}
-	
 	@PostMapping("/getRecent")
-	public ArrayList<ArticleThread> getRecent(HttpServletRequest request) throws Exception {
+	public ArrayList<ArticleThread> getRecent(@RequestBody String param, HttpServletRequest request) throws Exception {
 		
-		return threadService.getRecent();
+		int offset = Integer.parseInt(param.split(":")[1].replace("}", ""));
+		
+		return threadService.getRecent(offset);
 	}
 	
 	@PostMapping("/getRecommend")
-	public ArrayList<ArticleThread> getRecommend(HttpServletRequest request) throws Exception {
+	public ArrayList<ArticleThread> getRecommend(@RequestBody String param, HttpServletRequest request) throws Exception {
+		
+		int offset = 0;
 		
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		String id_no = null;
 		
 		if(sessionInfo != null) {
+			offset = Integer.parseInt(param.split(":")[1].replace("}", ""));
 			id_no = sessionInfo.getIdno();
+			return threadService.getRecommend(id_no, offset);
 		}
-		
-		return threadService.getRecommend(id_no);
+		else {
+			return null;
+		}
 	}
 }

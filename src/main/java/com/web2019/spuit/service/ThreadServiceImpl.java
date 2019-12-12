@@ -24,10 +24,10 @@ public class ThreadServiceImpl implements ThreadService {
 	}
 
 	@Override
-	public ArrayList<ArticleThread> getRecommend(String uid_no) {
+	public ArrayList<ArticleThread> getRecommend(String uid_no, int offset) {
 		
 		try {
-			return ac.getRecommend(uid_no);
+			return ac.getRecommend(uid_no, offset);
 			
 		}
 		catch(Exception e) {
@@ -37,10 +37,10 @@ public class ThreadServiceImpl implements ThreadService {
 	}
 
 	@Override
-	public ArrayList<ArticleThread> getRecent() {
+	public ArrayList<ArticleThread> getRecent(int offset) {
 		
 		try {
-			return ac.getRecent();
+			return ac.getRecent(offset);
 		}
 		catch(Exception e) {
 			

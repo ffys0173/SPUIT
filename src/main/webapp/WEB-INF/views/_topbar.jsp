@@ -1,15 +1,7 @@
 <%@ page pageEncoding = "utf-8"%>
- 
-<head>
-	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-	
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-</head>
-<div id="topbar" ref="window">
 
+<script type='text/x-template' id="nav-template">
+<div>
 	<v-toolbar dense :dark="true">
       		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Project SPUIT</a></v-toolbar-title>
       		 <v-spacer></v-spacer>
@@ -29,28 +21,109 @@
 		        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
 			</template>
 	</v-toolbar>
-	
-	<!-- 키워드 검색창   -->
-	<v-dialog v-model="dialog" max-width="400px">
-		<v-card style="padding: 20px;" dark>
-			<v-card-title>Enter Search Keyword : </v-card-title>
-			<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
-			<v-btn color="primary" @click="requestSearch">Search</v-btn>
-		</v-card>
-	</v-dialog>
-	
-	<v-dialog v-model="loginDialog" max-width="500">
-		<v-card width="500" height="300" style="padding: 15px" dark>
-			<v-card-title>Sign in</v-card-title>
-			<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
-			<v-form>
-				<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
-				<v-text-field v-model="pw" label="password" required :type="'Password'"
-							  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
-				<v-spacer></v-spacer>
-				<v-btn v-on:click="requestLogin">Done</v-btn>
-			</v-form>
-		</v-card>
-	</v-dialog>
-		
+<v-dialog v-model="loginDialog" max-width="500">
+	<v-card width="500" height="300" style="padding: 15px" dark>
+		<v-card-title>Sign in</v-card-title>
+		<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
+		<v-form>
+			<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
+			<v-text-field v-model="pw" label="password" required :type="'Password'"
+				  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
+			<v-spacer></v-spacer>
+		<v-btn v-on:click="requestLogin">Done</v-btn>
+		</v-form>
+	</v-card>
+</v-dialog>
+<v-dialog v-model="true" max-width="400px">
+	<v-card style="padding: 20px;" dark>
+		<v-card-title>Enter Search Keyword : </v-card-title>
+		<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
+		<v-btn color="primary" @click="requestSearch">Search</v-btn>
+	</v-card>
+</v-dialog>
 </div>
+
+</script>
+
+<script type='text/x-template' id="lmodal">
+<v-dialog v-model="loginDialog" max-width="500">
+	<v-card width="500" height="300" style="padding: 15px" dark>
+		<v-card-title>Sign in</v-card-title>
+		<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
+		<v-form>
+			<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
+			<v-text-field v-model="pw" label="password" required :type="'Password'"
+				  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
+			<v-spacer></v-spacer>
+		<v-btn v-on:click="requestLogin">Done</v-btn>
+		</v-form>
+	</v-card>
+</v-dialog>
+</script>
+
+<script type='text/x-template' id="smodal">
+<v-dialog v-model="true" max-width="400px">
+	<v-card style="padding: 20px;" dark>
+		<v-card-title>Enter Search Keyword : </v-card-title>
+		<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
+		<v-btn color="primary" @click="requestSearch">Search</v-btn>
+	</v-card>
+</v-dialog>
+</script>
+
+<script>
+var smodal = Vue.component('smodal' ,{
+	template: '#smodal'
+})
+
+var navTemplate = Vue.component('navTemplate' ,{
+	template: '#nav-template',
+	components: {
+		'smodal': smodal
+	},
+	data: function () {
+		return {
+			login: null,
+			query: null,
+			dialog: false,
+			id: '',
+			pw: '',
+			loginDialog: false,			
+		}
+	},
+	mounted: function() {
+		axios.get('/api/user/isLogin')
+		.then((res) => {
+			this.login = res.data
+		})
+	},
+	methods: {
+		requestLogout : function() {
+			axios.get('/api/user/logout')
+	    	.then(((res) => {
+	    		if(res.data === 1){
+	    			window.location.href = '/'
+	    		}
+	    	}))
+	    },
+	    requestSearch : function() {
+	    	window.location.href = '/search?query=' + this.query
+	    },
+	    requestLogin : function() {
+    		axios.post('/api/user/login', {id: this.id, pw: this.pw})
+    		.then(((res) => {
+    			if(res.data === 1){
+    				window.location.href = '/'
+    			}
+    			else{
+    				alert('로그인에 실패했습니다.')	    				
+    			}
+    		}))
+    		this.id = this.pw = ''
+    	},
+    	loginDialogOn: function() {
+    		this.loginDialog = true
+    	}
+	}
+})
+</script>

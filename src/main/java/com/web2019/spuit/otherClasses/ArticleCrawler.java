@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -50,7 +51,7 @@ public class ArticleCrawler {
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
     }
     
-    public ArrayList<ArticleThread> getRecent() {
+    public ArrayList<ArticleThread> getRecent(int offset) {
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
         
@@ -79,36 +80,33 @@ public class ArticleCrawler {
             Document doc = conn.get();
             Elements list = doc.select("div.article-area");
             
-            int i = 0;
-            
             for(Element e : list) {
 
-            	if(i < 10) {            		
-            		ArticleThread at = new ArticleThread();
-            		
-            		at.setArticleCategory(e.select("strong.category").text()); 
-            		at.setArticleTitle(e.select("h4.article-title").text());
-            		at.setArticleContent(e.select("p.article-prologue").text());
-            		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
-            		at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
-            		at.setArticleRegisted(e.select("span.date").text());
-            		
-            		loat.add(at);
-            	}
-            	else {
-            		break;
-            	}
-            	i++;
-            }
+        		ArticleThread at = new ArticleThread();
+        		
+        		at.setArticleCategory(e.select("strong.category").text()); 
+        		at.setArticleTitle(e.select("h4.article-title").text());
+        		at.setArticleContent(e.select("p.article-prologue").text());
+        		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
+        		at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
+        		at.setArticleRegisted(e.select("span.date").text());
+        		
+        		loat.add(at);
+        	}
     	}
     	catch (IOException e) {
     		
     	}
-
+    	if(loat.size() > offset * 10 + 10) {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));    		
+    	}
+    	else {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
+    	}
     	return loat;
     }
     
-    public ArrayList<ArticleThread> getRecommend(String uid_no) throws Exception{
+    public ArrayList<ArticleThread> getRecommend(String uid_no, int offset) throws Exception{
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
     	
@@ -122,7 +120,7 @@ public class ArticleCrawler {
     			loat.addAll(getByKey(entry.getKey()));
     		}
     	}
-    	
+    	loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));
     	return loat;
     }
 

@@ -19,17 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@RequestMapping("/")
-	public String defaultRequest() {
-		
-		return "redirect:main";
-	}
-	
-	@RequestMapping("/main")
-	public String main(Locale locale, Model model, HttpServletRequest request) {
-		
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String defaultRequest(HttpServletRequest request) {
 
 		HttpSession httpSession = request.getSession(true);
 		
