@@ -25,9 +25,9 @@
 			    </template>
 			   </v-combobox>
 			   <v-card-context>설정하신 관심사는 기사를 분류하는 기준이 됩니다.</v-card-context>
-			   <v-card-action>
+				<br>
+				<br>
 			   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
-			   </v-card-action>
 		</v-card>
 	</v-container>
 </script>
