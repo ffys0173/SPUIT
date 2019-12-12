@@ -18,8 +18,8 @@
         </v-card>
 </script>
 
- <script>
- var chat = Vue.component('chat-view', {
+<script>
+var chat = Vue.component('chat-view', {
 	template: '#chat-view',
 	data: function() {
 		return {
@@ -95,5 +95,4 @@
 		}
 	}
 })
-
- </script>
+</script>

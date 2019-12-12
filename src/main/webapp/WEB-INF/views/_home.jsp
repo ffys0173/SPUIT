@@ -1,5 +1,5 @@
 <%@ page pageEncoding = "utf-8"%>
-<script  type="text/x-template" id="home-template">
+<script type="text/x-template" id="home-template">
 	<div class="d-flex justify-start">
 		<v-col cols="6">
 			<v-card class="article mx-2" dark>
@@ -79,7 +79,7 @@ var homeTemplate = Vue.component('homeTemplate' ,{
 				axios.post('/api/thread/getRecommend', {offset: this.recommendOffset})
 		    	.then((res) => {
 		    		if(res.data != []){	  
-			    		this.ListofRecommend = res.data
+			    		this.ListofRecommend = this.ListofRecommend.concat(res.data)
 			    		this.recommendOffset++
 		    		}
 		    	})	    		

@@ -44,18 +44,6 @@ public class HomeController {
 		return "redirect:resources/img/favicon.ico";
 	}
 	
-	@GetMapping("/search")
-	public String search() {
-		
-		return "search";
-	}
-	
-	@GetMapping("/chat")
-	public String chat() {
-		
-		return "chat";
-	}
-	
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		

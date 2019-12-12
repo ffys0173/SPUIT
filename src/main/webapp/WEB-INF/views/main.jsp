@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>SPUIT - 당신이 찾던 모든 것</title>
+	<title>SPUIT - 당신이 찾던 모든 뉴스</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 		        <template v-if="login">
 		        ${sessionInfo.name}님 반갑습니다.
 		        <div style="width: 10px"></div>
-		        	<v-btn class="ma-2" outlined color="white" href="/user/auth/myPage">My Page</v-btn>
+		        	<router-link to="/mypage"><v-btn class="ma-2" outlined color="white">My Page</v-btn></router-link>
 		        	<div style="width: 10px"></div>
 					<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
 		        </template>
@@ -47,8 +47,8 @@
 		<v-dialog v-model="dialog" max-width="400px">
 			<v-card style="padding: 20px;" dark>
 				<v-card-title>Enter Search Keyword : </v-card-title>
-				<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
-				<v-btn color="primary">Search</v-btn>
+				<v-text-field v-model="query" label="Search word" v-on:keyup.enter="requestSearch">...Keyword</v-text-field>
+				<v-btn color="primary" @click="requestSearch">Search</v-btn>
 			</v-card>
 		</v-dialog>
 		<v-container class="mt-4">
@@ -77,12 +77,18 @@
 
 <%@include file="_home.jsp" %>
 <%@include file="_chat.jsp" %>
+<%@include file="_search.jsp" %>
+<%@include file="_myPage.jsp" %>
+<%@include file="_setFavorites.jsp" %>
 
 <script>
 var router = new VueRouter({
 	mode: 'history',
 	routes: [
 		{path: '/', component: homeTemplate},
+		{path: '/search', component: search},
+		{path: '/mypage', component: mypage},
+		{path: '/setFavorites', component: setFavorites}
 	]
 })
 
@@ -119,7 +125,8 @@ new Vue({
 	    	}))
 	    },
 	    requestSearch : function() {
-	    	window.location.href = '/search?query=' + this.query
+	    	router.push('/search?query=' + this.query)
+	    	this.dialog = false
 	    },
 	    requestLogin : function() {
     		axios.post('/api/user/login', {id: this.id, pw: this.pw})

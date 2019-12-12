@@ -2,6 +2,7 @@ package com.web2019.spuit.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -104,6 +105,13 @@ public class RestUserController {
 		return 1;
 	}
 	
+	@PostMapping("/auth/modify")
+	public int modify(@RequestBody UserVO user) {
+		
+		System.out.println(user.getEmail());
+		return 0;
+	}
+	
 	@PostMapping("/auth/setFavorites")
 	public int setFavorites(@RequestBody  ArrayList<String> favorites, HttpServletRequest request) {
 		
@@ -112,7 +120,6 @@ public class RestUserController {
 		
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
 		for(String favorite : favorites) {
-			System.out.println(favorite);
 			hashmap.put(favorite, 100);
 		}
 		System.out.println(sessionInfo.getIdno());
@@ -129,10 +136,22 @@ public class RestUserController {
 	}
 	
 	@PostMapping("/auth/getFavorites")
-	public HashMap<String, Integer> getFavorites(HttpServletRequest request) {
+	public ArrayList<String> getFavorites(HttpServletRequest request) throws Exception {
 		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		
-		return null;
+		UserFavorite userFavorite = new UserFavorite(sessionInfo.getIdno());
+		userFavorite.ReadFile();
+		
+		HashMap<String, Integer> ufmap = userFavorite.getFavoriteMap();
+		ArrayList<String> array = new ArrayList<String>();
+		
+		for(Map.Entry<String, Integer> entry : ufmap.entrySet()) {
+			array.add(entry.getKey()); 
+		}
+		
+		return array;
 	}
 	
 	@PostMapping("/auth/leave")//È¸¿øÅ»Åð
