@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page pageEncoding="UTF-8"%>
+<script type="text/x-template" id="article">
+<p>아아아아ㅏ아아</p>
+</script>
 
-</body>
-</html>
+<script>
+var article = Vue.component('article', {
+	template: '#article',
+	data: function () {
+		return {
+			foo: null,
+			bar: null
+		}
+	},
+	methods: {
+		
+	}
+})
+</script>

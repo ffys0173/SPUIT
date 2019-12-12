@@ -80,15 +80,17 @@
 <%@include file="_search.jsp" %>
 <%@include file="_myPage.jsp" %>
 <%@include file="_setFavorites.jsp" %>
+<%@include file="_article.jsp" %>
 
 <script>
 var router = new VueRouter({
 	mode: 'history',
 	routes: [
-		{path: '/', component: homeTemplate},
+		{path: '/ffffffff', component: homeTemplate},
 		{path: '/search', component: search},
 		{path: '/mypage', component: mypage},
-		{path: '/setFavorites', component: setFavorites}
+		{path: '/setFavorites', component: setFavorites},
+		{path: '/', component: article}
 	]
 })
 
