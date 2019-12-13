@@ -2,7 +2,7 @@
 
 <template type="text/x-template" id="article">
 	<v-container class="d-flex justfy-center">
-		<v-col cols="9">
+		<v-col cols="12">
 			<v-card style="padding: 15px">
 				<v-card-title>{{articleTitle}}</v-card-title>
 				<v-chip-group multiple column>
@@ -13,18 +13,18 @@
 				<v-col>
 					<v-row>
 						<div style="width: 485px; height: 300px">
-							<v-img src="https://picsum.photos/id/11/500/300">asdf</v-img>
+							<v-img :src="articleThumb">asdf</v-img>
 						</div>  
 						<v-card flat style="margin-left: 20px">
 							<v-card-subtitle>기사 시간 : {{articleTime}}</v-card-subtitle>
-							<v-card-subtitle>기사 시간 : {{articleWriter}}</v-card-subtitle>
-							<v-card-subtitle>기사 시간 : {{articleProvider}}</v-card-subtitle>
+							<v-card-subtitle>글쓴이 : {{articleWriter}}</v-card-subtitle>
+							<v-card-subtitle>기사 제공 : {{articleProvider}}</v-card-subtitle>
 						</v-card>
 					</v-row>
 				</v-col>
 				<v-card outlined>
-					<v-card-title>신문제목</v-card-title>
-					<v-card-text>기사전문</v-card-text>
+					<v-card-title>{{articleTitle}}</v-card-title>
+					<v-card-text>{{articleContent}}</v-card-text>
 				</v-card>
 				<br>
 				<v-btn @click="addFavoriteNews"><v-icon>mdi-plus</v-icon></v-btn>
@@ -39,11 +39,12 @@ var article = Vue.component('article', {
 	template: '#article',
 	data: function () {
 		return {
-			articleTitle: 'title', //기사 제목
-			articleTime: new Date(), //기사 시간
+			articleTitle: '', //기사 제목
+			articleTime: '', //기사 시간
 			articleWriter: 'spuit', //글쓴이
-			articleProvider: 'MBC News', //기사 긁어온 곳
-			articleContent: '기사전문', //내용
+			articleProvider: '', //기사 긁어온 곳
+			articleThumb: 'https://picsum.photos/id/11/500/300', //기사 사진
+			articleContent: '', //내용
 			articleTags: [
 				{tagName: 'picture', tagLink: 'search?query=picture'}
 				//태그 이름 , 태그 클릭 시 태그 검색하게 함. 
@@ -63,7 +64,15 @@ var article = Vue.component('article', {
 	},
 	created () {
 		//ajax /api/thread/getArticle에 post로 데이터 요청
-		console.log(this.prop.params.url) //이 경로를 파라미터로 보내면 된다 {url : this.prop.params.url}
+		axios.post('/api/thread/getArticle',  {url: this.prop.params.url})
+		.then((res) => {
+			this.articleTitle = res.data.articleTitle;
+			this.articleContent = res.data.articleContent;
+			this.articleTime = res.data.articleRegisted;
+			this.articleProvider = res.data.articleSource
+			this.articleTags.push({tagName: res.data.articleTag, tagLink: 'search?query='+res.data.articleTag})
+		})
+		//console.log(this.prop.params.url) //이 경로를 파라미터로 보내면 된다 {url : this.prop.params.url}
 	}
 })
 </script>
