@@ -25,6 +25,7 @@ var search = Vue.component('search-view', {
 		}
 	},
 	mounted: function() {
+		this.$emit('true')
 		var url = decodeURIComponent(location.href)
 		var param = url.substring( url.indexOf('?')+1, url.length)
 		this.query = param.split("=")[1]
@@ -34,9 +35,6 @@ var search = Vue.component('search-view', {
 			this.ListofArticle = res.data
 			console.log(this.ListofArticle)
 		})
-	},
-	methods: {
-		
 	}
 })
 </script>

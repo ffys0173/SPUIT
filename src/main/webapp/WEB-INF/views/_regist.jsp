@@ -38,6 +38,9 @@ var regist = Vue.component('regist', {
 			chips: []
     	}
     },
+    created: function () {
+    	this.$emit('false')
+    },
     methods: {
   		requestRegist: function() {
   			axios.post('/api/user/regist', {id: this.id, pw: this.pw, name: this.name, email: this.email})

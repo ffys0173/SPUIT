@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/app")
-public class Appcontroller {
+public class AppController {
 	
 	@GetMapping("/home")
 	public String home(HttpServletRequest request, Model model) {
@@ -24,6 +24,7 @@ public class Appcontroller {
 		}
 		
 		model.addAttribute("path", "/app/home");
+		model.addAttribute("chat", "true");
 		
 		return "main";
 	}
@@ -32,6 +33,7 @@ public class Appcontroller {
 	public String search(HttpServletRequest request, @RequestParam("query") String query, Model model) {
 		
 		model.addAttribute("path", "/app/search?query=" + query); // + Äõ¸®
+		model.addAttribute("chat", "true");
 		
 		return "main";
 	}
@@ -40,6 +42,7 @@ public class Appcontroller {
 	public String regist(HttpServletRequest request, Model model) {
 		
 		model.addAttribute("path", "/app/regist");
+		model.addAttribute("chat", "false");
 		
 		return "main";
 	}
@@ -48,6 +51,7 @@ public class Appcontroller {
 	public String article(HttpServletRequest request, Model model) {
 		
 		model.addAttribute("path", "/app/article");
+		model.addAttribute("chat", "true");
 		
 		return "main";
 	}
@@ -56,7 +60,7 @@ public class Appcontroller {
 	public String mypage(HttpServletRequest request, Model model) {
 		
 		model.addAttribute("path", "/app/auth/mypage");
-		
+		model.addAttribute("chat", "false");
 		return "main";
 	}
 	
@@ -64,6 +68,7 @@ public class Appcontroller {
 	public String setFavorites(HttpServletRequest request, Model model) {
 		
 		model.addAttribute("path", "/app/auth/setFavorites");
+		model.addAttribute("chat", "false");
 		
 		return "main";
 	}

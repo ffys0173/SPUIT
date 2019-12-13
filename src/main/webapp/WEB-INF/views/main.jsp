@@ -6,6 +6,15 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	<style>
+	a {
+		text-decoration: none;
+	}
+	.sticky {
+		position: sticky;
+		top: 10px;
+	}
+	</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -54,10 +63,20 @@
 		<v-container class="mt-4">
 			<v-row no-gutters>
 				<v-col cols="10">
-					<router-view></router-view>
+					<router-view v-on:true="ChatTrue" v-on:false="ChatFalse"></router-view>
 				</v-col>
 				<v-col cols="2">
-					<chat-view></chat-view>
+					<div class="sticky">
+						<v-btn icon @click.stop="ChatFalse" v-if="chat">
+						<span class="mx-2">채팅창 숨기기</span>
+							<v-icon>mdi-eye-Off</v-icon>
+				        </v-btn>
+				        <v-btn icon @click.stop="ChatTrue" v-else>
+						<span class="mx-2">채팅창 보이기</span>
+							<v-icon>mdi-eye</v-icon>
+				        </v-btn>
+						<chat-view v-if="chat" ></chat-view>
+					</div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -92,7 +111,7 @@ var router = new VueRouter({
 		{path: '/app/regist', component: regist},
 		{path: '/app/auth/mypage', component: mypage},
 		{path: '/app/auth/setFavorites', component: setFavorites},
-		{path: '/app/article', component: article}
+		{path: '/app/article', name: 'article', component: article, props: (payload) => ({prop : payload})}
 	]
 })
 
@@ -110,6 +129,7 @@ new Vue({
 			id: '',
 			pw: '',
 			loginDialog: false,
+			chat: ${chat}
 		}
 	},
 	mounted: function () {
@@ -134,6 +154,7 @@ new Vue({
 	    requestSearch : function() {
 	    	router.push('/app/search?query=' + this.query)
 	    	this.dialog = false
+	    	ChatTrue()
 	    },
 	    requestLogin : function() {
     		axios.post('/api/user/login', {id: this.id, pw: this.pw})
@@ -149,7 +170,14 @@ new Vue({
     	},
     	loginDialogOn: function() {
     		this.loginDialog = true
-    	}	
+    	},
+    	ChatFalse: function() {
+    		this.chat = false
+    	},
+    	ChatTrue: function() {
+    		this.chat = true
+    	}
+    	
 	}
 })
 </script>

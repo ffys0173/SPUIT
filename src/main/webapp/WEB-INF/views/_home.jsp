@@ -7,14 +7,16 @@
 				<v-card-subtitle>동기화 시간 : {{timeRecent}}</v-card-subtitle>
 				<v-divider></v-divider>
 				<div id="recent" class="overflow-y-auto" v-scroll:#recent="getRecent" style="max-height: 700px">
-				<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecent">
-					<v-list-item three-line>
-					<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
-					<v-list-item-content>
-						<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
-						<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
-					</v-list-item-content>
-				</v-card>
+					<v-card class="mx-auto" tile flat v-for="thread in ListofRecent">
+						<router-link :to="{name:'article', params:{url: thread.articleUrl}}">
+							<v-list-item three-line>
+							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
+							<v-list-item-content>
+								<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
+								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+							</v-list-item-content>
+						</router-link>
+					</v-card>
 				</div>
 				<!--<infinite-loading @infinite="requestTread" distance="300"></infinite-loading>-->
 			</v-card>
@@ -87,6 +89,7 @@ var homeTemplate = Vue.component('homeTemplate' ,{
 	    }
 	},
 	mounted() {
+		this.$emit('true')
 		axios.post('/api/thread/getRecent', {offset: this.recentOffset})
     	.then((res) => {
     		this.ListofRecent = res.data

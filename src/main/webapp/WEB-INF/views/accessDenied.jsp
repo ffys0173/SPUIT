@@ -1,16 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>SPUIT - ����� ã�� ��� ��</title>
+<title>SPUIT - 당신이 찾던 모든 뉴스</title>
 </head>
 <body>
 
 </body>
 <script>
-alert("�α����� �ʿ��մϴ�.")
+alert("로그인이 필요합니다.")
 location.href = "/"
 </script>
 </html>

@@ -31,8 +31,7 @@ var chat = Vue.component('chat-view', {
 			sub: null,
 			mysession: null,
 			dropdown_servers: [
-				{text: '메인서버'},
-				{text: '서버 1'}
+				{text: '#SPUIT'}
 			]
 		}
 	},
@@ -43,13 +42,21 @@ var chat = Vue.component('chat-view', {
 			member = res.data.name
 			mysession = res.data.session
 			
-			this.roomId = '메인서버'
+			this.roomId = '#SPUIT'
 			
 			sock = new SockJS('/stomp-chat')
 			stompClient = Stomp.over(sock)
 			stompClient.connect({}, this.subscribe)
 			
-			$("#chatBox").append('<p style="color:white;">' + this.roomId + '에 입장하셨습니다.</p>')
+			$("#chatBox").append('<p style="color:white;">' + this.roomId + ' 채널에 입장하셨습니다.</p>')
+		})
+		
+		axios.post('/api/user/auth/getFavorites')
+		.then((res) => {
+			var favorites = res.data;
+			for(i in favorites){
+				this.dropdown_servers.push({text: favorites[i]})
+			}
 		})
 	},
 	methods: {
@@ -91,7 +98,7 @@ var chat = Vue.component('chat-view', {
 			this.subscribe()
 			console.log(this.roomId)
 			$("#chatBox").empty()
-			$("#chatBox").append('<p style="color:white;">' + this.roomId + '에 입장하셨습니다.</p>')
+			$("#chatBox").append('<p style="color:white;">' + this.roomId + ' 채널에 입장하셨습니다.</p>')
 		}
 	}
 })

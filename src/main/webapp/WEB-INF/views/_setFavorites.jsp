@@ -43,6 +43,7 @@ var setFavorites = Vue.component('setFavorites', {
     mounted: function () {
     	axios.post('/api/user/auth/getFavorites')
     	.then((res) => {
+    		console.log(res.data)
     		this.chips = res.data
     	})
     },

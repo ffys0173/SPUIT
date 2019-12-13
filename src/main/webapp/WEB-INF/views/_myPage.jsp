@@ -54,6 +54,9 @@ var mypage = Vue.component('mypage', {
 				window.location.href = '/'
 			})
 		}
+	},
+	mounted: function () {
+		this.$emit('false')
 	}
 })
 </script>

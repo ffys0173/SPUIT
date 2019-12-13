@@ -7,7 +7,14 @@ public class ArticleThread {
 	private String ArticleSource;
 	private String ArticleUrl;
 	private String ArticleCategory;
+	private String ArticleTag;
 	
+	public String getArticleTag() {
+		return ArticleTag;
+	}
+	public void setArticleTag(String articleTag) {
+		ArticleTag = articleTag;
+	}
 	public String getArticleCategory() {
 		return ArticleCategory;
 	}

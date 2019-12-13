@@ -36,6 +36,18 @@ public class RestThreadController {
 		return threadService.getSearchResult(query);
 	}
 	
+	@PostMapping("getArticle")
+	public ArticleThread getArticle(@RequestBody String param) {
+		
+		String url = param.split("\"")[3];
+		System.out.println(url);
+		
+		ArticleThread at = new ArticleThread();
+		at.setArticleTitle("기사 제목");
+		at.setArticleContent("기사 전문");
+		return at;
+	}
+	
 	@PostMapping("/getRecent")
 	public ArrayList<ArticleThread> getRecent(@RequestBody String param, HttpServletRequest request) throws Exception {
 		
