@@ -8,12 +8,12 @@
 			<v-card-subtitle>welcome to SPUIT</v-card-subtitle>
 			
 			<v-form>
-				<v-text-field v-model="id" label="id" type="text" required autocomplete="off"></v-text-field>
+				<v-text-field v-model="id" label="ID" type="text" required autocomplete="off" autofocus="true"></v-text-field>
 				
-				<v-text-field v-model="pw" label="password" required type="'Password'"
+				<v-text-field v-model="pw" label="Password" required type="'Password'"
 							  hint="At least 8 characters" ></v-text-field>
 							  
-				<v-text-field v-model="name" label="name" required type="text"
+				<v-text-field v-model="name" label="Name" required type="text"
 							  hint="At least 1 characters" ></v-text-field>
 							  
 				<v-text-field v-model="email" label="E-mail" required type="'email'"

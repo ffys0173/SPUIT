@@ -24,8 +24,8 @@
 		<v-card-title>Sign in</v-card-title>
 		<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 		<v-form>
-			<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
-			<v-text-field v-model="pw" label="password" required :type="'Password'"
+			<v-text-field ref="field" v-model="id" label="ID" :type="text" required autofocus="true"></v-text-field>
+			<v-text-field v-model="pw" label="Password" required :type="'Password'"
 				  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
 			<v-spacer></v-spacer>
 		<v-btn v-on:click="requestLogin">Done</v-btn>
@@ -35,7 +35,7 @@
 <v-dialog v-model="true" max-width="400px">
 	<v-card style="padding: 20px;" dark>
 		<v-card-title>Enter Search Keyword : </v-card-title>
-		<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
+		<v-text-field v-model="query" label="Search.." autofocus="true">...Keyword</v-text-field>
 		<v-btn color="primary" @click="requestSearch">Search</v-btn>
 	</v-card>
 </v-dialog>
@@ -49,8 +49,8 @@
 		<v-card-title>Sign in</v-card-title>
 		<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 		<v-form>
-			<v-text-field v-model="id" label="id" :type="text" required></v-text-field>
-			<v-text-field v-model="pw" label="password" required :type="'Password'"
+			<v-text-field ref="field" v-model="id" label="ID" :type="text" required autofocus="true"></v-text-field>
+			<v-text-field v-model="pw" label="Password" required :type="'Password'"
 				  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
 			<v-spacer></v-spacer>
 		<v-btn v-on:click="requestLogin">Done</v-btn>
@@ -63,7 +63,7 @@
 <v-dialog v-model="true" max-width="400px">
 	<v-card style="padding: 20px;" dark>
 		<v-card-title>Enter Search Keyword : </v-card-title>
-		<v-text-field v-model="query" label="Search word">...Keyword</v-text-field>
+		<v-text-field v-model="query" label="Search.." autofocus="true">...Keyword</v-text-field>
 		<v-btn color="primary" @click="requestSearch">Search</v-btn>
 	</v-card>
 </v-dialog>
@@ -121,6 +121,7 @@ var navTemplate = Vue.component('navTemplate' ,{
     	},
     	loginDialogOn: function() {
     		this.loginDialog = true
+    		//this.$refs.field.focus();
     	}
 	}
 })
