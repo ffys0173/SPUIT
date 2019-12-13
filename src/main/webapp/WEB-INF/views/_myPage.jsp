@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 
-<script type="text/x-template" id="mypage">
+<template type="text/x-template" id="mypage">
 	<v-container class="d-flex justify-center align-center">
 	<v-col>
 			<v-card style="padding: 15px">
@@ -22,14 +22,14 @@
 			<v-card style="margin-top: 14px; padding: 15px">
 				<v-card-title>관심사 변경</v-card-title>
 				<v-card-subtitle>보여지는 기사에 적용되는 관심사를 재 설정합니다.</v-card-subtitle>
-				<router-link to="/setFavorites">관심사 설정 하러 가기</a>
+				<router-link to="/app/auth/setFavorites">관심사 설정 하러 가기</a>
 			</v-card>
 		<v-col>
 	</v-container>
-</script>
+</template>
 
 <script>
-mypage = Vue.component('mypage', {
+var mypage = Vue.component('mypage', {
 	template: '#mypage',
 	data: function () {
 		return {			

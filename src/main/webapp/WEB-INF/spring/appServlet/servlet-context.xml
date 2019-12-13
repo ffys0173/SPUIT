@@ -25,24 +25,14 @@
 	</beans:bean>
 	
     <!-- Interceptor 설정 -->
-	<beans:bean id="authenticationInterceptor" class="com.web2019.spuit.interceptor.AuthenticationInterceptor">
-    </beans:bean>
+	<beans:bean id="authenticationInterceptor" class="com.web2019.spuit.interceptor.AuthenticationInterceptor"></beans:bean>
     <interceptors>
         <interceptor>
             <mapping path="/**/auth/**"/>
             <beans:ref bean="authenticationInterceptor"/>
         </interceptor>
     </interceptors>
-    
-    <!-- <beans:bean id="echoHandler" class="com.web2019.spuit.SockConfig.EchoHandler"/>
-	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo"/>
-		<websocket:handshake-interceptors>
-			<beans:bean	class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-		<websocket:sockjs/>
-	</websocket:handlers> -->
-	
+    	
 	<context:component-scan base-package="com.web2019.spuit" />
 	
 </beans:beans>

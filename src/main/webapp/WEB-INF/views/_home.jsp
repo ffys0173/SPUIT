@@ -1,5 +1,5 @@
 <%@ page pageEncoding = "utf-8"%>
-<script type="text/x-template" id="home-template">
+<template type="text/x-template" id="home-template">
 	<div class="d-flex justify-start">
 		<v-col cols="6">
 			<v-card class="article mx-2" dark>
@@ -37,8 +37,7 @@
 			</v-card>
 		</v-col>
 	</div>
-
-</script>
+</template>
 
 <script>
 var homeTemplate = Vue.component('homeTemplate' ,{

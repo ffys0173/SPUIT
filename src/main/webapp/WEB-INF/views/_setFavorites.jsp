@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<script type="text/x-template" id="setFavorites">
+<template type="text/x-template" id="setFavorites">
 	<v-container class="d-flex justify-center">
 		<v-card width="600">
 			<v-card-title>Select Favorite</v-card-title>
@@ -30,7 +30,7 @@
 			   	<v-btn @click="requestFavorite" color="primary" outlined>Confirm</v-btn>
 		</v-card>
 	</v-container>
-</script>
+</template>
 
 <script>
 var setFavorites = Vue.component('setFavorites', {

@@ -1,5 +1,5 @@
 <%@ page pageEncoding = "utf-8"%>
-<script type="text/x-template" id="chat-view">
+<template type="text/x-template" id="chat-view">
 		 <v-card class="mx-2" width="315px" height="500px" dark tile>
           <v-overflow-btn
           	v-model="roomId"
@@ -16,7 +16,7 @@
           <v-text-field v-model="message" :append-icon="'mdi-send'" width="300" @click:append="ChatProp" @keyup.enter="ChatProp" autocomplete="off"></v-text-field>
         </div>
         </v-card>
-</script>
+</template>
 
 <script>
 var chat = Vue.component('chat-view', {

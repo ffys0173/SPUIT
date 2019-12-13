@@ -12,7 +12,7 @@
 <div id="app">
 	<v-app>
 		<v-toolbar dense :dark="true" style="max-height: 50px">
-	      		 <v-toolbar-title><a href="/" style="text-decoration: none; color: white">Project SPUIT</a></v-toolbar-title>
+	      		 <v-toolbar-title><router-link to="/app/home" style="text-decoration: none; color: white">Project SPUIT</router-link></v-toolbar-title>
 	      		 <v-spacer></v-spacer>
 		        <v-btn icon @click.stop="dialog = true">
 		          <v-icon>mdi-magnify</v-icon>
@@ -20,14 +20,14 @@
 		        <template v-if="login">
 		        ${sessionInfo.name}님 반갑습니다.
 		        <div style="width: 10px"></div>
-		        	<router-link to="/mypage"><v-btn class="ma-2" outlined color="white">My Page</v-btn></router-link>
+		        	<router-link to="/app/auth/mypage"><v-btn class="ma-2" outlined color="white">My Page</v-btn></router-link>
 		        	<div style="width: 10px"></div>
 					<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
 		        </template>
 		        <template v-else>
 					<v-btn class="ma-2" outlined color="white" @click="loginDialogOn">Log-in</v-btn>
 					<div style="width: 10px"></div>
-			        <v-btn class="ma-2" outlined color="white" href="/user/regist">sign-up</v-btn>
+			        <router-link to="/app/regist"><v-btn class="ma-2" outlined color="white">sign-up</v-btn></router-link>
 				</template>
 		</v-toolbar>
 		<v-dialog v-model="loginDialog" max-width="500">
@@ -78,6 +78,7 @@
 <%@include file="_home.jsp" %>
 <%@include file="_chat.jsp" %>
 <%@include file="_search.jsp" %>
+<%@include file="_regist.jsp" %>
 <%@include file="_myPage.jsp" %>
 <%@include file="_setFavorites.jsp" %>
 <%@include file="_article.jsp" %>
@@ -86,11 +87,12 @@
 var router = new VueRouter({
 	mode: 'history',
 	routes: [
-		{path: '/ffffffff', component: homeTemplate},
-		{path: '/search', component: search},
-		{path: '/mypage', component: mypage},
-		{path: '/setFavorites', component: setFavorites},
-		{path: '/', component: article}
+		{path: '/app/home', component: homeTemplate},
+		{path: '/app/search', component: search},
+		{path: '/app/regist', component: regist},
+		{path: '/app/auth/mypage', component: mypage},
+		{path: '/app/auth/setFavorites', component: setFavorites},
+		{path: '/app/article', component: article}
 	]
 })
 
@@ -115,26 +117,29 @@ new Vue({
 		.then((res) => {
 			this.login = res.data
 		})
-		router.push('/')
+		
+		var path = "${path}"
+		router.push(path)
+		
 	},
 	methods: {
 		requestLogout : function() {
 			axios.get('/api/user/logout')
 	    	.then(((res) => {
 	    		if(res.data === 1){
-	    			window.location.href = '/'
+	    			window.location.href = '/app/home'
 	    		}
 	    	}))
 	    },
 	    requestSearch : function() {
-	    	router.push('/search?query=' + this.query)
+	    	router.push('/app/search?query=' + this.query)
 	    	this.dialog = false
 	    },
 	    requestLogin : function() {
     		axios.post('/api/user/login', {id: this.id, pw: this.pw})
     		.then(((res) => {
     			if(res.data === 1){
-    				window.location.href = '/'
+    				window.location.href = '/app/home'
     			}
     			else{
     				alert('로그인에 실패했습니다.')	    				
@@ -144,22 +149,7 @@ new Vue({
     	},
     	loginDialogOn: function() {
     		this.loginDialog = true
-    	},
-    	fixChatBox(){
-	    	if(window.scrollY >= 47){
-		    	document.getElementById("chat-view").setAttribute("style", "position: fixed; top:30px")    		
-	    	}
-	    	else{
-	    		document.getElementById("chat-view").setAttribute("style", "position: relative;")
-	    	}
-	    }
-    	
-	},
-	created: function() {
-		window.addEventListener('scroll', this.fixChatBox)
-	},
-	destroyed: function() {
-		window.removeEventListener('scroll', this.fixChatBox)
+    	}	
 	}
 })
 </script>

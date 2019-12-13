@@ -1,41 +1,16 @@
 package com.web2019.spuit.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping("/")
-	public String defaultRequest(HttpServletRequest request) {
-
-		HttpSession httpSession = request.getSession(true);
+	public String defaultRequest() {
 		
-		logger.info("{}",httpSession.getAttribute("login"));
-		
-		if(httpSession.getAttribute("login") != null) {
-			
-		}
-		else {
-			
-			httpSession.setAttribute("login", false);
-		}
-		
-		return "main";
+		return "redirect:app/home";
 	}
 	
 	@GetMapping("/favicon.ico")
