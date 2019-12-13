@@ -36,7 +36,7 @@ public class RestThreadController {
 		return threadService.getSearchResult(query);
 	}
 	
-	@PostMapping("getArticle")
+	@PostMapping("/getArticle")
 	public ArticleThread getArticle(@RequestBody String param) {
 		
 		String url = param.split("\"")[3];
@@ -45,6 +45,12 @@ public class RestThreadController {
 		ArticleThread at = new ArticleThread();
 		at.setArticleTitle("기사 제목");
 		at.setArticleContent("기사 전문");
+		at.setArticleCategory("광고");
+		at.setArticleRegisted("오늘");
+		at.setArticleSource("여긴어디나는누구");
+		at.setArticleTag("태그");
+		at.setArticleThumbnail("이미지");
+		at.setArticleUrl("지옥으로가는길");
 		return at;
 	}
 	
