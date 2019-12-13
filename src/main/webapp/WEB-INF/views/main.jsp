@@ -66,16 +66,16 @@
 					<router-view v-on:true="ChatTrue" v-on:false="ChatFalse"></router-view>
 				</v-col>
 				<v-col cols="2">
-					<div class="sticky">
-						<v-btn icon @click.stop="ChatFalse" v-if="chat">
-						<span class="mx-2">채팅창 숨기기</span>
+					<div class="sticky" v-if="chat">
+						<v-btn class="mx-2" icon @click.stop="hide = true" v-if="!hide">
 							<v-icon>mdi-eye-Off</v-icon>
+							<span class="mx-2">채팅창 숨기기</span>
 				        </v-btn>
-				        <v-btn icon @click.stop="ChatTrue" v-else>
-						<span class="mx-2">채팅창 보이기</span>
+				        <v-btn class="mx-2" icon @click.stop="hide = false" v-else>
 							<v-icon>mdi-eye</v-icon>
+							<span class="mx-2">채팅창 보이기</span>
 				        </v-btn>
-						<chat-view v-if="chat" ></chat-view>
+						<chat-view v-if="hide"></chat-view>
 					</div>
 				</v-col>
 			</v-row>
@@ -129,7 +129,8 @@ new Vue({
 			id: '',
 			pw: '',
 			loginDialog: false,
-			chat: ${chat}
+			chat: ${chat},
+			hide: true
 		}
 	},
 	mounted: function () {
