@@ -43,7 +43,7 @@ var article = Vue.component('article', {
 			articleTime: '', //기사 시간
 			articleWriter: 'spuit', //글쓴이
 			articleProvider: '', //기사 긁어온 곳
-			articleThumb: 'https://picsum.photos/id/11/500/300', //기사 사진
+			articleThumb: '', //기사 사진
 			articleContent: '', //내용
 			articleTags: [
 				{tagName: 'picture', tagLink: 'search?query=picture'}
@@ -71,6 +71,7 @@ var article = Vue.component('article', {
 			this.articleTime = res.data.articleRegisted;
 			this.articleProvider = res.data.articleSource
 			this.articleTags.push({tagName: res.data.articleTag, tagLink: 'search?query='+res.data.articleTag})
+			this.articleThumb = res.data.articleThumbnail
 		})
 		//console.log(this.prop.params.url) //이 경로를 파라미터로 보내면 된다 {url : this.prop.params.url}
 	}

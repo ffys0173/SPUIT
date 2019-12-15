@@ -58,49 +58,52 @@ public class ArticleCrawler {
     public ArrayList<ArticleThread> getRecent(int offset) {
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
-        
-    	//ÇÑ°Ü·Ê
-    	try {
-            // URL def
-            String connUrl = "http://www.hani.co.kr/arti/list.html";
-            // SSL chk
-            try {
-                if(connUrl.indexOf("https://") >= 0){
-                    ArticleCrawler.setSSL();
-                }
-            } catch (Exception e) {
-               
-            }
-
-            // HTML get
-            Connection conn = Jsoup
-                    .connect(connUrl)
-                    .header("Content-Type", "application/json;charset=UTF-8")
-                    .userAgent(USER_AGENT)
-                    .method(Connection.Method.GET)
-                    .ignoreContentType(true);
-
-            //select
-            Document doc = conn.get();
-            Elements list = doc.select("div.article-area");
-            
-            for(Element e : list) {
-
-        		ArticleThread at = new ArticleThread();
-        		Date date = new Date();
-        		at.setArticleCategory(e.select("strong.category").text()); 
-        		at.setArticleTitle(e.select("h4.article-title").text());
-        		at.setArticleContent(e.select("p.article-prologue").text());
-        		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
-        		at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
-        		at.setArticleTag(at.getArticleCategory());
-        		at.setArticleRegisted(parse(e.select("span.date").text()));
-        		loat.add(at);
-        	}
-    	}
-    	catch (IOException e) {
-    		
-    	}
+    	String connUrl;
+    	Connection conn;
+    	Elements list;
+    	Document doc;
+       for(int i=1;i<11;i++) {
+	    	//ÇÑ°Ü·Ê
+	    	try {
+	            // URL def
+	            connUrl = "http://www.hani.co.kr/arti/list"+i+".html";
+	            // SSL chk
+	            try {
+	                if(connUrl.indexOf("https://") >= 0){
+	                    ArticleCrawler.setSSL();
+	                }
+	            } catch (Exception e) {
+	               
+	            }
+	
+	            // HTML get
+	            conn = Jsoup
+	                    .connect(connUrl)
+	                    .header("Content-Type", "application/json;charset=UTF-8")
+	                    .userAgent(USER_AGENT)
+	                    .method(Connection.Method.GET)
+	                    .ignoreContentType(true);
+	
+	            //select
+	            doc = conn.get();
+	            list = doc.select("div.article-area");
+	            for(Element e : list) {
+	        		ArticleThread at = new ArticleThread();
+	        		Date date = new Date();
+	        		at.setArticleCategory(e.select("strong.category").text()); 
+	        		at.setArticleTitle(e.select("h4.article-title").text());
+	        		at.setArticleContent(e.select("p.article-prologue").text());
+	        		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
+	        		at.setArticleUrl("http://www.hani.co.kr" + e.select("h4.article-title").select("a").attr("href"));
+	        		at.setArticleTag(at.getArticleCategory());
+	        		at.setArticleRegisted(parse(e.select("span.date").text()));
+	        		loat.add(at);
+	        	}
+	    	}
+	    	catch (IOException e) {
+	    		
+	    	}
+        }
     	if(loat.size() > offset * 10 + 10) {
     		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));    		
     	}
@@ -216,8 +219,8 @@ public class ArticleCrawler {
             	
             	at.setArticleTitle(e.select("dt").text());
             	at.setArticleContent(e.select("dd.detail").text());
-            	at.setArticleThumbnail(e.select("dd.photo").select("img").attr("src"));
-            	at.setArticleUrl(e.select("dd.photo").select("a").attr("href"));
+            	at.setArticleThumbnail(e.select("dd.photo").select("a").attr("src"));
+            	at.setArticleUrl(e.select("dd.photo").select("img").attr("href"));
             	at.setArticleRegisted(parse(e.select("dd.date").text()));
             	at.setArticleTag(key);
             	loat.add(at);
@@ -246,5 +249,40 @@ public class ArticleCrawler {
 		);
     	
     	return regdate;
+    }
+    public ArticleThread getContext(String connUrl) {
+    	ArticleThread at = new ArticleThread();
+    	//ÇÑ°Ü·Ê
+    	try {
+            // SSL chk
+            try {
+                if(connUrl.indexOf("https://") >= 0){
+                    ArticleCrawler.setSSL();
+                }
+            } catch (Exception e) {
+               
+            }
+
+            // HTML get
+            Connection conn = Jsoup
+                    .connect(connUrl)
+                    .header("Content-Type", "application/json;charset=UTF-8")
+                    .userAgent(USER_AGENT)
+                    .method(Connection.Method.GET)
+                    .ignoreContentType(true);
+
+            //select
+            Document doc = conn.get();
+            at.setArticleTitle(doc.select("div.article-head").select("span.title").text());
+        	at.setArticleContent(doc.select("div.article-text").select("div.text").text());
+        	at.setArticleThumbnail(doc.select("div.article-text").select("div.image").select("img").attr("src"));
+        	at.setArticleRegisted(parse(doc.select("div.article-head").select("p.date-time").select("span").text().substring(4, 20)));
+        	//at.setArticleTag(doc.select("div.article-text").select("div.image").select("img").attr("src"));
+        	
+    	}
+    	catch (IOException e) {
+    		System.out.println("error");
+    	}
+    	return at;
     }
 }

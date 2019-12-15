@@ -1,12 +1,27 @@
 package com.web2019.spuit.controller;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,20 +67,17 @@ public class RestThreadController {
 	
 	@PostMapping("/getArticle")
 	public ArticleThread getArticle(@RequestBody String param) {
-		
 		String url = param.split("\"")[3];
 		System.out.println(url);
+		ArticleThread at=threadService.getContext(url);
 		
-		ArticleThread at = new ArticleThread();
-		at.setArticleTitle("기사 제목");
-		at.setArticleContent("기사 전문");
 		at.setArticleCategory("광고");
-		//at.setArticleRegisted(new Date());
+		//at.setArticleRegisted(context.get(1).toString());
 		at.setArticleSource("여긴어디나는누구");
 		at.setArticleTag("태그");
-		at.setArticleThumbnail("이미지");
 		at.setArticleUrl("지옥으로가는길");
 		return at;
+			
 	}
 	
 	@PostMapping("/getRecent")

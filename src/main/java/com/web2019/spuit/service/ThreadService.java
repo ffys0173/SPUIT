@@ -13,4 +13,5 @@ public interface ThreadService {
 	public ArrayList<ArticleThread> getRecent(int offset);
 	public List<KeywordVO> getKeys();
 	public int updateKeyword(KeywordVO key);
+	public ArticleThread getContext(String connurl);
 }

@@ -79,4 +79,9 @@ public class ThreadServiceImpl implements ThreadService {
 		
 		return dao.getAllKeywords();
 	}
+	
+	@Override
+	public ArticleThread getContext(String connurl) {
+		return ac.getContext(connurl);
+	}
 }
