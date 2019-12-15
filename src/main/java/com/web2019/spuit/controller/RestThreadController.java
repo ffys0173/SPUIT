@@ -1,5 +1,6 @@
 package com.web2019.spuit.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +20,7 @@ import com.web2019.spuit.dto.KeywordVO;
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.otherClasses.ArticleCrawler;
 import com.web2019.spuit.otherClasses.ArticleThread;
+import com.web2019.spuit.otherClasses.UserFavorite;
 import com.web2019.spuit.service.ThreadService;
 
 @RestController
@@ -31,9 +33,19 @@ public class RestThreadController {
 	private static final Logger logger = LoggerFactory.getLogger(RestUserController.class);
 
 	@PostMapping("/search")
-	public ArrayList<ArticleThread> threadsearch(@RequestBody String param) {
+	public ArrayList<ArticleThread> threadsearch(@RequestBody String param, HttpServletRequest request) throws ClassNotFoundException, IOException {
 		
 		String query = param.split("\"")[3];//{"query":"key"}와 같은 형식으로 전달되므로...
+		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		
+		if(sessionInfo != null) {
+			UserFavorite uf = new UserFavorite(sessionInfo.getIdno());
+			uf.ReadFile();
+			uf.addFavorite(query, 1);
+			uf.WriteFile();
+		}
 		
 		return threadService.getSearchResult(query);
 	}

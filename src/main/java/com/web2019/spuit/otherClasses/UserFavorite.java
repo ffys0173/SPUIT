@@ -56,8 +56,12 @@ public class UserFavorite {
 	}
 	
 	public void addFavorite(String keyword, int value) {
-		
-		hashMap.put(keyword, value);
+		if(hashMap.containsKey(keyword)) {
+			hashMap.replace(keyword, hashMap.get(keyword) + value);
+		}
+		else {			
+			hashMap.put(keyword, value);
+		}
 	}
 
 	public void WriteFile() {
