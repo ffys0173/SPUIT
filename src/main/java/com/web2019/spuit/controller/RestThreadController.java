@@ -71,11 +71,8 @@ public class RestThreadController {
 		System.out.println(url);
 		ArticleThread at=threadService.getContext(url);
 		
-		at.setArticleCategory("광고");
-		//at.setArticleRegisted(context.get(1).toString());
-		at.setArticleSource("여긴어디나는누구");
-		at.setArticleTag("태그");
-		at.setArticleUrl("지옥으로가는길");
+		at.setArticleSource("한겨례");
+		
 		return at;
 			
 	}

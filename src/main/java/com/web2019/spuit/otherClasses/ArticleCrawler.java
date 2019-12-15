@@ -219,8 +219,8 @@ public class ArticleCrawler {
             	
             	at.setArticleTitle(e.select("dt").text());
             	at.setArticleContent(e.select("dd.detail").text());
-            	at.setArticleThumbnail(e.select("dd.photo").select("a").attr("src"));
-            	at.setArticleUrl(e.select("dd.photo").select("img").attr("href"));
+            	at.setArticleThumbnail(e.select("dd.photo").select("img").attr("src"));
+            	at.setArticleUrl(e.select("dt").select("a").attr("href"));
             	at.setArticleRegisted(parse(e.select("dd.date").text()));
             	at.setArticleTag(key);
             	loat.add(at);
@@ -277,7 +277,6 @@ public class ArticleCrawler {
         	at.setArticleContent(doc.select("div.article-text").select("div.text").text());
         	at.setArticleThumbnail(doc.select("div.article-text").select("div.image").select("img").attr("src"));
         	at.setArticleRegisted(parse(doc.select("div.article-head").select("p.date-time").select("span").text().substring(4, 20)));
-        	//at.setArticleTag(doc.select("div.article-text").select("div.image").select("img").attr("src"));
         	
     	}
     	catch (IOException e) {

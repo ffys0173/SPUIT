@@ -2,9 +2,16 @@
 
 <template type="text/x-template" id="article">
 	<v-container class="d-flex justfy-center">
-		<v-col cols="12">
+		<v-col cols="3">
+		</v-col>
+		<v-col cols="8">
 			<v-card style="padding: 15px">
-				<v-card-title>{{articleTitle}}</v-card-title>
+				<v-card-title class="title">{{articleTitle}}</v-card-title>
+				<v-card-subtitle>
+				기사 시간 : {{new Date(articleTime)}}<br>
+				기사 제공 : {{articleProvider}}<a :href="this.prop.params.url">(원문보기)</a><br>
+
+				</v-card-subtitle>
 				<v-chip-group multiple column>
           			<v-chip v-for="tag in articleTags" :key="tag" :to="tag.tagLink">
 						{{ tag.tagName }}
@@ -12,18 +19,12 @@
 				</v-chip-group>
 				<v-col>
 					<v-row>
-						<div style="width: 485px; height: 300px">
-							<v-img :src="articleThumb">asdf</v-img>
-						</div>  
-						<v-card flat style="margin-left: 20px">
-							<v-card-subtitle>기사 시간 : {{articleTime}}</v-card-subtitle>
-							<v-card-subtitle>글쓴이 : {{articleWriter}}</v-card-subtitle>
-							<v-card-subtitle>기사 제공 : {{articleProvider}}</v-card-subtitle>
-						</v-card>
+						<div>
+							<v-img :src="articleThumb"></v-img>
+						</div>
 					</v-row>
 				</v-col>
 				<v-card outlined>
-					<v-card-title>{{articleTitle}}</v-card-title>
 					<v-card-text>{{articleContent}}</v-card-text>
 				</v-card>
 				<br>
@@ -41,14 +42,11 @@ var article = Vue.component('article', {
 		return {
 			articleTitle: '', //기사 제목
 			articleTime: '', //기사 시간
-			articleWriter: 'spuit', //글쓴이
-			articleProvider: '', //기사 긁어온 곳
+			articleProvider: '',
 			articleThumb: '', //기사 사진
 			articleContent: '', //내용
-			articleTags: [
-				{tagName: 'picture', tagLink: 'search?query=picture'}
-				//태그 이름 , 태그 클릭 시 태그 검색하게 함. 
-			]
+			articleTags: []	//태그 이름 , 태그 클릭 시 태그 검색하게 함. 
+			
 		}
 	},
 	methods: {
@@ -63,17 +61,16 @@ var article = Vue.component('article', {
 		}
 	},
 	created () {
-		//ajax /api/thread/getArticle에 post로 데이터 요청
+		
 		axios.post('/api/thread/getArticle',  {url: this.prop.params.url})
 		.then((res) => {
 			this.articleTitle = res.data.articleTitle;
 			this.articleContent = res.data.articleContent;
 			this.articleTime = res.data.articleRegisted;
 			this.articleProvider = res.data.articleSource
-			this.articleTags.push({tagName: res.data.articleTag, tagLink: 'search?query='+res.data.articleTag})
+			//this.articleTags.push({tagName: res.data.articleTag, tagLink: 'search?query='+res.data.articleTag})
 			this.articleThumb = res.data.articleThumbnail
 		})
-		//console.log(this.prop.params.url) //이 경로를 파라미터로 보내면 된다 {url : this.prop.params.url}
 	}
 })
 </script>

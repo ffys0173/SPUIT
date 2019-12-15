@@ -6,9 +6,9 @@
 				<v-card-title class="headline font-weight-bold white">Recommend for you</v-card-title>
 				<v-card-subtitle>동기화 시간 : {{timeRecommend}}</v-card-subtitle>
 				<v-divider></v-divider>
-				<div id="recommend" class="overflow-y-auto" style="max-height: 700px;">
+				<div id="recommend" class="overflow-y-auto" style="max-height: 700px">
 					<v-card class="mx-auto" tile flat v-for="thread in ListofRecommend">
-						<router-link :to="{name:'article', params:{url: thread.articleUrl}}">
+						<div @click="changeChannel(thread.articleTag, thread.articleUrl)">
 							<v-list-item three-line>
 							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
 							<v-list-item-content>
@@ -17,7 +17,7 @@
 								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
 								<v-list-item-subtitle>{{new Date(thread.articleRegisted)}}</v-list-item-subtitle>
 							</v-list-item-content>
-						</v-list-item>
+						</div>
 					</v-card>
 					<infinite-loading @infinite="getRecommend" forceUseInfiniteWrapper="#recommend"></infinite-loading>
 				</div>
