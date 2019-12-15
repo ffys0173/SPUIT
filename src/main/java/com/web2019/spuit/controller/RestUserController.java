@@ -182,7 +182,7 @@ public class RestUserController {
 		try {
 			if(service.loginCheck(user) != null) {
 				service.userLeave(user);
-				logout(request);		
+				logout(request);
 	
 				return 1;
 			}
