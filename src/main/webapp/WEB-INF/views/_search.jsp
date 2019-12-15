@@ -9,6 +9,7 @@
 				<v-list-item-content>
 					<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
 					<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+					<v-list-item-subtitle>{{new Date(thread.articleRegisted)}}</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-card>
 		</v-card>

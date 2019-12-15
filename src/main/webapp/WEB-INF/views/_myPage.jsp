@@ -6,17 +6,16 @@
 			<v-card style="padding: 15px">
 				<v-card-title>회원 정보 변경</v-card-title>
 				<v-card-subtitle>회원의 기본 정보를 변경합니다.</v-card-subtitle>
-				<v-text-field v-model="name" label="이름 변경" hint="변경 후 3개월 후 재 변경 가능"></v-text-field>
+				<v-text-field v-model="name" label="이름 변경" hint="재 로그인 후에 적용"></v-text-field>
 				<v-text-field v-model="email" label="이메일 변경"></v-text-field>
-				<v-btn @click="infoChange">Confirm</v-btn>
+				<v-btn @click="infoChange">Submit</v-btn>
 			</v-card>
 			
 			<v-card style="margin-top: 14px; padding: 15px">
-				<v-card-title>Password Change</v-card-title>
-				<v-card-subtitle>최근 비밀번호 변경  : </v-card-subtitle>
-				<v-text-field v-model="pw" label="이전 패스워드"></v-text-field>
-				<v-text-field v-model="pwck" label="신규 패스워드"></v-text-field>
-				<v-btn outlined @click="pwChange">비밀번호 변경</v-btn>
+				<v-card-title>비밀번호 변경</v-card-title>
+				<v-text-field type="password" v-model="pw" label="새 비밀번호" required = "required"></v-text-field>
+				<v-text-field type="password" v-model="pwck" label="새 비밀번호 확인" required = "required"></v-text-field>
+				<v-btn outlined @click="pwChange">Submit</v-btn>
 			</v-card>
 			
 			<v-card style="margin-top: 14px; padding: 15px">
@@ -32,7 +31,7 @@
 var mypage = Vue.component('mypage', {
 	template: '#mypage',
 	data: function () {
-		return {			
+		return {
 			name: '',
 			email: '',
 			pw: '',
@@ -41,18 +40,34 @@ var mypage = Vue.component('mypage', {
 	},
 	methods: {
 		pwChange : function () {
-			axios.post('/api/user/auth/pwModify', {pw: this.pw})
-			.then((res) => {
-				alert('성공')
-				window.location.href = '/'
-			})
+			if(this.pw == ''){
+				alert('새 비밀번호를 입력해주세요.')
+			}
+			else if(this.pwck == ''){
+				alert('새 비밀번호 확인을 입력해주세요.')				
+			}
+			else if(this.pw == this.pwck){
+				axios.post('/api/user/auth/pwModify', {pw: this.pw})
+				.then((res) => {
+					alert('성공')
+					window.location.href = '/'
+				})				
+			}
+			else {
+				alert('비밀번호를 확인해주세요.')
+			}
 		},
 		infoChange: function() {
-			axios.post('/api/user/auth/infoModify', {name: this.name, email: this.email})
-			.then((res) => {
-				alert('성공')
-				window.location.href = '/'
-			})
+			if(this.name != '' || this.email != ''){				
+				axios.post('/api/user/auth/infoModify', {name: this.name, email: this.email})
+				.then((res) => {
+					alert('성공')
+					window.location.href = '/'
+				})
+			}
+			else {
+				alert('변경할 이름 또는 이메일을 입력해주세요.')
+			}
 		}
 	},
 	mounted: function () {

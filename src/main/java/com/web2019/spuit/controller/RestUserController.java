@@ -107,11 +107,26 @@ public class RestUserController {
 		return 1;
 	}
 	
-	@PostMapping("/auth/modify")
-	public int modify(@RequestBody UserVO user) {
+	@PostMapping("/auth/infoModify")
+	public int infoModify(@RequestBody UserVO user, HttpServletRequest request) {
 		
-		System.out.println(user.getEmail());
-		return 0;
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		if(user.getEmail().isEmpty())
+			user.setEmail(sessionInfo.getEmail());
+		if(user.getName().isEmpty())
+			user.setName(sessionInfo.getName());
+		user.setId(sessionInfo.getId());
+		return service.infoModify(user);
+	}
+	
+	@PostMapping("/auth/pwModify")
+	public int pwModify(@RequestBody UserVO user, HttpServletRequest request) {
+		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		user.setId(sessionInfo.getId());
+		return service.pwModify(user);
 	}
 	
 	@PostMapping("/auth/setFavorites")

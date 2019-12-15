@@ -55,5 +55,20 @@ public class UserServiceImpl implements UserService {
     	
     	return dao.userLeave(user);
     }
+    
+    @Override
+    public int infoModify(UserVO user) {
+    	
+    	return dao.infoModify(user);
+    }
+    
+    @Override
+    public int pwModify(UserVO user) {
+    	
+    	String encrypted = passwordEncoder.encode(user.getPw());
+    	user.setPw(encrypted);
+    	
+    	return dao.pwModify(user);
+    }
  
 }

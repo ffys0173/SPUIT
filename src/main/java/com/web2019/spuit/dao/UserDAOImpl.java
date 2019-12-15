@@ -53,7 +53,23 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int userLeave(UserVO user) {
 		
-		sqlSession.delete(Namespace+".leaveUser", user);
+		sqlSession.delete(Namespace + ".leaveUser", user);
+		
+		return 1;
+	}
+
+	@Override
+	public int pwModify(UserVO user) {
+		
+		sqlSession.update(Namespace + ".pwModify", user);
+		
+		return 1;
+	}
+
+	@Override
+	public int infoModify(UserVO user) {
+		
+		sqlSession.update(Namespace + ".infoModify", user);
 		
 		return 1;
 	}

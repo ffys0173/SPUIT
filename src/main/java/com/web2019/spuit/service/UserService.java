@@ -11,4 +11,6 @@ public interface UserService {
 	public int registUser(UserVO user) throws Exception;
 	public SessionVO loginCheck(UserVO user) throws Exception;
 	int userLeave(UserVO user);
+	int infoModify(UserVO user);
+	int pwModify(UserVO user);
 }

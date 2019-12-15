@@ -12,4 +12,6 @@ public interface UserDAO {
     public int registUser(UserVO user) throws Exception;
 	SessionVO getSessionInfo(UserVO user) throws Exception;
 	public int userLeave(UserVO user);
+	public int pwModify(UserVO user);
+	public int infoModify(UserVO user);
 }

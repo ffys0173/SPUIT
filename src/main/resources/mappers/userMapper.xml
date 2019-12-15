@@ -21,6 +21,14 @@
 		INSERT INTO USER(ID, PW, NAME, EMAIL) VALUES(#{id}, #{pw}, #{name}, #{email})
 	</insert>
 	
+	<update id="infoModify" parameterType="UserVO">
+		UPDATE USER SET NAME = #{name}, EMAIL = #{email} WHERE ID = #{id}
+	</update>
+	
+	<update id="pwModify" parameterType="UserVO">
+		UPDATE USER SET PW = #{pw} WHERE ID = #{id}
+	</update>
+	
 	<delete id="userLeave" parameterType="UserVO">
 		DELETE FROM USER WHERE ID = #{id}
 	</delete>
