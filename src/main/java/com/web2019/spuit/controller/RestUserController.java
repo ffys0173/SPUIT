@@ -174,16 +174,25 @@ public class RestUserController {
 	@PostMapping("/auth/leave")//È¸¿øÅ»Åð
 	public int leave(@RequestBody UserVO user, HttpServletRequest request) {
 		
+		HttpSession httpSession = request.getSession(true);
+		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
+		
+		user.setId(sessionInfo.getId());
+
 		try {
 			if(service.loginCheck(user) != null) {
 				service.userLeave(user);
 				logout(request);		
+	
+				return 1;
+			}
+			else {
+				return 0;
 			}
 			
-			return 1;
 		}
 		catch (Exception e) {
-		
+
 			return 0;
 		}
 	}

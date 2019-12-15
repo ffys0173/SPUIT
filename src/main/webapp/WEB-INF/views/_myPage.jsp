@@ -6,16 +6,22 @@
 			<v-card style="padding: 15px">
 				<v-card-title>회원 정보 변경</v-card-title>
 				<v-card-subtitle>회원의 기본 정보를 변경합니다.</v-card-subtitle>
-				<v-text-field v-model="name" label="이름 변경" hint="재 로그인 후에 적용"></v-text-field>
-				<v-text-field v-model="email" label="이메일 변경"></v-text-field>
-				<v-btn @click="infoChange">Submit</v-btn>
+				<v-text-field v-model="name" label="이름 변경" hint="재 로그인 후에 적용" autocomplete="off"></v-text-field>
+				<v-text-field v-model="email" label="이메일 변경" autocomplete="off"></v-text-field>
+				<v-btn outlined @click="infoChange">Submit</v-btn>
 			</v-card>
 			
 			<v-card style="margin-top: 14px; padding: 15px">
 				<v-card-title>비밀번호 변경</v-card-title>
-				<v-text-field type="password" v-model="pw" label="새 비밀번호" required = "required"></v-text-field>
-				<v-text-field type="password" v-model="pwck" label="새 비밀번호 확인" required = "required"></v-text-field>
+				<v-text-field type="password" v-model="pw" label="새 비밀번호"></v-text-field>
+				<v-text-field type="password" v-model="pwck" label="새 비밀번호 확인"></v-text-field>
 				<v-btn outlined @click="pwChange">Submit</v-btn>
+			</v-card>
+			
+			<v-card style="margin-top: 14px; padding: 15px">
+				<v-card-title>회원 탈퇴</v-card-title>
+				<v-text-field type="password" v-model="pwleave" label="최종 확인을 위해 비밀번호를 입력해주세요."></v-text-field>
+				<v-btn class="red" @click="leave">Submit</v-btn>
 			</v-card>
 			
 			<v-card style="margin-top: 14px; padding: 15px">
@@ -35,7 +41,8 @@ var mypage = Vue.component('mypage', {
 			name: '',
 			email: '',
 			pw: '',
-			pwck: ''
+			pwck: '',
+			pwleave: ''
 		}
 	},
 	methods: {
@@ -68,6 +75,18 @@ var mypage = Vue.component('mypage', {
 			else {
 				alert('변경할 이름 또는 이메일을 입력해주세요.')
 			}
+		},
+		leave: function() {
+			axios.post('/api/user/auth/leave', {pw: this.pwleave})
+			.then((res) => {
+				if(res.data == 1){					
+					alert('이용해 주셔서 감사합니다.')
+					window.location.href = '/'
+				}
+				else{
+					alert('실패')
+				}
+			})
 		}
 	},
 	mounted: function () {

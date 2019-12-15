@@ -13,7 +13,7 @@
           
         </div>
         <div class="mx-2">
-          <v-text-field v-model="message" :append-icon="'mdi-send'" width="300" @click:append="ChatProp" @keyup.enter="ChatProp" autocomplete="off"></v-text-field>
+          <v-text-field v-model="message" :append-icon="'mdi-send'" width="300" @click:append="ChatProp" @keyup.enter="ChatProp" maxlength="80" autocomplete="off"></v-text-field>
         </div>
         </v-card>
 </template>

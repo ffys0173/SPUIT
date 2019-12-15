@@ -6,6 +6,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
+	
 	<style>
 	a {
 		text-decoration: none;
@@ -18,7 +22,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-<div id="app">
+<div id="app" v-clock>
 	<v-app>
 		<v-toolbar dense :dark="true" style="max-height: 50px">
 	      		 <v-toolbar-title><router-link to="/app/home" style="text-decoration: none; color: white">Project SPUIT</router-link></v-toolbar-title>
@@ -31,10 +35,10 @@
 		        <div style="width: 10px"></div>
 		        	<router-link to="/app/auth/mypage"><v-btn class="ma-2" outlined color="white">My Page</v-btn></router-link>
 		        	<div style="width: 10px"></div>
-					<v-btn class="ma-2" outlined color="white" @click="requestLogout">Log-out</v-btn>
+					<v-btn class="ma-2" outlined color="white" @click="requestLogout">sign-out</v-btn>
 		        </template>
 		        <template v-else>
-					<v-btn class="ma-2" outlined color="white" @click="loginDialogOn">Log-in</v-btn>
+					<v-btn class="ma-2" outlined color="white" @click="loginDialogOn">sign-in</v-btn>
 					<div style="width: 10px"></div>
 			        <router-link to="/app/regist"><v-btn class="ma-2" outlined color="white">sign-up</v-btn></router-link>
 				</template>
@@ -85,14 +89,12 @@
 </body>
 </html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-infinite-loading@2.4.4/dist/vue-infinite-loading.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-infinite-loading@2.4.4/dist/vue-infinite-loading.min.js"></script>
 
 <%@include file="_home.jsp" %>
 <%@include file="_chat.jsp" %>
