@@ -19,7 +19,7 @@
 </template>
 
 <script>
-var chat = Vue.component('chat-view', {
+var chatBox = Vue.component('chat-view', {
 	template: '#chat-view',
 	data: function() {
 		return {
@@ -91,12 +91,14 @@ var chat = Vue.component('chat-view', {
 				$("#chatBox").scrollTop($("#chatBox")[0].scrollHeight)
 			})
 		},
-		
-		ChangeChannel() {
+
+		ChangeChannel(channel) {
+			
+			this.dropdown_servers.push({text: channel})
+			this.roomId = channel
+			
 			sub.unsubscribe()
-			//roomId = $("#select").val()
 			this.subscribe()
-			console.log(this.roomId)
 			$("#chatBox").empty()
 			$("#chatBox").append('<p style="color:white;">' + this.roomId + ' 채널에 입장하셨습니다.</p>')
 		}

@@ -2,39 +2,46 @@
 <template type="text/x-template" id="home-template">
 	<div class="d-flex justify-start">
 		<v-col cols="6">
-			<v-card class="article mx-2" dark>
-				<v-card-title class="headline font-weight-bold">Recent News</v-card-title>
-				<v-card-subtitle>동기화 시간 : {{timeRecent}}</v-card-subtitle>
+			<v-card class="article mx-2" light>
+				<v-card-title class="headline font-weight-bold white">Recommend for you</v-card-title>
+				<v-card-subtitle>동기화 시간 : {{timeRecommend}}</v-card-subtitle>
 				<v-divider></v-divider>
-				<div id="recent" class="overflow-y-auto" v-scroll:#recent="getRecent" style="max-height: 700px">
-					<v-card class="mx-auto" tile flat v-for="thread in ListofRecent">
+				<div id="recommend" class="overflow-y-auto" style="max-height: 700px;">
+					<v-card class="mx-auto" tile flat v-for="thread in ListofRecommend">
 						<router-link :to="{name:'article', params:{url: thread.articleUrl}}">
 							<v-list-item three-line>
 							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
 							<v-list-item-content>
-								<v-list-item-title class="text-truncate title mb-1">{{thread.articleTitle}}</v-list-item-title>
+								<div class="overline">[{{thread.articleTag}}]</div>
+								<v-list-item-title class="title">{{thread.articleTitle}}</v-list-item-title>
 								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+								<v-list-item-subtitle>{{new Date(thread.articleRegisted)}}</v-list-item-subtitle>
 							</v-list-item-content>
-						</router-link>
+						</v-list-item>
 					</v-card>
+					<infinite-loading @infinite="getRecommend" forceUseInfiniteWrapper="#recommend"></infinite-loading>
 				</div>
-				<!--<infinite-loading @infinite="requestTread" distance="300"></infinite-loading>-->
 			</v-card>
 		</v-col>
 		<v-col cols="6">
-			<v-card class="article mx-2" style="background-color: #FFFFFF; color: black">
-				<v-card-title class="headline font-weight-bold">Recommend for you</v-card-title>
-				<v-card-subtitle style="color: black">동기화 시간 : {{timeRecommend}}</v-card-subtitle>
+			<v-card class="article mx-2">
+				<v-card-title class="headline font-weight-bold">Recent News</v-card-title>
+				<v-card-subtitle>동기화 시간 : {{timeRecent}}</v-card-subtitle>
 				<v-divider></v-divider>
-				<div id="recommend" class="overflow-y-auto" v-scroll:#recommend="getRecommend" style="max-height: 700px">
-				<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofRecommend">
-					<v-list-item three-line>
-					<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="180" max-height="100"></v-img>
-					<v-list-item-content>
-						<v-list-item-title class="title mb-1">{{thread.articleTitle}}</v-list-item-title>
-						<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
-					</v-list-item-content>
-				</v-card>
+				<div id="recent" class="overflow-y-auto" style="max-height: 700px">
+					<v-card class="mx-auto" tile flat v-for="thread in ListofRecent">
+						<div @click="changeChannel(thread.articleTag, thread.articleUrl)">
+							<v-list-item three-line>
+							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
+							<v-list-item-content>
+								<div class="overline">[{{thread.articleTag}}]</div>
+								<v-list-item-title class="title">{{thread.articleTitle}}</v-list-item-title>
+								<v-list-item-subtitle>{{thread.articleContent}}</v-list-item-subtitle>
+								<v-list-item-subtitle>{{new Date(thread.articleRegisted)}}</v-list-item-subtitle>
+							</v-list-item-content>
+						</div>
+					</v-card>
+					<infinite-loading @infinite="getRecent" forceUseInfiniteWrapper="#recent"></infinite-loading>
 				</div>
 			</v-card>
 		</v-col>
@@ -48,59 +55,57 @@ var homeTemplate = Vue.component('homeTemplate' ,{
 		return {
 			ListofRecent: null,
 			ListofRecommend: null,
-			timeRecent: new Date(),
-			timeRecommend: '',
+			timeRecent: null,
+			timeRecommend: null,
 			recentOffset: 0,
 			recommendOffset: 0
 		}
 	},
 	methods: {
-		requestLogout : function() {
-			axios.get('/api/user/logout')
-	    	.then(((res) => {
-	    		if(res.data === 1){
-	    			window.location.href = '/'
-	    		}
-	    	}))
+		getRecent: function($state){
+			axios.post('/api/thread/getRecent', {offset: this.recentOffset})
+	    	.then((res) => {
+    			if(res.data != []){
+    				if(this.ListofRecent == null)
+    					this.ListofRecent = res.data
+    				else
+		    			this.ListofRecent = this.ListofRecent.concat(res.data)
+		    		this.recentOffset++
+		    		$state.loaded()
+    			}
+    			else {
+    				$state.complete()
+    			}
+	    	})
+	    	this.timeRecent = new Date()
+	   		
+		},
+	    getRecommend : function($state) {
+	    	axios.post('/api/thread/getRecommend', {offset: this.recommendOffset})
+	    	.then((res) => {
+    			if(res.data != []){
+    				if(this.ListofRecommend == null)
+    					this.ListofRecommend = res.data
+    				else
+		    			this.ListofRecommend = this.ListofRecommend.concat(res.data)
+		    		this.recommendOffset++
+		    		$state.loaded()
+    			}
+    			else {
+    				$state.complete()
+    			}
+	    	})
+	    	this.timeRecommend = new Date()
 	    },
-	    getRecent : function(e) {
-	    	if(e.target.scrollTop == e.target.scrollHeight - 700){
-		    	axios.post('/api/thread/getRecent', {offset: this.recentOffset})
-		    	.then((res) => {
-	    			if(res.data != []){	    				
-			    		this.ListofRecent = this.ListofRecent.concat(res.data)
-			    		this.recentOffset++
-	    			}
-		    	})
-	    	}
-    		this.timeRecent = new Date()
-	    },
-	    getRecommend : function(e) {
-	    	if(e.target.scrollTop == e.target.scrollHeight - 700){
-				axios.post('/api/thread/getRecommend', {offset: this.recommendOffset})
-		    	.then((res) => {
-		    		if(res.data != []){	  
-			    		this.ListofRecommend = this.ListofRecommend.concat(res.data)
-			    		this.recommendOffset++
-		    		}
-		    	})	    		
-	    	}
-    		this.timeRecommend = new Date()
+	    changeChannel(channel, url) {
+	    	this.$emit('move-channel', channel)
+	    	router.push({name:'article', params:{url: url}})
 	    }
 	},
 	mounted() {
 		this.$emit('true')
-		axios.post('/api/thread/getRecent', {offset: this.recentOffset})
-    	.then((res) => {
-    		this.ListofRecent = res.data
-    		this.recentOffset++
-    	})
-		axios.post('/api/thread/getRecommend', {offset: this.recommendOffset})
-    	.then((res) => {
-    		this.ListofRecommend = res.data
-    		this.recommendOffset++
-    	})
-   		this.timeRecommend = new Date()
+		this.RecentOffset = 0
+		this.RecommendOffset = 0
 	}
 })
 </script>

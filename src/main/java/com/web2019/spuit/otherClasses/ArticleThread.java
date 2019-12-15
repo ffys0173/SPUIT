@@ -1,5 +1,8 @@
 package com.web2019.spuit.otherClasses;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ArticleThread {
 	
 	private String ArticleTitle;
@@ -8,6 +11,8 @@ public class ArticleThread {
 	private String ArticleUrl;
 	private String ArticleCategory;
 	private String ArticleTag;
+	private Calendar ArticleRegisted;
+	private String ArticleThumbnail;
 	
 	public String getArticleTag() {
 		return ArticleTag;
@@ -27,15 +32,12 @@ public class ArticleThread {
 	public void setArticleUrl(String articleUrl) {
 		ArticleUrl = articleUrl;
 	}
-	private String ArticleRegisted;
-	
 	public String getArticleThumbnail() {
 		return ArticleThumbnail;
 	}
 	public void setArticleThumbnail(String articleThumbnail) {
 		ArticleThumbnail = articleThumbnail;
 	}
-	private String ArticleThumbnail;
 	
 	public String getArticleTitle() {
 		return ArticleTitle;
@@ -55,10 +57,10 @@ public class ArticleThread {
 	public void setArticleSource(String articleSource) {
 		ArticleSource = articleSource;
 	}
-	public String getArticleRegisted() {
+	public Calendar getArticleRegisted() {
 		return ArticleRegisted;
 	}
-	public void setArticleRegisted(String articleRegisted) {
+	public void setArticleRegisted(Calendar articleRegisted) {
 		ArticleRegisted = articleRegisted;
 	}
 }

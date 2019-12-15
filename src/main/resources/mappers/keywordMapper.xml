@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.web2019.spuit.mapper.keywordMapper">
+
+	<select id="selectAllKeywords" resultType="KeywordVO">
+		SELECT * FROM KEYWORDS
+	</select>
+
+	<insert id="IncreaseValue" parameterType="KeywordVO">
+		INSERT INTO KEYWORDS(KEYWORD, VALUE) VALUES(#{keyword}, #{value})
+		ON DUPLICATE KEY UPDATE VALUE = VALUE + 1
+	</insert>
+	
+</mapper>
+

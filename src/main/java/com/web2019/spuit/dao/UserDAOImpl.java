@@ -41,7 +41,7 @@ public class UserDAOImpl implements UserDAO {
     	
     	try {
     		
-    		sqlSession.insert(Namespace+".registUser", user);
+    		sqlSession.insert(Namespace + ".registUser", user);
     		return 1;
     	}
     	catch(Exception e) {

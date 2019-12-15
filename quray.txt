@@ -10,3 +10,10 @@ reg_date datetime not null default now(),
 primary key(idno),
 unique key(id, email)
 )DEFAULT CHARSET=utf8 COLLATE utf8_general_ci;
+
+
+create table KEYWORDS (
+keyword varchar(30) not null,
+value int(11) unsigned not null default 0,
+primary key(keyword)
+);

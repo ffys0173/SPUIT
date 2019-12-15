@@ -6,8 +6,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -20,6 +22,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.web2019.spuit.dto.KeywordVO;
 
 public class ArticleCrawler {
 	
@@ -83,14 +87,14 @@ public class ArticleCrawler {
             for(Element e : list) {
 
         		ArticleThread at = new ArticleThread();
-        		
+        		Date date = new Date();
         		at.setArticleCategory(e.select("strong.category").text()); 
         		at.setArticleTitle(e.select("h4.article-title").text());
         		at.setArticleContent(e.select("p.article-prologue").text());
         		at.setArticleThumbnail(e.select("span.article-photo").select("img").attr("src"));
         		at.setArticleUrl("http://www.hani.co.kr" + e.select("span.article-photo").select("a").attr("href"));
-        		at.setArticleRegisted(e.select("span.date").text());
-        		
+        		at.setArticleTag(at.getArticleCategory());
+        		at.setArticleRegisted(parse(e.select("span.date").text()));
         		loat.add(at);
         	}
     	}
@@ -110,17 +114,68 @@ public class ArticleCrawler {
     	
     	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
     	
-    	if(uid_no != null) {
+
+		UserFavorite uf = new UserFavorite(uid_no);
+		uf.ReadFile();
+		List<KeywordVO> ufk = uf.getFavoriteMap();
+		for(KeywordVO key : ufk) {
+			loat.addAll(getByKey(key.getKeyword()));
+		}
+		
+		loat.sort(new Comparator<ArticleThread>() {
+
+			@Override
+			public int compare(ArticleThread o1, ArticleThread o2) {
+				Calendar val1 = o1.getArticleRegisted();
+				Calendar val2 = o2.getArticleRegisted();
+				return val2.compareTo(val1);
+			}
+		});
     		
-    		UserFavorite uf = new UserFavorite(uid_no);
-    		uf.ReadFile();
-    		Map<String, Integer> ufmap = uf.getFavoriteMap();
-    		
-    		for(Map.Entry<String, Integer> entry : ufmap.entrySet()) {
-    			loat.addAll(getByKey(entry.getKey()));
-    		}
+    	if(loat.size() > offset * 10 + 10) {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));    		
     	}
-    	loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));
+    	else {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
+    	}
+    	return loat;
+    }
+    
+	public ArrayList<ArticleThread> getRecommend(ArrayList<KeywordVO> lok, int offset) throws Exception{
+	    	
+    	ArrayList<ArticleThread> loat = new ArrayList<ArticleThread>();
+    	
+    	lok.sort(new Comparator<KeywordVO>() {
+			@Override
+			public int compare(KeywordVO o1, KeywordVO o2) {
+				int val1 = o1.getValue();
+				int val2 = o2.getValue();
+				if(val1 == val2) return 0;
+				else if(val1 < val2) return 1;
+				else return -1;
+			}
+    	});
+    	
+		for(KeywordVO key : lok) {
+			loat.addAll(getByKey(key.getKeyword()));
+		}
+		
+		loat.sort(new Comparator<ArticleThread>() {
+
+			@Override
+			public int compare(ArticleThread o1, ArticleThread o2) {
+				Calendar val1 = o1.getArticleRegisted();
+				Calendar val2 = o2.getArticleRegisted();
+				return val2.compareTo(val1);
+			}
+		});
+    	
+		if(loat.size() > offset * 10 + 10) {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, offset * 10 +10));    		
+    	}
+    	else {
+    		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
+    	}
     	return loat;
     }
 
@@ -163,8 +218,8 @@ public class ArticleCrawler {
             	at.setArticleContent(e.select("dd.detail").text());
             	at.setArticleThumbnail(e.select("dd.photo").select("img").attr("src"));
             	at.setArticleUrl(e.select("dd.photo").select("a").attr("href"));
-            	at.setArticleRegisted(e.select("dd.date").text());
-            	
+            	at.setArticleRegisted(parse(e.select("dd.date").text()));
+            	at.setArticleTag(key);
             	loat.add(at);
             }
     	}
@@ -173,5 +228,23 @@ public class ArticleCrawler {
     	}
 
     	return loat;
+    }
+    
+    public Calendar parse(String str) {
+
+    	str = str.replace('.', '-');
+    	String date = str.split(" ")[0];
+    	String time = str.split(" ")[1];
+    	Calendar regdate = Calendar.getInstance();
+    	
+    	regdate.set(
+			Integer.parseInt(date.split("-")[0]),
+			Integer.parseInt(date.split("-")[1]),
+			Integer.parseInt(date.split("-")[2]),
+   			Integer.parseInt(time.split(":")[0]),
+   			Integer.parseInt(time.split(":")[1])
+		);
+    	
+    	return regdate;
     }
 }

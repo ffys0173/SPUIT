@@ -44,7 +44,7 @@
 				<v-card-title>Sign in</v-card-title>
 				<v-card-subtitle>welcome back to SPUIT</v-card-subtitle>
 				<v-form>
-					<v-text-field v-model="id" label="id" type="text" required></v-text-field>
+					<v-text-field ref="login" v-model="id" label="id" type="text"></v-text-field>
 					<v-text-field v-model="pw" label="password" required :type="'Password'"
 						  hint="At least 8 characters" v-on:keyup.enter="requestLogin" style="margin-bottom: 20px"></v-text-field>
 					<v-spacer></v-spacer>
@@ -63,7 +63,7 @@
 		<v-container class="mt-4">
 			<v-row no-gutters>
 				<v-col cols="10">
-					<router-view v-on:true="ChatTrue" v-on:false="ChatFalse"></router-view>
+					<router-view v-on:true="ChatTrue" v-on:false="ChatFalse" v-on:move-channel="moveChannel"></router-view>
 				</v-col>
 				<v-col cols="2">
 					<div class="sticky" v-if="chat">
@@ -75,7 +75,7 @@
 							<v-icon>mdi-eye</v-icon>
 							<span class="mx-2">채팅창 보이기</span>
 				        </v-btn>
-						<chat-view v-if="hide"></chat-view>
+						<chat-view v-if="hide" ref="chatBox"></chat-view>
 					</div>
 				</v-col>
 			</v-row>
@@ -171,14 +171,17 @@ new Vue({
     	},
     	loginDialogOn: function() {
     		this.loginDialog = true
+    		
     	},
     	ChatFalse: function() {
     		this.chat = false
     	},
     	ChatTrue: function() {
     		this.chat = true
+    	},
+    	moveChannel: function(channel) {
+    		this.$refs.chatBox.ChangeChannel(channel)
     	}
-    	
 	}
 })
 </script>

@@ -7,6 +7,7 @@
 		<typeAliases>
 			<typeAlias type="com.web2019.spuit.dto.UserVO" alias="UserVO"/>
 			<typeAlias type="com.web2019.spuit.dto.SessionVO" alias="SessionVO"/>
+			<typeAlias type="com.web2019.spuit.dto.KeywordVO" alias="KeywordVO"/>
 		</typeAliases>
 
     </configuration>

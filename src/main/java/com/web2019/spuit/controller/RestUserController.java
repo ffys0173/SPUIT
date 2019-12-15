@@ -2,6 +2,7 @@ package com.web2019.spuit.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web2019.spuit.dto.KeywordVO;
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.dto.UserVO;
 import com.web2019.spuit.otherClasses.UserFavorite;
@@ -118,20 +120,21 @@ public class RestUserController {
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
 		
-		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		List<KeywordVO> lok = new ArrayList<KeywordVO>();
 		for(String favorite : favorites) {
-			hashmap.put(favorite, 100);
+			lok.add(new KeywordVO(favorite, 100));
 		}
 		System.out.println(sessionInfo.getIdno());
 		UserFavorite userFavorite = new UserFavorite(sessionInfo.getIdno());
-		userFavorite.setFavoriteMap(hashmap);
+		userFavorite.setFavoriteMap(lok);
 		
 		try {
 			userFavorite.WriteFile();
+			System.out.println("¼º°ø");
 			return 1;
 		}
 		catch(Exception e) {
-			return 0;			
+			return 0;
 		}
 	}
 	
@@ -144,11 +147,10 @@ public class RestUserController {
 		UserFavorite userFavorite = new UserFavorite(sessionInfo.getIdno());
 		userFavorite.ReadFile();
 		
-		HashMap<String, Integer> ufmap = userFavorite.getFavoriteMap();
 		ArrayList<String> array = new ArrayList<String>();
 		
-		for(Map.Entry<String, Integer> entry : ufmap.entrySet()) {
-			array.add(entry.getKey()); 
+		for(KeywordVO key : userFavorite.getFavoriteMap()) {
+			array.add(key.getKeyword());
 		}
 		
 		return array;

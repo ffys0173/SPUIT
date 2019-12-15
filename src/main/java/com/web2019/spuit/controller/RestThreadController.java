@@ -1,6 +1,7 @@
 package com.web2019.spuit.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web2019.spuit.dto.KeywordVO;
 import com.web2019.spuit.dto.SessionVO;
 import com.web2019.spuit.otherClasses.ArticleCrawler;
 import com.web2019.spuit.otherClasses.ArticleThread;
@@ -46,7 +48,7 @@ public class RestThreadController {
 		at.setArticleTitle("기사 제목");
 		at.setArticleContent("기사 전문");
 		at.setArticleCategory("광고");
-		at.setArticleRegisted("오늘");
+		//at.setArticleRegisted(new Date());
 		at.setArticleSource("여긴어디나는누구");
 		at.setArticleTag("태그");
 		at.setArticleThumbnail("이미지");
@@ -65,19 +67,23 @@ public class RestThreadController {
 	@PostMapping("/getRecommend")
 	public ArrayList<ArticleThread> getRecommend(@RequestBody String param, HttpServletRequest request) throws Exception {
 		
-		int offset = 0;
-		
 		HttpSession httpSession = request.getSession(true);
 		SessionVO sessionInfo = (SessionVO)httpSession.getAttribute("sessionInfo");
-		String id_no = null;
+		String id_no = "default";
+		int offset = Integer.parseInt(param.split(":")[1].replace("}", ""));
 		
 		if(sessionInfo != null) {
-			offset = Integer.parseInt(param.split(":")[1].replace("}", ""));
 			id_no = sessionInfo.getIdno();
-			return threadService.getRecommend(id_no, offset);
 		}
-		else {
-			return null;
-		}
+		
+		return threadService.getRecommend(id_no, offset);
+	}
+	
+	@GetMapping("/getKeys")
+	public int getKeys() {
+		
+		threadService.getKeys();
+		
+		return 1;
 	}
 }
