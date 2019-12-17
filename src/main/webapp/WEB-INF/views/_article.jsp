@@ -9,7 +9,7 @@
 				<v-card-title class="title">{{articleTitle}}</v-card-title>
 				<v-card-subtitle>
 				기사 시간 : {{new Date(articleTime)}}<br>
-				기사 제공 : {{articleProvider}}<a :href="this.prop.params.url">(원문보기)</a><br>
+				기사 제공 : {{articleProvider}}<a :href="query">(원문보기)</a><br>
 
 				</v-card-subtitle>
 				<v-chip-group multiple column>
@@ -17,15 +17,8 @@
 						{{ tag.tagName }}
 					</v-chip>
 				</v-chip-group>
-				<v-col>
-					<v-row>
-						<div>
-							<v-img :src="articleThumb"></v-img>
-						</div>
-					</v-row>
-				</v-col>
 				<v-card outlined>
-					<v-card-text>{{articleContent}}</v-card-text>
+					<v-card-text><p v-html="articleContent"></p></v-card-text>
 				</v-card>
 				<br>
 				<v-btn @click="addFavoriteNews"><v-icon>mdi-plus</v-icon></v-btn>
@@ -36,7 +29,7 @@
 
 <script>
 var article = Vue.component('article', {
-	props: ['prop'],
+	//props: ['prop'],
 	template: '#article',
 	data: function () {
 		return {
@@ -45,7 +38,8 @@ var article = Vue.component('article', {
 			articleProvider: '',
 			articleThumb: '', //기사 사진
 			articleContent: '', //내용
-			articleTags: []	//태그 이름 , 태그 클릭 시 태그 검색하게 함. 
+			articleTags: [],	//태그 이름 , 태그 클릭 시 태그 검색하게 함.
+			query: ''
 			
 		}
 	},
@@ -62,7 +56,11 @@ var article = Vue.component('article', {
 	},
 	created () {
 		
-		axios.post('/api/thread/getArticle',  {url: this.prop.params.url})
+		var url = decodeURIComponent(location.href)
+		var param = url.substring( url.indexOf('?')+1, url.length)
+		this.query = param.split("=")[1]
+		
+		axios.get('/api/thread/getArticle?url=' + this.query)
 		.then((res) => {
 			this.articleTitle = res.data.articleTitle;
 			this.articleContent = res.data.articleContent;

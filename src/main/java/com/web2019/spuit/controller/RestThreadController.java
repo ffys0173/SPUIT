@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web2019.spuit.dto.KeywordVO;
@@ -65,9 +66,9 @@ public class RestThreadController {
 		return threadService.getSearchResult(query);
 	}
 	
-	@PostMapping("/getArticle")
-	public ArticleThread getArticle(@RequestBody String param) {
-		String url = param.split("\"")[3];
+	@GetMapping("/getArticle")
+	public ArticleThread getArticle(@RequestParam("url") String url) {//@RequestBody String param,
+		//String url = param.split("\"")[3];
 		System.out.println(url);
 		ArticleThread at=threadService.getContext(url);
 		

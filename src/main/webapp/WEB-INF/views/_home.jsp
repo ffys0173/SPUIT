@@ -99,7 +99,7 @@ var homeTemplate = Vue.component('homeTemplate' ,{
 	    },
 	    changeChannel(channel, url) {
 	    	this.$emit('move-channel', channel)
-	    	router.push({name:'article', params:{url: url}})
+	    	router.push({path:'/app/article?url=' + url})
 	    }
 	},
 	mounted() {

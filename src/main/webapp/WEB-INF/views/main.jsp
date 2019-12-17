@@ -67,7 +67,7 @@
 		<v-container class="mt-4">
 			<v-row no-gutters>
 				<v-col cols="10">
-					<router-view v-on:true="ChatTrue" v-on:false="ChatFalse" v-on:move-channel="moveChannel"></router-view>
+					<router-view :key="viewKey" v-on:true="ChatTrue" v-on:false="ChatFalse" v-on:move-channel="moveChannel"></router-view>
 				</v-col>
 				<v-col cols="2">
 					<div class="sticky" v-if="chat">
@@ -113,7 +113,7 @@ var router = new VueRouter({
 		{path: '/app/regist', component: regist},
 		{path: '/app/auth/mypage', component: mypage},
 		{path: '/app/auth/setFavorites', component: setFavorites},
-		{path: '/app/article', name: 'article', component: article, props: (payload) => ({prop : payload})}
+		{path: '/app/article', component: article}// props: (payload) => ({prop : payload})
 	]
 })
 
@@ -132,7 +132,8 @@ new Vue({
 			pw: '',
 			loginDialog: false,
 			chat: ${chat},
-			hide: true
+			hide: true,
+			viewKey: 1
 		}
 	},
 	mounted: function () {
@@ -155,6 +156,7 @@ new Vue({
 	    	}))
 	    },
 	    requestSearch : function() {
+	    	this.viewKey += 1
 	    	router.push('/app/search?query=' + this.query)
 	    	this.dialog = false
 	    	ChatTrue()

@@ -274,7 +274,7 @@ public class ArticleCrawler {
             //select
             Document doc = conn.get();
             at.setArticleTitle(doc.select("div.article-head").select("span.title").text());
-        	at.setArticleContent(doc.select("div.article-text").select("div.text").text());
+        	at.setArticleContent(doc.select("div.article-text").select("div.text").html());
         	at.setArticleThumbnail(doc.select("div.article-text").select("div.image").select("img").attr("src"));
         	at.setArticleRegisted(parse(doc.select("div.article-head").select("p.date-time").select("span").text().substring(4, 20)));
         	
