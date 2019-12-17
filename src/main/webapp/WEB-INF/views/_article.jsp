@@ -21,7 +21,7 @@
 					<v-card-text><p v-html="articleContent"></p></v-card-text>
 				</v-card>
 				<br>
-				<v-btn @click="addFavoriteNews"><v-icon>mdi-plus</v-icon></v-btn>
+				<!-- <v-btn @click="addFavoriteNews"><v-icon>mdi-plus</v-icon></v-btn> -->
 			</v-card>
 		</v-col>
 	</v-container>
@@ -48,10 +48,6 @@ var article = Vue.component('article', {
 			//var tName = tag;
 			//var tLink = 'search?query=asdf'+name
 		//this.articleTags.push({tagName: tName, tagLink: tLink})
-		},
-		addFavoriteNews : function() {
-			alert("관심있는 뉴스에 추가 하시겠습니까?")
-			
 		}
 	},
 	created () {

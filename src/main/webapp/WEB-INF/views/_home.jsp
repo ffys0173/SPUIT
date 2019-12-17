@@ -8,7 +8,7 @@
 				<v-divider></v-divider>
 				<div id="recommend" class="overflow-y-auto" style="max-height: 700px">
 					<v-card class="mx-auto" tile flat v-for="thread in ListofRecommend">
-						<div @click="changeChannel(thread.articleTag, thread.articleUrl)">
+						<div @click="changeThread(thread.articleTag, thread.articleUrl)">
 							<v-list-item three-line>
 							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
 							<v-list-item-content>
@@ -30,7 +30,7 @@
 				<v-divider></v-divider>
 				<div id="recent" class="overflow-y-auto" style="max-height: 700px">
 					<v-card class="mx-auto" tile flat v-for="thread in ListofRecent">
-						<div @click="changeChannel(thread.articleTag, thread.articleUrl)">
+						<div @click="changeThread(thread.articleTag, thread.articleUrl)">
 							<v-list-item three-line>
 							<v-img :src="thread.articleThumbnail" class="my-5 me-3" max-width="180" max-height="120"></v-img>
 							<v-list-item-content>
@@ -97,7 +97,7 @@ var homeTemplate = Vue.component('homeTemplate' ,{
 	    	})
 	    	this.timeRecommend = new Date()
 	    },
-	    changeChannel(channel, url) {
+	    changeThread(channel, url) {
 	    	this.$emit('move-channel', channel)
 	    	router.push({path:'/app/article?url=' + url})
 	    }

@@ -3,7 +3,7 @@
 	<v-container id="contents">
 		<v-card class="article" flat>
 			<v-card-title class="headline font-weight-bold py-0">"{{query}}" 검색결과</v-card-title>
-			<v-card class="mx-auto" :href="thread.articleUrl" tile flat v-for="thread in ListofArticle">
+			<v-card class="mx-auto"  @click="changeThread(thread.articleTag, thread.articleUrl)" tile flat v-for="thread in ListofArticle">
 				<v-list-item three-line>
 				<v-img :src="thread.articleThumbnail" class="my-6 me-6" max-width="200" max-height="200"></v-img>
 				<v-list-item-content>
@@ -36,6 +36,12 @@ var search = Vue.component('search-view', {
 			this.ListofArticle = res.data
 			console.log(this.ListofArticle)
 		})
+	},
+	methods: {
+		changeThread(channel, url) {
+	    	this.$emit('move-channel', channel)
+	    	router.push({path:'/app/article?url=' + url})
+	    }
 	}
 })
 </script>

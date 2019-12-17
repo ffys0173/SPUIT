@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -110,7 +111,11 @@ public class ArticleCrawler {
     	else {
     		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
     	}
-    	return loat;
+
+    	HashSet<ArticleThread> hat = new HashSet<ArticleThread>(loat);
+		ArrayList<ArticleThread> result = new ArrayList<ArticleThread>(hat);
+		
+    	return result;
     }
     
     public ArrayList<ArticleThread> getRecommend(String uid_no, int offset) throws Exception{
@@ -141,7 +146,11 @@ public class ArticleCrawler {
     	else {
     		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
     	}
-    	return loat;
+
+    	HashSet<ArticleThread> hat = new HashSet<ArticleThread>(loat);
+		ArrayList<ArticleThread> result = new ArrayList<ArticleThread>(hat);
+		
+    	return result;
     }
     
 	public ArrayList<ArticleThread> getRecommend(ArrayList<KeywordVO> lok, int offset) throws Exception{
@@ -179,7 +188,11 @@ public class ArticleCrawler {
     	else {
     		loat = new ArrayList<ArticleThread>(loat.subList(offset * 10, loat.size()));  
     	}
-    	return loat;
+		
+		HashSet<ArticleThread> hat = new HashSet<ArticleThread>(loat);
+		ArrayList<ArticleThread> result = new ArrayList<ArticleThread>(hat);
+		
+    	return result;
     }
 
     public ArrayList<ArticleThread> getByKey(String key) {

@@ -159,6 +159,7 @@ new Vue({
 	    	this.viewKey += 1
 	    	router.push('/app/search?query=' + this.query)
 	    	this.dialog = false
+	    	this.query = ''
 	    	ChatTrue()
 	    },
 	    requestLogin : function() {

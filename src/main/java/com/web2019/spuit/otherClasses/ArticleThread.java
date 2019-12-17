@@ -63,4 +63,20 @@ public class ArticleThread {
 	public void setArticleRegisted(Calendar articleRegisted) {
 		ArticleRegisted = articleRegisted;
 	}
+	
+	@Override
+	public int hashCode(){
+	return this.ArticleUrl.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof ArticleThread){
+			ArticleThread temp = (ArticleThread) obj;
+			if(this.ArticleUrl.equals(temp.ArticleUrl)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
